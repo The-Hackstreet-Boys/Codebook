@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
-import { Primary, Secondary } from './styles';
+import { Primary } from './styles';
 
-export type ColorVariant = 'primary' | 'secondary';
+export type ColorVariant = 'primary';
 
 export interface ColorProps {
   color?: ColorVariant;
@@ -12,8 +12,6 @@ const Color: FC<ColorProps> = ({ color = 'primary', ...props }) => {
   switch (color) {
     case 'primary':
       return <Primary {...props} />;
-    case 'secondary':
-      return <Secondary {...props} />;
   }
 };
 

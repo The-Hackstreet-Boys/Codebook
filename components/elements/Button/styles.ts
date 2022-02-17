@@ -24,8 +24,3 @@ export const PrimaryButton = styled.button<{
   transition: ${(props) => props.theme.transition};
   ${(props) => props.isFullWidth && 'width: 100%;'};
 `;
-
-export const SecondaryButton = styled(PrimaryButton)`
-  color: ${(props) => props.theme.secondary};
-  border-color: ${(props) => props.theme.secondary};
-`;

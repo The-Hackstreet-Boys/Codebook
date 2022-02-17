@@ -1,8 +1,8 @@
 import { ButtonHTMLAttributes, FC } from 'react';
 
-import { PrimaryButton, SecondaryButton } from './styles';
+import { PrimaryButton } from './styles';
 
-export type ButtonColor = 'primary' | 'secondary';
+export type ButtonColor = 'primary';
 export type ButtonSize = 'sm' | 'md';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -19,8 +19,6 @@ const Button: FC<ButtonProps> = ({
   switch (color) {
     case 'primary':
       return <PrimaryButton size={size} {...props} />;
-    case 'secondary':
-      return <SecondaryButton size={size} {...props} />;
   }
 };
 
