@@ -25,7 +25,7 @@ export const P = styled(BaseTypography).attrs({
 })<Props>`
   color: ${(props) => props.theme.textSecondary};
   font-size: ${(props) => props.theme.fontSizeXs};
-  font-weight: ${(props) => props.theme.fontWeightRegular};
+  font-weight: ${(props) => props.theme.fontWeightMedium};
   line-height: 1.25rem;
 `;
 
