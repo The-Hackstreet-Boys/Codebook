@@ -6,8 +6,8 @@ const Card = styled.div`
   background: rgb(255, 255, 255);
   background: linear-gradient(
     112deg,
-    ${(props) => props.theme.overlay},
-    ${(props) => props.theme.primary} 750%
+    ${(props) => props.theme.foreground},
+    ${(props) => props.theme.primary} 500%
   );
   padding: 2rem;
   border-radius: 0.25rem;

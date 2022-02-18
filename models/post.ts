@@ -9,11 +9,13 @@ export interface Post extends Document {
   likeCount: number;
   commentCount: number;
   tags: Tag[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const postSchema = new Schema<Post>(
   {
-    author: { required: true, type: Schema.Types.ObjectId, ref: 'User' },
+    author: { required: true, type: String, ref: 'User' },
     text: { required: true, type: String },
     likeCount: { type: Number, required: true, default: 0, min: 0 },
     commentCount: { type: Number, required: true, default: 0, min: 0 },

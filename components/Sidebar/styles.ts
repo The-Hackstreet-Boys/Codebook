@@ -16,12 +16,12 @@ export const NavItem = styled.a`
   align-items: center;
   gap: 1rem;
   padding: 0rem 1.75rem;
-  height: 5rem;
+  height: 4rem;
   border-radius: 0.2rem;
   color: ${(props) => props.theme.textSecondary};
   text-decoration: none;
   font-size: ${(props) => props.theme.fontSizeSm};
-  font-weight: ${(props) => props.theme.fontWeightSemiBold};
+  font-weight: ${(props) => props.theme.fontWeightMedium};
   transition: ${(props) => props.theme.transition};
   &:hover {
     color: ${(props) => props.theme.text};

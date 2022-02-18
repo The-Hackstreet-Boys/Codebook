@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
-import { TypographyAlign, TypographyFont } from './';
+import { TypographyAlign, TypographyFont, TypographyTransform } from './';
 
 interface Props {
-  align?: TypographyAlign;
-  font?: TypographyFont;
+  align: TypographyAlign;
+  font: TypographyFont;
+  transform: TypographyTransform;
   m?: string;
   p?: string;
 }
@@ -15,12 +16,14 @@ const BaseTypography = styled.div<Props>`
   ${(props) =>
     props.font === 'secondary' &&
     `font-family: ${props.theme.fontFamilySecondary};`};
-  ${(props) => props.align && `text-align: ${props.align};`};
+  ${(props) => `text-align: ${props.align};`};
+  ${(props) => `text-transform: ${props.transform};`};
 `;
 
 export const P = styled(BaseTypography).attrs({
   as: 'p',
 })<Props>`
+  color: ${(props) => props.theme.textSecondary};
   font-size: ${(props) => props.theme.fontSizeXs};
   font-weight: ${(props) => props.theme.fontWeightRegular};
   line-height: 1.25rem;
@@ -59,4 +62,11 @@ export const H5 = styled(BaseTypography).attrs({
 })<Props>`
   font-size: ${(props) => props.theme.fontSizeMd};
   font-weight: ${(props) => props.theme.fontWeightSemiBold};
+`;
+
+export const H6 = styled(BaseTypography).attrs({
+  as: 'h6',
+})<Props>`
+  font-size: ${(props) => props.theme.fontSizeSm};
+  font-weight: ${(props) => props.theme.fontWeightMedium};
 `;

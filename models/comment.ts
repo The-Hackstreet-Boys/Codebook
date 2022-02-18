@@ -11,7 +11,7 @@ export interface Comment extends Document {
 
 const commentSchema = new Schema<Comment>(
   {
-    author: { required: true, type: Schema.Types.ObjectId, ref: 'User' },
+    author: { required: true, type: String, ref: 'User' },
     text: { required: true, type: String },
     likeCount: { type: Number, required: true, default: 0, min: 0 },
     replyCount: { type: Number, required: true, default: 0, min: 0 },

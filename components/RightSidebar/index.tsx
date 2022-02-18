@@ -1,13 +1,9 @@
 import { FC, useEffect, useState } from 'react';
 
 import Avatar from '../elements/Avatar';
-import {
-  Container,
-  ProfileContainer,
-  ProfileMessage,
-  ProfileText,
-  SectionHeading,
-} from './styles';
+import Flexbox from '../elements/Flexbox';
+import Typography from '../elements/Typography';
+import { Container } from './styles';
 
 const Profile: FC<{ suggested?: boolean }> = ({ suggested = false }) => {
   const [user, setUser] = useState<{ name: string; photo: string }>();
@@ -27,25 +23,29 @@ const Profile: FC<{ suggested?: boolean }> = ({ suggested = false }) => {
   }, []);
 
   return (
-    <ProfileContainer>
+    <Flexbox gap="0.75rem" m="1rem 1.5rem">
       {user && <Avatar src={user.photo} />}
-      <ProfileText>
-        {user?.name}
-        {suggested && <ProfileMessage>Also enjoys sports</ProfileMessage>}
-      </ProfileText>
-    </ProfileContainer>
+      <Flexbox direction="column" justifyContent="center">
+        <Typography variant="h6">{user?.name}</Typography>
+        {suggested && <Typography>Also enjoys sports</Typography>}
+      </Flexbox>
+    </Flexbox>
   );
 };
 
 const RightSidebar: FC = () => (
   <Container>
-    <SectionHeading>Suggested contacts</SectionHeading>
+    <Typography variant="h5" m="2rem 1.5rem 1rem 1.5rem">
+      Suggested contacts
+    </Typography>
     {Array(6)
       .fill(null)
       .map((_, index) => (
         <Profile key={index} suggested />
       ))}
-    <SectionHeading>Contacts</SectionHeading>
+    <Typography variant="h5" m="2rem 1.5rem 1rem 1.5rem">
+      Contacts
+    </Typography>
     {Array(10)
       .fill(null)
       .map((_, index) => (

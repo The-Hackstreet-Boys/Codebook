@@ -1,14 +1,14 @@
 import { DefaultTheme } from 'styled-components';
 
 export const darkTheme: DefaultTheme = {
-  background: '#171820',
-  foreground: '#1D1E26',
-  overlay: '#ffffff10',
-  text: '#BDBDC7',
-  textSecondary: '#656576',
-  primary: '#886FCF',
+  background: '#12182B',
+  foreground: 'hsla(0, 0%, 100%, 0.05)',
+  overlay: 'hsla(0, 0%, 100%, 0.075)',
+  text: '#ffffff',
+  textSecondary: 'hsla(0, 0%, 100%, 0.65)',
+  primary: '#33E1CF',
   active: '#31A24C',
-  border: '#1F2029',
+  border: '#ffffff05',
   fontFamily: `'Montserrat', sans-serif`,
   fontFamilySecondary: `'Fira Code', monospace`,
   fontSizeXxs: '0.75rem',
