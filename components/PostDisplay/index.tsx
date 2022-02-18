@@ -21,7 +21,7 @@ const PostDisplay: FC<Props> = ({ post }) => {
     <Card>
       <Container>
         {author.avatarURL && <Avatar src={author.avatarURL} />}
-        <div>
+        <Flexbox direction="column" gap="0.5rem">
           <Flexbox alignItems="center" gap="1rem">
             <Typography variant="h5" transform="capitalize">
               {author.displayName}
@@ -29,7 +29,7 @@ const PostDisplay: FC<Props> = ({ post }) => {
             <Timestamp>{dayjs(createdAt).format('DD MMM YYYY')}</Timestamp>
           </Flexbox>
           <Typography>{text}</Typography>
-        </div>
+        </Flexbox>
       </Container>
       <ButtonContainer>
         <Button>
