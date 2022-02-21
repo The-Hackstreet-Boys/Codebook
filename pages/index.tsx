@@ -4,6 +4,7 @@ import HomeLayout from '../components/HomeLayout';
 import Layout from '../components/Layout';
 import PostDisplay from '../components/PostDisplay';
 import PostForm from '../components/PostForm';
+import withAuth from '../hocs/withAuth';
 import usePosts from '../hooks/queries/usePosts';
 
 const IndexPage: FC = () => {
@@ -21,4 +22,4 @@ const IndexPage: FC = () => {
   );
 };
 
-export default IndexPage;
+export default withAuth(IndexPage);
