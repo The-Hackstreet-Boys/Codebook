@@ -8,7 +8,7 @@ export const darkTheme: DefaultTheme = {
   textSecondary: 'hsla(0, 0%, 100%, 0.65)',
   primary: '#33E1CF',
   active: '#31A24C',
-  border: '#ffffff05',
+  border: '#ffffff08',
   fontFamily: `'Montserrat', sans-serif`,
   fontFamilySecondary: `'Fira Code', monospace`,
   fontSizeXxs: '0.75rem',

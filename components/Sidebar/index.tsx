@@ -14,25 +14,21 @@ const Sidebar: FC = () => (
     <NavLink href="/" passHref>
       <NavItem>
         <MdDashboard />
-        Feed
       </NavItem>
     </NavLink>
     <NavLink href="/groups" passHref>
       <NavItem>
         <MdPeopleAlt />
-        Groups
       </NavItem>
     </NavLink>
     <NavLink href="/messages" passHref>
       <NavItem>
         <MdMessage />
-        Messages
       </NavItem>
     </NavLink>
     <NavLink href="/settings" passHref>
       <NavItem>
         <MdSettings />
-        Settings
       </NavItem>
     </NavLink>
   </Container>
