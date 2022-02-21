@@ -3,7 +3,7 @@ import { ButtonHTMLAttributes, FC } from 'react';
 import { PrimaryButton } from './styles';
 
 export type ButtonColor = 'primary';
-export type ButtonSize = 'sm' | 'md';
+export type ButtonSize = 'sm' | 'md' |'lg';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: ButtonColor;
