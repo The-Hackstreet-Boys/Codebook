@@ -3,13 +3,14 @@ import { FC } from 'react';
 import { MdMail, MdPersonAddAlt1 } from 'react-icons/md';
 
 import Layout from '../Layout';
+import RightSidebar from '../RightSidebar';
 import Avatar from '../elements/Avatar';
-import Card from '../elements/Card';
 import Flexbox from '../elements/Flexbox';
 import Typography from '../elements/Typography';
 import {
   Button,
   ButtonContainer,
+  Card,
   Container,
   ProfileContent,
   ProfileSideContainer,
@@ -20,13 +21,15 @@ const ProfileLayout: FC = () => {
 
   return (
     <Layout>
-      <Flexbox m="2rem 2.5rem">
+      <Flexbox>
         <Container>
           <ProfileSideContainer>
             {user && (
               <Card>
                 {user.picture && <Avatar src={user.picture} />}
                 <Typography variant="h3">{user.name}</Typography>
+                <Typography variant="h6">{user.nickname}</Typography>
+                <Typography variant="p">test 1 and 2</Typography>
               </Card>
             )}
             <ButtonContainer>
@@ -39,8 +42,20 @@ const ProfileLayout: FC = () => {
             </ButtonContainer>
           </ProfileSideContainer>
           <ProfileContent>
-            <Card></Card>
+            <Card>
+              Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+              Voluptates similique fuga natus autem animi voluptate, officia
+              vitae atque repellendus nulla accusamus nihil neque error maxime
+              ratione nemo minima, voluptatibus perspiciatis.
+            </Card>
+            <Card>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quae
+              voluptatem, nihil dolor ex dolore dolores eveniet pariatur aperiam
+              cumque, iure ducimus accusamus perferendis sunt ipsam dicta
+              distinctio neque illum maxime.
+            </Card>
           </ProfileContent>
+          <RightSidebar></RightSidebar>
         </Container>
       </Flexbox>
     </Layout>
