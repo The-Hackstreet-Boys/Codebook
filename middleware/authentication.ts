@@ -3,7 +3,7 @@ import { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
 
 import UserModel from '../models/user';
 
-const createOrUpdateUser = (handler: NextApiHandler) => {
+const authentication = (handler: NextApiHandler) => {
   return async (req: NextApiRequest, res: NextApiResponse) => {
     const session = getSession(req, res);
 
@@ -23,13 +23,16 @@ const createOrUpdateUser = (handler: NextApiHandler) => {
       existingUser.email = email;
 
       await existingUser.save();
+      req.user = existingUser;
     } else {
       const newUser = new UserModel({ _id: sub, name, picture, email });
+
       await newUser.save();
+      req.user = newUser;
     }
 
     return handler(req, res);
   };
 };
 
-export default createOrUpdateUser;
+export default authentication;

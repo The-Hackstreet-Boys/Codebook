@@ -1,8 +1,8 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import authentication from '../../../middleware/authentication';
 import connectToDatabase from '../../../middleware/connectToDatabase';
-import createOrUpdateUser from '../../../middleware/createOrUpdateUser';
 import PostModel from '../../../models/post';
 import UserModel from '../../../models/user';
 
@@ -10,7 +10,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
       try {
-        console.log();
         const posts = await PostModel.find().populate({
           path: 'author',
           model: UserModel,
@@ -23,7 +22,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       break;
     case 'POST':
       try {
-        const post = new PostModel(req.body);
+        const post = new PostModel({ ...req.body, author: req.user._id });
 
         await post.save();
         res.json(post);
@@ -37,6 +36,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default withApiAuthRequired(
-  connectToDatabase(createOrUpdateUser(handler)),
-);
+export default withApiAuthRequired(connectToDatabase(authentication(handler)));
