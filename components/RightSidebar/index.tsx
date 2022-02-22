@@ -35,7 +35,7 @@ const Profile: FC<{ suggested?: boolean }> = ({ suggested = false }) => {
 
 const RightSidebar: FC = () => (
   <Container>
-    {/* <Typography variant="h5" m="2rem 1.5rem 1rem 1.5rem">
+    <Typography variant="h5" m="2rem 1.5rem 1rem 1.5rem">
       Suggested contacts
     </Typography>
     {Array(6)
@@ -50,7 +50,7 @@ const RightSidebar: FC = () => (
       .fill(null)
       .map((_, index) => (
         <Profile key={index} />
-      ))} */}
+      ))}
   </Container>
 );
 
