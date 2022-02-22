@@ -25,9 +25,12 @@ const Header: FC = () => {
           <MdOutlineNotifications />
           {user.picture && <Avatar src={user.picture} />}
           {user.name}
-          <a href="/api/auth/logout">
-            <Button size="sm">Log Out</Button>
-          </a>
+          {
+            // eslint-disable-next-line
+            <a href="/api/auth/logout">
+              <Button size="sm">Log Out</Button>
+            </a>
+          }
         </Profile>
       )}
     </Container>
