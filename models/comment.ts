@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, model } from 'mongoose';
+import mongoose, { Document, Model, Schema, model } from 'mongoose';
 
 import { User } from './user';
 
@@ -19,5 +19,5 @@ const commentSchema = new Schema<Comment>(
   { timestamps: true },
 );
 
-export default mongoose.models.Comment ||
-  model<Comment>('Comment', commentSchema, 'comments');
+export default (mongoose.models.Comment ||
+  model<Comment>('Comment', commentSchema, 'comments')) as Model<Comment>;

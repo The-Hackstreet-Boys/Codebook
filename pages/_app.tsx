@@ -1,3 +1,4 @@
+import { UserProvider } from '@auth0/nextjs-auth0';
 import { AppProps } from 'next/app';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -12,14 +13,16 @@ const queryClient = new QueryClient();
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <QueryClientProvider client={queryClient}>
-      <ThemeProvider theme={darkTheme}>
-        <Normalize />
-        <GlobalStyle />
-        <Component {...pageProps} />
-      </ThemeProvider>
-      <ReactQueryDevtools initialIsOpen={false} />
-    </QueryClientProvider>
+    <UserProvider>
+      <QueryClientProvider client={queryClient}>
+        <ThemeProvider theme={darkTheme}>
+          <Normalize />
+          <GlobalStyle />
+          <Component {...pageProps} />
+        </ThemeProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </UserProvider>
   );
 };
 

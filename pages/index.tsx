@@ -1,3 +1,4 @@
+import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import { FC } from 'react';
 
 import HomeLayout from '../components/HomeLayout';
@@ -21,4 +22,4 @@ const IndexPage: FC = () => {
   );
 };
 
-export default IndexPage;
+export default withPageAuthRequired(IndexPage);

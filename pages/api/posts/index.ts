@@ -1,5 +1,7 @@
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import authentication from '../../../middleware/authentication';
 import connectToDatabase from '../../../middleware/connectToDatabase';
 import PostModel from '../../../models/post';
 import UserModel from '../../../models/user';
@@ -20,7 +22,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       break;
     case 'POST':
       try {
-        const post = new PostModel(req.body);
+        const post = new PostModel({ ...req.body, author: req.user._id });
 
         await post.save();
         res.json(post);
@@ -34,4 +36,4 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default connectToDatabase(handler);
+export default withApiAuthRequired(connectToDatabase(authentication(handler)));
