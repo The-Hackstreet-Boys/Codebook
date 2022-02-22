@@ -17,7 +17,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
         res.json(posts);
       } catch (err) {
-        res.status(500).json({ error: (err as Error).message });
+        res.status(500).json({ error: (err as Error).message || err });
       }
       break;
     case 'POST':
@@ -27,7 +27,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         await post.save();
         res.json(post);
       } catch (err) {
-        res.status(500).json({ error: (err as Error).message });
+        res.status(500).json({ error: (err as Error).message || err });
       }
       break;
     default:
