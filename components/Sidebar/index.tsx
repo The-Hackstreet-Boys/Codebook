@@ -6,31 +6,34 @@ import {
   MdSettings,
 } from 'react-icons/md';
 
+import Flexbox from '../elements/Flexbox';
 import NavLink from '../elements/NavLink';
 import { Container, NavItem } from './styles';
 
 const Sidebar: FC = () => (
   <Container>
-    <NavLink href="/" passHref>
-      <NavItem>
-        <MdDashboard />
-      </NavItem>
-    </NavLink>
-    <NavLink href="/groups" passHref>
-      <NavItem>
-        <MdPeopleAlt />
-      </NavItem>
-    </NavLink>
-    <NavLink href="/messages" passHref>
-      <NavItem>
-        <MdMessage />
-      </NavItem>
-    </NavLink>
-    <NavLink href="/settings" passHref>
-      <NavItem>
-        <MdSettings />
-      </NavItem>
-    </NavLink>
+    <Flexbox direction="column" justifyContent="center" height="100%">
+      <NavLink href="/" passHref>
+        <NavItem>
+          <MdDashboard />
+        </NavItem>
+      </NavLink>
+      <NavLink href="/groups" passHref>
+        <NavItem>
+          <MdPeopleAlt />
+        </NavItem>
+      </NavLink>
+      <NavLink href="/messages" passHref>
+        <NavItem>
+          <MdMessage />
+        </NavItem>
+      </NavLink>
+      <NavLink href="/settings" passHref>
+        <NavItem>
+          <MdSettings />
+        </NavItem>
+      </NavLink>
+    </Flexbox>
   </Container>
 );
 

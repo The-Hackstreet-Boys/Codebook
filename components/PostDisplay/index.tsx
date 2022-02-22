@@ -8,7 +8,7 @@ import Card from '../elements/Card';
 import Flexbox from '../elements/Flexbox';
 import Typography from '../elements/Typography';
 import './styles';
-import { Button, ButtonContainer, Container, Timestamp } from './styles';
+import { Container, IconButton, Timestamp } from './styles';
 
 interface Props {
   post: Post;
@@ -31,20 +31,20 @@ const PostDisplay: FC<Props> = ({ post }) => {
           <Typography>{text}</Typography>
         </Flexbox>
       </Container>
-      <ButtonContainer>
-        <Button>
+      <Flexbox marginTop="1rem">
+        <IconButton>
           <MdFavorite /> {likeCount}
-        </Button>
-        <Button>
+        </IconButton>
+        <IconButton>
           <MdComment /> {commentCount}
-        </Button>
-        <Button>
+        </IconButton>
+        <IconButton>
           <MdBookmarkAdd />
-        </Button>
-        <Button>
+        </IconButton>
+        <IconButton>
           <MdShare />
-        </Button>
-      </ButtonContainer>
+        </IconButton>
+      </Flexbox>
     </Card>
   );
 };
