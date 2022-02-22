@@ -20,16 +20,20 @@ export const IconContainer = styled.div`
   gap: 1rem;
   border-top: 1px solid ${(props) => props.theme.overlay};
   padding-top: 1rem;
-  & > svg {
+  & svg {
     width: 1.25rem;
     height: 1.25rem;
     cursor: pointer;
     transition: ${(props) => props.theme.transition};
+    color: ${(props) => props.theme.text};
     & :hover {
       color: ${(props) => props.theme.primary};
     }
   }
-  & > svg:last-child {
-    margin-left: auto;
-  }
+`;
+
+export const SubmitButton = styled.button`
+  background: none;
+  border: none;
+  margin-left: auto;
 `;
