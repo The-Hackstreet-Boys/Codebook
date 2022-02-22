@@ -1,31 +1,21 @@
-import mongoose, { Document, Schema, model } from 'mongoose';
+import mongoose, { Document, Model, Schema, model } from 'mongoose';
 
 export interface User extends Document {
-  username: string;
-  displayName: string;
-  avatarURL: string;
+  name: string;
+  picture: string;
   email?: string;
-  phoneNumber?: string;
 }
 
 const userSchema = new Schema<User>(
   {
     _id: String,
-    username: {
-      required: true,
-      type: String,
-      unique: true,
-      maxlength: 20,
-      trim: true,
-      lowercase: true,
-    },
-    displayName: {
+    name: {
       required: true,
       type: String,
       maxlength: 50,
       trim: true,
     },
-    avatarURL: {
+    picture: {
       required: true,
       type: String,
       maxlength: 250,
@@ -37,14 +27,9 @@ const userSchema = new Schema<User>(
       trim: true,
       lowercase: true,
     },
-    phoneNumber: {
-      type: String,
-      maxlength: 20,
-      trim: true,
-      lowercase: true,
-    },
   },
   { timestamps: true },
 );
 
-export default mongoose.models.User || model<User>('User', userSchema, 'users');
+export default (mongoose.models.User ||
+  model<User>('User', userSchema, 'users')) as Model<User>;

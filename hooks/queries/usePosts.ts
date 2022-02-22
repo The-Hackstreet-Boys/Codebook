@@ -1,29 +1,27 @@
+import { useUser } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
 import { Post } from '../../models/post';
-import useAccessToken from '../useAccessToken';
 
-const getPosts = async (token: string) => {
+const getPosts = async () => {
   const { origin } = window.location;
 
-  const response = await axios.get(`${origin}/api/posts`, {
-    headers: { authorization: `Bearer ${token}` },
-  });
+  const response = await axios.get(`${origin}/api/posts`);
 
   const data = response.data;
   return data;
 };
 
 const usePosts = () => {
-  const token = useAccessToken();
+  const { user } = useUser();
 
   return useQuery<Post[]>(
     'posts',
     () => {
-      return getPosts(token as string);
+      return getPosts();
     },
-    { enabled: !!token },
+    { enabled: !!user },
   );
 };
 

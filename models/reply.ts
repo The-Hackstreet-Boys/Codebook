@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, model } from 'mongoose';
+import mongoose, { Document, Model, Schema, model } from 'mongoose';
 
 import { User } from './user';
 
@@ -17,5 +17,5 @@ const replySchema = new Schema<Reply>(
   { timestamps: true },
 );
 
-export default mongoose.models.Reply ||
-  model<Reply>('Reply', replySchema, 'replies');
+export default (mongoose.models.Reply ||
+  model<Reply>('Reply', replySchema, 'replies')) as Model<Reply>;

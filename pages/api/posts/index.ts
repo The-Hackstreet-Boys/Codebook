@@ -1,8 +1,8 @@
-import axios from 'axios';
-import jwt_decode from 'jwt-decode';
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import connectToDatabase from '../../../middleware/connectToDatabase';
+import createOrUpdateUser from '../../../middleware/createOrUpdateUser';
 import PostModel from '../../../models/post';
 import UserModel from '../../../models/user';
 
@@ -10,6 +10,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
       try {
+        console.log();
         const posts = await PostModel.find().populate({
           path: 'author',
           model: UserModel,
@@ -36,4 +37,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 }
 
-export default connectToDatabase(handler);
+export default withApiAuthRequired(
+  connectToDatabase(createOrUpdateUser(handler)),
+);

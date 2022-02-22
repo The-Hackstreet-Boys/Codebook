@@ -1,4 +1,4 @@
-import { Auth0Provider } from '@auth0/auth0-react';
+import { UserProvider } from '@auth0/nextjs-auth0';
 import { AppProps } from 'next/app';
 import React from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
@@ -13,15 +13,7 @@ const queryClient = new QueryClient();
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
-    <Auth0Provider
-      domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN as string}
-      clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID as string}
-      redirectUri={process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI}
-      audience={`https://${
-        process.env.NEXT_PUBLIC_AUTH0_DOMAIN as string
-      }/api/v2/`}
-      scope="read:current_user update:current_user_metadata"
-    >
+    <UserProvider>
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={darkTheme}>
           <Normalize />
@@ -30,7 +22,7 @@ const App = ({ Component, pageProps }: AppProps) => {
         </ThemeProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
-    </Auth0Provider>
+    </UserProvider>
   );
 };
 

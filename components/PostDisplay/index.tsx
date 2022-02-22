@@ -20,11 +20,11 @@ const PostDisplay: FC<Props> = ({ post }) => {
   return (
     <Card>
       <Container>
-        {author.avatarURL && <Avatar src={author.avatarURL} />}
+        {author.picture && <Avatar src={author.picture} />}
         <Flexbox direction="column" gap="0.5rem">
           <Flexbox alignItems="center" gap="1rem">
             <Typography variant="h5" transform="capitalize">
-              {author.displayName}
+              {author.name}
             </Typography>
             <Timestamp>{dayjs(createdAt).format('DD MMM YYYY')}</Timestamp>
           </Flexbox>

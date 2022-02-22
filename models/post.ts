@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, model } from 'mongoose';
+import mongoose, { Document, Model, Schema, model } from 'mongoose';
 
 import { Tag } from './tag';
 import { User } from './user';
@@ -24,4 +24,5 @@ const postSchema = new Schema<Post>(
   { timestamps: true },
 );
 
-export default mongoose.models.Post || model<Post>('Post', postSchema, 'posts');
+export default (mongoose.models.Post ||
+  model<Post>('Post', postSchema, 'posts')) as Model<Post>;
