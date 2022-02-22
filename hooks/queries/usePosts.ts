@@ -1,27 +1,39 @@
 import { useUser } from '@auth0/nextjs-auth0';
 import axios from 'axios';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, useQuery } from 'react-query';
 
 import { Post } from '../../models/post';
 
-const getPosts = async () => {
+interface Data {
+  data: Post[]
+  limit: number
+  page: number
+  totalPages: number
+}
+
+const getPosts = async (limit: number, page: number) => {
   const { origin } = window.location;
 
-  const response = await axios.get(`${origin}/api/posts`);
+  const response = await axios.get(`${origin}/api/posts`, {params: {limit, page}});
 
   const data = response.data;
   return data;
 };
 
-const usePosts = () => {
+
+
+const usePosts = (limit = 20) => {
   const { user } = useUser();
 
-  return useQuery<Post[]>(
-    'posts',
-    () => {
-      return getPosts();
+
+  return useInfiniteQuery<Data>(
+    ['posts', limit],
+    ({pageParam}) => {
+      return getPosts(limit, pageParam);
     },
-    { enabled: !!user },
+    { enabled: !!user, getNextPageParam: lastPage => {
+      if(lastPage.page < lastPage.totalPages) return lastPage.page+1;
+       return undefined}},
   );
 };
 
