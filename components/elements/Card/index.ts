@@ -5,7 +5,7 @@ const Card = styled.div`
   background: ${(props) => props.theme.foreground};
   background: rgb(255, 255, 255);
   background: linear-gradient(
-    112deg,
+    112.5deg,
     ${(props) => props.theme.foreground},
     ${(props) => props.theme.primary} 500%
   );

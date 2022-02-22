@@ -4,29 +4,11 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid ${(props) => props.theme.overlay};
 `;
 
-export const ButtonContainer = styled.div`
-  display: flex;
-  gap: 0.25rem;
-  border-top: 1px solid ${(props) => props.theme.overlay};
-  padding-top: 1rem;
-  margin-top: 1rem;
-  & > svg {
-    width: 1.25rem;
-    height: 1.25rem;
-    cursor: pointer;
-    & :hover {
-      transition: ${(props) => props.theme.transition};
-      color: ${(props) => props.theme.primary};
-    }
-  }
-  & > svg:last-child {
-    margin-left: auto;
-  }
-`;
-
-export const Button = styled.button`
+export const IconButton = styled.button`
   background: none;
   border: none;
   flex-basis: 0;

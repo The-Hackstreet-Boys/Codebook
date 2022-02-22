@@ -1,11 +1,7 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  height: 100%;
   width: 5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   border-right: 1px solid ${(props) => props.theme.border};
   grid-area: sidebar;
 `;

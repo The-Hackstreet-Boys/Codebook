@@ -1,6 +1,6 @@
 import { FC } from 'react';
 
-import RightSidebar from '../RightSidebar';
+import HomeSidebar from '../HomeSidebar';
 import { Container, Content, ContentContainer } from './styles';
 
 const HomeLayout: FC = ({ children }) => (
@@ -8,7 +8,7 @@ const HomeLayout: FC = ({ children }) => (
     <ContentContainer>
       <Content>{children}</Content>
     </ContentContainer>
-    <RightSidebar>Right</RightSidebar>
+    <HomeSidebar>Right</HomeSidebar>
   </Container>
 );
 
