@@ -7,6 +7,7 @@ export const darkTheme: DefaultTheme = {
   text: '#ffffff',
   textSecondary: 'hsla(0, 0%, 100%, 0.65)',
   primary: '#33E1CF',
+  secondary: '#E35789',
   active: '#31A24C',
   border: '#ffffff08',
   fontFamily: `'Montserrat', sans-serif`,
