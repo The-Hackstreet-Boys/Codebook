@@ -11,6 +11,7 @@ const tagSchema = new Schema<Tag>(
       required: true,
       type: String,
       enum: ['technology', 'tool'],
+      index: true,
     },
     name: {
       required: true,
