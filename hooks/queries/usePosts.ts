@@ -11,24 +11,25 @@ interface Data {
   totalPages: number;
 }
 
-const getPosts = async (limit: number, page: number) => {
+const getPosts = async (limit: number, page: number, author?: string) => {
   const { origin } = window.location;
 
-  const response = await axios.get(`${origin}/api/posts`, {
-    params: { limit, page, author: 'google-oauth2|116727138907129554811' },
-  });
+  const response = await axios.get(`${origin}/api/posts`, {params: {limit, page, author}});
 
   const data = response.data;
   return data;
 };
 
-const usePosts = (limit = 20) => {
+
+const usePosts = (author? : string, limit = 20) => {
   const { user } = useUser();
 
   return useInfiniteQuery<Data>(
-    ['posts', limit],
-    ({ pageParam }) => {
-      return getPosts(limit, pageParam);
+
+    ['posts', limit, author],
+    ({pageParam}) => {
+      return getPosts(limit, pageParam, author);
+
     },
     {
       enabled: !!user,
