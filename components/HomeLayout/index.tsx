@@ -8,7 +8,7 @@ const HomeLayout: FC = ({ children }) => (
     <ContentContainer>
       <Content>{children}</Content>
     </ContentContainer>
-    <HomeSidebar>Right</HomeSidebar>
+    <HomeSidebar />
   </Container>
 );
 

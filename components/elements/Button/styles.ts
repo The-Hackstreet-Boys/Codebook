@@ -29,6 +29,10 @@ export const PrimaryButton = styled.button<{
   &:hover {
     background: ${(props) => props.theme.buttonPrimaryHover};
   }
+  & > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 `;
 
 export const SecondaryButton = styled(PrimaryButton)`
