@@ -1,4 +1,4 @@
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
 import { FC } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
@@ -10,7 +10,7 @@ import Logo from '../elements/Logo';
 import { Container, SearchBar, SearchInput } from './styles';
 
 const Header: FC = () => {
-  const { user } = useUser();
+  const { user } = useAuth0User();
 
   return (
     <Container>

@@ -1,7 +1,7 @@
-import { useUser } from '@auth0/nextjs-auth0';
 import { FC } from 'react';
 import { MdChat, MdPersonAddAlt1 } from 'react-icons/md';
 
+import useUser from '../../hooks/queries/useUser';
 import HomeSidebar from '../HomeSidebar';
 import Avatar from '../elements/Avatar';
 import Button from '../elements/Button';
@@ -10,8 +10,12 @@ import Flexbox from '../elements/Flexbox';
 import Typography from '../elements/Typography';
 import { Container, ContentContainer, ProfileContainer } from './styles';
 
-const ProfileLayout: FC = ({ children }) => {
-  const { user } = useUser();
+interface Props {
+  userId: string;
+}
+
+const ProfileLayout: FC<Props> = ({ children, userId }) => {
+  const { data: user } = useUser(userId);
 
   return (
     <Container>
@@ -47,12 +51,7 @@ const ProfileLayout: FC = ({ children }) => {
             <Flexbox direction="column" width="100%">
               <Card>
                 <Typography variant="h4">About</Typography>
-                <Typography variant="p">
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                  Voluptates similique fuga natus autem animi voluptate, officia
-                  vitae atque repellendus nulla accusamus nihil neque error
-                  maxime ratione nemo minima, voluptatibus perspiciatis.
-                </Typography>
+                <Typography variant="p">{user?.about}</Typography>
               </Card>
             </Flexbox>
           </Flexbox>
