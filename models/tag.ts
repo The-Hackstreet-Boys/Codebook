@@ -1,11 +1,17 @@
 import mongoose, { Document, Model, Schema, model } from 'mongoose';
 
 export interface Tag extends Document {
+  variant: 'technology' | 'tool';
   name: string;
 }
 
 const tagSchema = new Schema<Tag>(
   {
+    variant: {
+      required: true,
+      type: String,
+      enum: ['technology', 'tool'],
+    },
     name: {
       required: true,
       type: String,
