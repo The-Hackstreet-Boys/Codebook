@@ -16,7 +16,7 @@ export interface Post extends Document {
 const postSchema = new Schema<Post>(
   {
     author: { required: true, type: String, ref: 'User' },
-    text: { required: true, type: String },
+    text: { required: true, type: String, maxlength: 10000 },
     likeCount: { type: Number, required: true, default: 0, min: 0 },
     commentCount: { type: Number, required: true, default: 0, min: 0 },
     tags: { required: true, type: [Schema.Types.ObjectId], ref: 'Tag' },

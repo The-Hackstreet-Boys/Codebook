@@ -8,12 +8,23 @@ import Typography from '../components/elements/Typography';
 
 const NotFoundPage: FC = () => (
   <Layout>
-    <Flexbox direction="column" alignItems="center" isFullWidth>
+    <Flexbox
+      direction="column"
+      alignItems="center"
+      justifyContent="center"
+      width="100%"
+      height="100%"
+    >
       <Typography variant="h1">404</Typography>
       <Typography>Page not found...</Typography>
-      <Link href="/" passHref>
-        <Button isFullWidth>Return to homepage</Button>
-      </Link>
+      <Flexbox marginTop="2rem" gap="0.5rem" direction="column">
+        <Link href="/" passHref>
+          <Button>Return to homepage</Button>
+        </Link>
+        <Link href="/" passHref>
+          <Button color="secondary">Return to previous page</Button>
+        </Link>
+      </Flexbox>
     </Flexbox>
   </Layout>
 );

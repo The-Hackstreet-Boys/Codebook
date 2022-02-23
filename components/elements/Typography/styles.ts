@@ -26,6 +26,7 @@ export const P = styled(BaseTypography).attrs({
   color: ${(props) => props.theme.textSecondary};
   font-size: ${(props) => props.theme.fontSizeXs};
   font-weight: ${(props) => props.theme.fontWeightMedium};
+  overflow-wrap: anywhere;
   line-height: 1.25rem;
 `;
 

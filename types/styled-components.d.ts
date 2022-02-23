@@ -9,6 +9,8 @@ declare module 'styled-components' {
     textSecondary: string;
     primary: string;
     secondary: string;
+    buttonPrimaryHover: string;
+    buttonSecondaryHover: string;
     active: string;
     border: string;
     fontFamily: string;
