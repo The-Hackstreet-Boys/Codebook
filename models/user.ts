@@ -1,9 +1,16 @@
 import mongoose, { Document, Model, Schema, model } from 'mongoose';
 
+import { Post } from './post';
+
 export interface User extends Document {
   name: string;
   picture: string;
   email?: string;
+  about?: string;
+  isLookingToCollaborate: boolean;
+  followers: User[];
+  following: User[];
+  savePosts: Post[];
 }
 
 const userSchema = new Schema<User>(
@@ -26,6 +33,31 @@ const userSchema = new Schema<User>(
       maxlength: 50,
       trim: true,
       lowercase: true,
+    },
+    about: {
+      type: String,
+      maxlength: 250,
+      trim: true,
+    },
+    isLookingToCollaborate: {
+      type: Boolean,
+      required: true,
+      default: true,
+    },
+    followers: {
+      required: true,
+      type: [String],
+      ref: 'User',
+    },
+    following: {
+      required: true,
+      type: [String],
+      ref: 'User',
+    },
+    savePosts: {
+      required: true,
+      type: [Schema.Types.ObjectId],
+      ref: 'Post',
     },
   },
   { timestamps: true },
