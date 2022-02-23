@@ -31,6 +31,10 @@ const GlobalStyle = createGlobalStyle`
         background: ${(props) => props.theme.background};
     }
 
+    a {
+      text-decoration: none;
+    }
+
     ::-webkit-scrollbar {
         width: 0.5rem;
         @media (max-width: 992px) {

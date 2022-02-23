@@ -1,4 +1,5 @@
 import dayjs from 'dayjs';
+import Link from 'next/link';
 import { FC } from 'react';
 import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
@@ -20,12 +21,18 @@ const PostDisplay: FC<Props> = ({ post }) => {
   return (
     <Card>
       <Container>
-        {author.picture && <Avatar src={author.picture} />}
+        <Link href={`/users/${author._id}`}>
+          <a>{author.picture && <Avatar src={author.picture} />}</a>
+        </Link>
         <Flexbox direction="column" gap="0.5rem">
           <Flexbox alignItems="center" gap="1rem">
-            <Typography variant="h5" transform="capitalize">
-              {author.name}
-            </Typography>
+            <Link href={`/users/${author._id}`} passHref>
+              <a>
+                <Typography variant="h5" transform="capitalize" isLink>
+                  {author.name}
+                </Typography>
+              </a>
+            </Link>
             <Timestamp>{dayjs(createdAt).format('DD MMM YYYY')}</Timestamp>
           </Flexbox>
           <Typography>{text}</Typography>
