@@ -9,10 +9,13 @@ export const Container = styled.div`
 
 export const ProfileContainer = styled.div`
   width: 100%;
+  max-width: 65rem;
+  margin: 0 auto;
   height: 100%;
-  padding: 2rem;
+  overflow: hidden;
   display: grid;
-  gap: 2rem;
+  padding: 1rem;
+  gap: 1rem;
   grid-template-columns: 20rem 1fr;
 `;
 
