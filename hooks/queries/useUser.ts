@@ -4,6 +4,10 @@ import { useQuery } from 'react-query';
 
 import { User } from '../../models/user';
 
+interface ExtendedUser extends User {
+  isFollowing: boolean;
+}
+
 const getUser = async (userId: string) => {
   const { origin } = window.location;
 
@@ -16,7 +20,7 @@ const getUser = async (userId: string) => {
 const useUser = (userId: string) => {
   const { user } = useAuth0User();
 
-  return useQuery<User>(
+  return useQuery<ExtendedUser>(
     ['user', userId],
     () => {
       return getUser(userId);

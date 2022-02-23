@@ -34,9 +34,16 @@ const ProfileLayout: FC<Props> = ({ children, userId }) => {
                   <Typography variant="h4" align="center">
                     {user.name}
                   </Typography>
-                  <Typography variant="p" align="center">
-                    Open to Collaborate
-                  </Typography>
+                  {user.isLookingToCollaborate && (
+                    <Typography variant="p" align="center">
+                      Open to Collaborate
+                    </Typography>
+                  )}
+                  {user.isFollowing && (
+                    <Typography variant="p" align="center">
+                      Following
+                    </Typography>
+                  )}
                 </Flexbox>
                 <Flexbox direction="row" gap="0.5rem" width="100%">
                   <Button color="secondary" isFullWidth>

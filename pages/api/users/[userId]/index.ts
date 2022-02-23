@@ -31,7 +31,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             model: TagModel,
           });
 
-        res.json(user);
+        if (!user) {
+          res.status(404).json({ error: `No user found with ID ${userId}` });
+          return;
+        }
+
+        const isFollowing = req.user.following.includes(user._id);
+        res.json({ ...user.toObject(), isFollowing });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }
