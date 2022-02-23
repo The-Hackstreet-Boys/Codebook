@@ -11,17 +11,21 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     case 'GET':
       try {
         const page = parseInt(req.query.page as string) || 1;
-        const limit =  parseInt(req.query.limit as string) || 20;
-        const skipAmount = (page-1)*limit
+        const limit = parseInt(req.query.limit as string) || 20;
+        const skipAmount = (page - 1) * limit;
 
-        const data = await PostModel.find().limit(limit).skip(skipAmount).populate({
-          path: 'author',
-          model: UserModel,
-        });
+        const data = await PostModel.find()
+          .limit(limit)
+          .skip(skipAmount)
+          .sort({ createdAt: -1 })
+          .populate({
+            path: 'author',
+            model: UserModel,
+          });
 
-        const totalPages = await PostModel.countDocuments()
+        const totalPages = await PostModel.countDocuments();
 
-        res.json({data, limit, page, totalPages});
+        res.json({ data, limit, page, totalPages });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }
