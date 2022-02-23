@@ -5,35 +5,38 @@ import { useInfiniteQuery, useQuery } from 'react-query';
 import { Post } from '../../models/post';
 
 interface Data {
-  data: Post[]
-  limit: number
-  page: number
-  totalPages: number
+  data: Post[];
+  limit: number;
+  page: number;
+  totalPages: number;
 }
 
 const getPosts = async (limit: number, page: number) => {
   const { origin } = window.location;
 
-  const response = await axios.get(`${origin}/api/posts`, {params: {limit, page}});
+  const response = await axios.get(`${origin}/api/posts`, {
+    params: { limit, page, author: 'google-oauth2|116727138907129554811' },
+  });
 
   const data = response.data;
   return data;
 };
 
-
-
 const usePosts = (limit = 20) => {
   const { user } = useUser();
 
-
   return useInfiniteQuery<Data>(
     ['posts', limit],
-    ({pageParam}) => {
+    ({ pageParam }) => {
       return getPosts(limit, pageParam);
     },
-    { enabled: !!user, getNextPageParam: lastPage => {
-      if(lastPage.page < lastPage.totalPages) return lastPage.page+1;
-       return undefined}},
+    {
+      enabled: !!user,
+      getNextPageParam: (lastPage) => {
+        if (lastPage.page < lastPage.totalPages) return lastPage.page + 1;
+        return undefined;
+      },
+    },
   );
 };
 
