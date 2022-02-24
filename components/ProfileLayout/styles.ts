@@ -2,15 +2,24 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   height: 100%;
-  weight: 100vw;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr 20rem;
-  overflow: hidden;
 `;
 
 export const ContentContainer = styled.div`
   width: 100%;
-  height: 100%;
   overflow-x: hidden;
   overflow-y: auto;
+  margin: 0 auto;
+  height: 100%;
+`;
+
+export const Content = styled.div`
+  margin: 0 auto;
+  max-width: 65rem;
+  display: grid;
+  padding: 1rem;
+  gap: 1rem;
+  grid-template-columns: 20rem 1fr;
 `;

@@ -12,19 +12,24 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       try {
         const page = parseInt(req.query.page as string) || 1;
         const limit = parseInt(req.query.limit as string) || 20;
+        
+        const author = req.query.author as string;
         const skipAmount = (page - 1) * limit;
 
-        const data = await PostModel.find()
+        const query: { author?: string } = {};
+        if (author) query.author = author;
+
+        const data = await PostModel.find(query)
           .limit(limit)
           .skip(skipAmount)
-          .sort({ createdAt: -1 })
           .populate({
             path: 'author',
             model: UserModel,
           });
 
-        const totalPages = await PostModel.countDocuments();
-
+        const documentCount = await PostModel.countDocuments(query);
+        const totalPages = Math.ceil(documentCount/limit);
+        
         res.json({ data, limit, page, totalPages });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });

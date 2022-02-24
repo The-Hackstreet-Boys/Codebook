@@ -18,6 +18,7 @@ export interface TypographyProps {
   transform?: TypographyTransform;
   m?: string;
   p?: string;
+  isLink?: boolean;
 }
 
 const Typography: FC<TypographyProps> = ({

@@ -1,11 +1,12 @@
 import dayjs from 'dayjs';
+import Link from 'next/link';
 import { FC } from 'react';
 import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
 import { Post } from '../../models/post';
 import Avatar from '../elements/Avatar';
+import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
-import Flexbox from '../elements/Flexbox';
 import Typography from '../elements/Typography';
 import './styles';
 import { Container, IconButton, Timestamp } from './styles';
@@ -14,18 +15,24 @@ interface Props {
   post: Post;
 }
 
-const PostDisplay: FC<Props> = ({ post }) => {
+const PostCard: FC<Props> = ({ post }) => {
   const { author, text, likeCount, commentCount, createdAt } = post;
 
   return (
     <Card>
       <Container>
-        {author.picture && <Avatar src={author.picture} />}
+        <Link href={`/users/${author._id}`}>
+          <a>{author.picture && <Avatar src={author.picture} />}</a>
+        </Link>
         <Flexbox direction="column" gap="0.5rem">
           <Flexbox alignItems="center" gap="1rem">
-            <Typography variant="h5" transform="capitalize">
-              {author.name}
-            </Typography>
+            <Link href={`/users/${author._id}`} passHref>
+              <a>
+                <Typography variant="h5" transform="capitalize" isLink>
+                  {author.name}
+                </Typography>
+              </a>
+            </Link>
             <Timestamp>{dayjs(createdAt).format('DD MMM YYYY')}</Timestamp>
           </Flexbox>
           <Typography>{text}</Typography>
@@ -49,4 +56,4 @@ const PostDisplay: FC<Props> = ({ post }) => {
   );
 };
 
-export default PostDisplay;
+export default PostCard;

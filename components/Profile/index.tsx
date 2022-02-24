@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from 'react';
 
 import Avatar from '../elements/Avatar';
-import Flexbox from '../elements/Flexbox';
+import { Flexbox } from '../elements/Box';
 import Typography from '../elements/Typography';
 
 interface Props {
