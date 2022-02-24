@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
 import { Post } from '../../models/post';
+import LikeButton from '../LikeButton';
 import Avatar from '../elements/Avatar';
 import Card from '../elements/Card';
 import Flexbox from '../elements/Flexbox';
@@ -32,9 +33,10 @@ const PostDisplay: FC<Props> = ({ post }) => {
         </Flexbox>
       </Container>
       <Flexbox marginTop="1rem">
-        <IconButton>
+        <LikeButton>{likeCount}</LikeButton>
+        {/* <IconButton>
           <MdFavorite /> {likeCount}
-        </IconButton>
+        </IconButton> */}
         <IconButton>
           <MdComment /> {commentCount}
         </IconButton>
