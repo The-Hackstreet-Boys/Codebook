@@ -20,6 +20,7 @@ const ProfileCard: FC<Props> = ({ user }) => {
   );
 
   const getStatus = () => {
+    if (user?.isFollowing && user?.isFollowing) return 'Following eachother';
     if (user?.isFollowing) return 'Following';
     if (user?.isFollowingYou) return 'Following you';
     if (user?.isOpenToCollaborate) return 'Open to collaborate';
@@ -28,34 +29,31 @@ const ProfileCard: FC<Props> = ({ user }) => {
 
   return (
     <Card>
-      <Flexbox
-        direction="column"
-        alignItems="center"
-        gap="0.25rem"
-        margin="2rem"
-      >
-        {user.picture && <Avatar src={user.picture} size="lg" />}
-        <Typography variant="h4" align="center">
-          {user.name}
-        </Typography>
-        <Typography variant="p" align="center">
-          {getStatus()}
-        </Typography>
-      </Flexbox>
-      <Flexbox direction="row" gap="0.5rem" width="100%">
-        <Link href={`/messages/${user._id}`} passHref>
-          <Button color="secondary" isFullWidth>
-            <MdChat />
+      <Flexbox direction="column" alignItems="center" gap="2rem">
+        <Flexbox direction="column" alignItems="center" gap="0.25rem">
+          {user.picture && <Avatar src={user.picture} size="lg" />}
+          <Typography variant="h4" align="center">
+            {user.name}
+          </Typography>
+          <Typography variant="p" align="center">
+            {getStatus()}
+          </Typography>
+        </Flexbox>
+        <Flexbox direction="row" gap="0.5rem" width="100%">
+          <Link href={`/messages/${user._id}`} passHref>
+            <Button color="secondary" isFullWidth>
+              <MdChat />
+            </Button>
+          </Link>
+          <Button
+            onClick={() => changeFollowStatus(user.isFollowing)}
+            color="secondary"
+            isFullWidth
+            disabled={isLoading}
+          >
+            {user.isFollowing ? <MdPersonRemoveAlt1 /> : <MdPersonAddAlt1 />}
           </Button>
-        </Link>
-        <Button
-          onClick={() => changeFollowStatus(user.isFollowing)}
-          color="secondary"
-          isFullWidth
-          disabled={isLoading}
-        >
-          {user.isFollowing ? <MdPersonRemoveAlt1 /> : <MdPersonAddAlt1 />}
-        </Button>
+        </Flexbox>
       </Flexbox>
     </Card>
   );
