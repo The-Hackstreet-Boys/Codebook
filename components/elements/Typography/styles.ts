@@ -24,6 +24,7 @@ const BaseTypography = styled.div<Omit<TypographyProps, 'variant'>>`
 export const P = styled(BaseTypography).attrs({
   as: 'p',
 })`
+  white-space: pre-line;
   color: ${(props) => props.theme.textSecondary};
   font-size: ${(props) => props.theme.fontSizeXs};
   font-weight: ${(props) => props.theme.fontWeightMedium};
