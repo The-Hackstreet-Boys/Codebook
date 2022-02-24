@@ -37,7 +37,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           [method]: { following: userId },
         });
 
-        res.send('Successfully followed user!');
+        res.send(`Successfully ${followMethod} user!`);
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }

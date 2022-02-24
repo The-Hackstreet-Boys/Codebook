@@ -1,10 +1,11 @@
+import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import { FC } from 'react';
 import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
+import useChangeLikeStatus from '../../hooks/mutations/useChangeLikeStatus';
 import { Post } from '../../models/post';
-import LikeButton from '../LikeButton';
 import Avatar from '../elements/Avatar';
 import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
@@ -18,6 +19,8 @@ interface Props {
 
 const PostCard: FC<Props> = ({ post }) => {
   const { author, text, likeCount, commentCount, createdAt } = post;
+  const { mutate: changeLikeStatus } = useChangeLikeStatus(post._id);
+  const { user } = useAuth0User();
 
   return (
     <Card>
@@ -40,10 +43,17 @@ const PostCard: FC<Props> = ({ post }) => {
         </Flexbox>
       </Container>
       <Flexbox marginTop="1rem">
-        <LikeButton>{likeCount}</LikeButton>
-        {/* <IconButton>
+        <IconButton
+          onClick={() =>
+            changeLikeStatus(
+              user?.sub
+                ? (post.likes as unknown as string[]).includes(user.sub)
+                : false,
+            )
+          }
+        >
           <MdFavorite /> {likeCount}
-        </IconButton> */}
+        </IconButton>
         <IconButton>
           <MdComment /> {commentCount}
         </IconButton>
