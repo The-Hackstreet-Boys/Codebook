@@ -13,12 +13,14 @@ const Profile: FC = () => {
 
   return (
     <Layout>
-      <ProfileLayout userId={userId}>
-        <Card>
-          <Typography variant="h4">Recent Posts</Typography>
-        </Card>
-        {userId && <Feed author={userId as string} />}
-      </ProfileLayout>
+      {userId && (
+        <ProfileLayout userId={userId as string}>
+          <Card>
+            <Typography variant="h5">Recent Posts</Typography>
+          </Card>
+          {userId && <Feed author={userId as string} />}
+        </ProfileLayout>
+      )}
     </Layout>
   );
 };

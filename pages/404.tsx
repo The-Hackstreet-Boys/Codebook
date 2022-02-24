@@ -3,7 +3,7 @@ import { FC } from 'react';
 
 import Layout from '../components/Layout';
 import Button from '../components/elements/Button';
-import Flexbox from '../components/elements/Flexbox';
+import Flexbox from '../components/elements/Box';
 import Typography from '../components/elements/Typography';
 
 const NotFoundPage: FC = () => (

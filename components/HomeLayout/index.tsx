@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import HomeSidebar from '../HomeSidebar';
-import Flexbox from '../elements/Flexbox';
+import { Flexbox } from '../elements/Box';
 import { Container, ContentContainer } from './styles';
 
 const HomeLayout: FC = ({ children }) => (

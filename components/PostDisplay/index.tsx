@@ -5,8 +5,8 @@ import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
 import { Post } from '../../models/post';
 import Avatar from '../elements/Avatar';
+import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
-import Flexbox from '../elements/Flexbox';
 import Typography from '../elements/Typography';
 import './styles';
 import { Container, IconButton, Timestamp } from './styles';

@@ -4,8 +4,8 @@ import { FC } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
 
 import Avatar from '../elements/Avatar';
+import { Flexbox } from '../elements/Box';
 import Button from '../elements/Button';
-import Flexbox from '../elements/Flexbox';
 import Logo from '../elements/Logo';
 import { Container, SearchBar, SearchInput } from './styles';
 
