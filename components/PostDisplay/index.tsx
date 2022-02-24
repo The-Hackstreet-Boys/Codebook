@@ -10,6 +10,8 @@ import Flexbox from '../elements/Flexbox';
 import Typography from '../elements/Typography';
 import './styles';
 import { Container, IconButton, Timestamp } from './styles';
+import CommentDisplay from '../CommentDisplay';
+import comment from '../../models/comment';
 
 interface Props {
   post: Post;
@@ -47,6 +49,7 @@ const PostDisplay: FC<Props> = ({ post }) => {
           <MdShare />
         </IconButton>
       </Flexbox>
+      <CommentDisplay/>
     </Card>
   );
 };
