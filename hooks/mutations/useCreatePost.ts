@@ -15,8 +15,8 @@ const createPost = async (newPost: NewPost) => {
   return createdPost;
 };
 
-function useCreatePost(onSuccess: () => void) {
+const useCreatePost = (onSuccess: () => void) => {
   return useMutation((newPost: NewPost) => createPost(newPost), { onSuccess });
-}
+};
 
 export default useCreatePost;

@@ -1,6 +1,7 @@
 import { FC, useRef } from 'react';
 import { MdChat, MdPersonAddAlt1 } from 'react-icons/md';
 
+import useChangeFollowStatus from '../../hooks/mutations/useChangeFollowStatus';
 import useUser from '../../hooks/queries/useUser';
 import HomeSidebar from '../HomeSidebar';
 import Avatar from '../elements/Avatar';
@@ -16,6 +17,8 @@ interface Props {
 
 const ProfileLayout: FC<Props> = ({ children, userId }) => {
   const { data: user } = useUser(userId);
+  const { mutate: changeFollowStatus, isLoading } =
+    useChangeFollowStatus(userId);
 
   return (
     <Container>
@@ -56,7 +59,12 @@ const ProfileLayout: FC<Props> = ({ children, userId }) => {
                       <Button color="secondary" isFullWidth>
                         <MdChat />
                       </Button>
-                      <Button color="secondary" isFullWidth>
+                      <Button
+                        onClick={() => changeFollowStatus(user.isFollowing)}
+                        color="secondary"
+                        isFullWidth
+                        disabled={isLoading}
+                      >
                         <MdPersonAddAlt1 />
                       </Button>
                     </Flexbox>
