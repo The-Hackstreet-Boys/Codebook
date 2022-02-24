@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { FC } from 'react';
 
 import Layout from '../components/Layout';
+import { Flexbox } from '../components/elements/Box';
 import Button from '../components/elements/Button';
-import Flexbox from '../components/elements/Flexbox';
 import Typography from '../components/elements/Typography';
 
 const NotFoundPage: FC = () => (

@@ -1,16 +1,18 @@
 import mongoose, { Document, Model, Schema, model } from 'mongoose';
 
 import { Post } from './post';
+import { Tag } from './tag';
 
 export interface User extends Document {
   name: string;
   picture: string;
   email?: string;
   about?: string;
-  isLookingToCollaborate: boolean;
+  isOpenToCollaborate: boolean;
   followers: User[];
   following: User[];
-  savePosts: Post[];
+  savedPosts: Post[];
+  tags: Tag[];
 }
 
 const userSchema = new Schema<User>(
@@ -39,7 +41,7 @@ const userSchema = new Schema<User>(
       maxlength: 250,
       trim: true,
     },
-    isLookingToCollaborate: {
+    isOpenToCollaborate: {
       type: Boolean,
       required: true,
       default: true,
@@ -54,10 +56,15 @@ const userSchema = new Schema<User>(
       type: [String],
       ref: 'User',
     },
-    savePosts: {
+    savedPosts: {
       required: true,
       type: [Schema.Types.ObjectId],
       ref: 'Post',
+    },
+    tags: {
+      required: true,
+      type: [Schema.Types.ObjectId],
+      ref: 'Tag',
     },
   },
   { timestamps: true },

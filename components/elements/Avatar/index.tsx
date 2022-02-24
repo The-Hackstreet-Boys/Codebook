@@ -11,7 +11,7 @@ interface Props {
 
 const Avatar: FC<Props> = ({ src, size = 'sm' }) => (
   <Container size={size}>
-    <Image src={src} alt="avatar" />
+    <Image src={src} alt="avatar" referrerPolicy="no-referrer" />
   </Container>
 );
 
