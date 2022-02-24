@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import useUser from '../../hooks/queries/useUser';
-import HomeSidebar from '../HomeSidebar';
+import ContactSidebar from '../ContactSidebar';
 import ProfileCard from '../ProfileCard';
 import Box, { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
@@ -42,7 +42,7 @@ const ProfileLayout: FC<Props> = ({ children, userId }) => {
           </Flexbox>
         </Content>
       </ContentContainer>
-      <HomeSidebar />
+      <ContactSidebar />
     </Container>
   );
 };

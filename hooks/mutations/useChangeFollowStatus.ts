@@ -13,6 +13,7 @@ const unfollow = async (userId: string) => {
 
 const onSuccess = (queryClient: QueryClient, userId: string) => {
   queryClient.invalidateQueries(['user', userId]);
+  queryClient.invalidateQueries(['contacts']);
 };
 
 const useChangeFollowStatus = (userId: string) => {
