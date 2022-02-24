@@ -12,6 +12,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       try {
         const page = parseInt(req.query.page as string) || 1;
         const limit = parseInt(req.query.limit as string) || 20;
+        
         const author = req.query.author as string;
         const skipAmount = (page - 1) * limit;
 
@@ -27,8 +28,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           });
 
         const documentCount = await PostModel.countDocuments(query);
-        const totalPages = Math.ceil(documentCount);
-
+        const totalPages = Math.ceil(documentCount/limit);
+        
         res.json({ data, limit, page, totalPages });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
