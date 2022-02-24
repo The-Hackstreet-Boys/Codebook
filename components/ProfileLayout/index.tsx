@@ -27,7 +27,7 @@ const ProfileLayout: FC<Props> = ({ children, userId }) => {
                 position="sticky"
                 top="1rem"
               >
-                {<ProfileCard user={user} />}
+                <ProfileCard user={user} />
                 {user.about && (
                   <Card>
                     <Typography variant="h5">About</Typography>
