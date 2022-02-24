@@ -4,8 +4,9 @@ import { useQuery } from 'react-query';
 
 import { User } from '../../models/user';
 
-interface ExtendedUser extends User {
+export interface ExtendedUser extends User {
   isFollowing: boolean;
+  isFollowingYou: boolean;
 }
 
 const getUser = async (userId: string) => {

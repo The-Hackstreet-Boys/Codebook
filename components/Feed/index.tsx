@@ -2,14 +2,13 @@ import { FC, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
 import usePosts from '../../hooks/queries/usePosts';
-import PostDisplay from '../PostDisplay';
+import PostCard from '../PostCard';
 
 interface Props {
-  author?: string
+  author?: string;
 }
 
-
-const Feed: FC <Props> = ({author}) => {
+const Feed: FC<Props> = ({ author }) => {
   const { data, fetchNextPage } = usePosts(author);
   const { ref, inView } = useInView();
 
@@ -21,7 +20,7 @@ const Feed: FC <Props> = ({author}) => {
       {data?.pages.map((page) => (
         <>
           {page.data.map((post) => (
-            <PostDisplay post={post} key={post._id} />
+            <PostCard post={post} key={post._id} />
           ))}
         </>
       ))}

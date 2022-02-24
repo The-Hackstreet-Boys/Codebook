@@ -15,7 +15,7 @@ interface Props {
   post: Post;
 }
 
-const PostDisplay: FC<Props> = ({ post }) => {
+const PostCard: FC<Props> = ({ post }) => {
   const { author, text, likeCount, commentCount, createdAt } = post;
 
   return (
@@ -56,4 +56,4 @@ const PostDisplay: FC<Props> = ({ post }) => {
   );
 };
 
-export default PostDisplay;
+export default PostCard;

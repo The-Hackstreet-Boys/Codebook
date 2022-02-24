@@ -10,6 +10,8 @@ export const darkTheme: DefaultTheme = {
   secondary: '#E35789',
   buttonPrimaryHover: '#16998b',
   buttonSecondaryHover: '#de3c76',
+  buttonPrimaryDisabled: '#0e635a',
+  buttonSecondaryDisabled: '#cd225f',
   active: '#31A24C',
   border: '#ffffff08',
   fontFamily: `'Montserrat', sans-serif`,

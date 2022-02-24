@@ -37,7 +37,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         }
 
         const isFollowing = req.user.following.includes(user._id);
-        res.json({ ...user.toObject(), isFollowing });
+        const isFollowingYou = req.user.followers.includes(user._id);
+        res.json({ ...user.toObject(), isFollowing, isFollowingYou });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }

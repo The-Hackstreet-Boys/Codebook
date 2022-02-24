@@ -8,7 +8,7 @@ export interface User extends Document {
   picture: string;
   email?: string;
   about?: string;
-  isLookingToCollaborate: boolean;
+  isOpenToCollaborate: boolean;
   followers: User[];
   following: User[];
   savedPosts: Post[];
@@ -41,7 +41,7 @@ const userSchema = new Schema<User>(
       maxlength: 250,
       trim: true,
     },
-    isLookingToCollaborate: {
+    isOpenToCollaborate: {
       type: Boolean,
       required: true,
       default: true,
