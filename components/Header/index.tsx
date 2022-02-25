@@ -24,7 +24,9 @@ const Header: FC = () => {
       >
         <Flexbox alignItems="center" gap="2rem">
           <Link href="/" passHref>
-            <Logo />
+            <a>
+              <Logo />
+            </a>
           </Link>
           <SearchBar>
             <MdOutlineSearch />

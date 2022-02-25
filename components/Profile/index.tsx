@@ -13,7 +13,7 @@ interface Props {
 const Profile: FC<Props> = ({ user }) => (
   <Link href={`/users/${user._id}`}>
     <a>
-      <Flexbox gap="0.75rem" margin="1rem 1.5rem">
+      <Flexbox gap="0.75rem">
         {user && <Avatar src={user.picture} />}
         <Flexbox direction="column" justifyContent="center">
           <Typography variant="h6" isClickable>
