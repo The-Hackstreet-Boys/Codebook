@@ -9,16 +9,29 @@ import PostModel from '../../../../models/post';
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { postId } = req.query;
 
+  const post = await PostModel.findById(postId);
+
+  if (!post) {
+    res.status(404).send(`No post found with id ${postId}!`);
+    return;
+  }
+
   switch (req.method) {
+    case 'GET':
+      try {
+        const comments = await CommentModel.find({
+          type: 'comment',
+          post: postId,
+        });
+
+        res.json(comments);
+      } catch (err) {
+        res.status(500).json({ error: (err as Error).message || err });
+      }
+      break;
+
     case 'POST':
       try {
-        const post = await PostModel.findById(postId);
-
-        if (!post) {
-          res.status(404).send(`No post found with id ${postId}!`);
-          return;
-        }
-
         const comment = new CommentModel({
           ...req.body,
           post: postId,
