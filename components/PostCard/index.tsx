@@ -5,7 +5,7 @@ import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
 import useLikePost from '../../hooks/mutations/useLikePost';
 import { ExtendedPost } from '../../hooks/queries/usePosts';
-import CommentDisplay from '../CommentDisplay';
+import CommentList from '../CommentList';
 import Avatar from '../elements/Avatar';
 import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
@@ -55,6 +55,7 @@ const PostCard: FC<Props> = ({ post }) => {
           <MdShare />
         </IconButton>
       </Flexbox>
+     <CommentList postId={post._id}/>
     </Card>
   );
 };

@@ -16,24 +16,24 @@ interface Data {
   totalPages: number;
 }
 
-const getComments = async (limit: number, page: number) => {
+const getComments = async (limit: number, page: number, postId: string) => {
   const { origin } = window.location;
 
-  const response = await axios.get(`${origin}/api/posts/[postId]/comments`, {
-    params: { limit, page, author: 'google-oauth2|116727138907129554811' },
+  const response = await axios.get(`${origin}/api/posts/${postId}/comments`, {
+    params: { limit, page },
   });
 
   const data = response.data;
   return data;
 };
 
-const useComments = (limit = 10) => {
+const useComments = (postId: string, limit = 10) => {
   const { user } = useUser();
 
   return useInfiniteQuery<Data>(
-    ['comments', limit],
+    ['comments', postId, limit],
     ({ pageParam }) => {
-      return getComments(limit, pageParam);
+      return getComments(limit, pageParam, postId);
     },
     {
       enabled: !!user,
