@@ -1,4 +1,4 @@
-import mongoose, { Document, Model, Schema, model,Types } from 'mongoose';
+import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
 export interface Post extends Document {
   author: string;
@@ -15,10 +15,10 @@ const postSchema = new Schema<Post>(
   {
     author: { required: true, type: String, ref: 'User', index: true },
     text: { required: true, type: String, maxlength: 10000 },
-    likeCount: { type: Number, required: true, default: 0, min: 0 },
-    likes: { type: [String], required: true, ref: 'User' },
-    commentCount: { type: Number, required: true, default: 0, min: 0 },
-    tags: { required: true, type: [Schema.Types.ObjectId], ref: 'Tag' },
+    likeCount: { type: Number, default: 0, min: 0 },
+    likes: { type: [String], ref: 'User' },
+    commentCount: { type: Number, default: 0, min: 0 },
+    tags: { type: [Schema.Types.ObjectId], ref: 'Tag' },
   },
   { timestamps: true },
 );
