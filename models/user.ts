@@ -40,26 +40,21 @@ const userSchema = new Schema<User>(
     },
     isOpenToCollaborate: {
       type: Boolean,
-      required: true,
       default: true,
     },
     followers: {
-      required: true,
       type: [String],
       ref: 'User',
     },
     following: {
-      required: true,
       type: [String],
       ref: 'User',
     },
     savedPosts: {
-      required: true,
       type: [Schema.Types.ObjectId],
       ref: 'Post',
     },
     tags: {
-      required: true,
       type: [Schema.Types.ObjectId],
       ref: 'Tag',
     },

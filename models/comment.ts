@@ -10,6 +10,7 @@ interface BaseComment extends Document {
 export interface Comment extends BaseComment {
   type: 'comment';
   post: Types.ObjectId;
+  replyCount: number;
 }
 
 export interface Reply extends BaseComment {
@@ -26,8 +27,9 @@ const commentSchema = new Schema<Data>(
     comment: { type: Schema.Types.ObjectId, ref: 'Comment' },
     author: { required: true, type: String, ref: 'User' },
     text: { required: true, type: String },
-    likeCount: { type: Number, required: true, default: 0, min: 0 },
-    likes: { type: [String], required: true, ref: 'User' },
+    likeCount: { type: Number, default: 0, min: 0 },
+    likes: { type: [String], ref: 'User' },
+    replyCount: { type: Number, default: 0, min: 0 },
   },
   { timestamps: true },
 );

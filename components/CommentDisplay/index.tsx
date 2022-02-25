@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
 import { Comment } from '../../models/comment';
+import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
-import Flexbox from '../elements/Flexbox';
 import Typography from '../elements/Typography';
 
 interface Props {
