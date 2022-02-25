@@ -3,10 +3,10 @@ import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
 
 import { Post } from '../../models/post';
-import { User } from '../../models/user';
+import { ExtendedUser } from './useUser';
 
 export interface ExtendedPost extends Omit<Post, 'author'> {
-  author: User;
+  author: ExtendedUser;
   hasLiked: boolean;
 }
 
@@ -32,7 +32,7 @@ const usePosts = (author?: string, limit = 20) => {
   const { user } = useAuth0User();
 
   return useInfiniteQuery<Data>(
-    ['posts', limit, author],
+    ['posts', author, limit],
     ({ pageParam }) => {
       return getPosts(limit, pageParam, author);
     },

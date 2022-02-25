@@ -19,11 +19,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           return;
         }
 
-        if (userId === post.author) {
-          res.status(400).send('Cannot like your own post!');
-          return;
-        }
-
         const alreadyLiked = post.likes.includes(userId);
 
         if (alreadyLiked) {

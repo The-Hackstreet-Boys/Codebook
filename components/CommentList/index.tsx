@@ -1,16 +1,35 @@
-import {FC} from "react"
-import CommentDisplay from "../CommentDisplay"
-import React from "react"
+import { FC } from 'react';
 
-const CommentList: FC = () => {
-    return (
-        <>
-        {comments.map((comment) => (<CommentDisplay comment={comment} key={comment._id}/> ))
-       
-    } </>)
-  
+import useComments from '../../hooks/queries/useComments';
+import CommentCard from '../CommentCard';
+import CommentForm from '../CommentForm';
+import Box, { Flexbox } from '../elements/Box';
+import Typography from '../elements/Typography';
 
+interface Props {
+  postId: string;
 }
 
+const CommentsList: FC<Props> = ({ postId }) => {
+  const { data, fetchNextPage } = useComments(postId);
 
-export default CommentList
+  return (
+    <Flexbox direction="column" gap="1rem">
+      <CommentForm postId={postId} />
+      <Flexbox direction="column" gap="1rem">
+        {data?.pages.map((page) => (
+          <>
+            {page.data.map((comment) => (
+              <CommentCard comment={comment} key={comment._id} />
+            ))}
+          </>
+        ))}
+      </Flexbox>
+      <Box onClick={() => fetchNextPage()} width="fit-content">
+        <Typography isClickable>View more comments...</Typography>
+      </Box>
+    </Flexbox>
+  );
+};
+
+export default CommentsList;

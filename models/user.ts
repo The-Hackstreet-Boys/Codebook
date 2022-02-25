@@ -10,6 +10,8 @@ export interface User extends Document {
   following: string[];
   savedPosts: Types.ObjectId[];
   tags: Types.ObjectId[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 const userSchema = new Schema<User>(

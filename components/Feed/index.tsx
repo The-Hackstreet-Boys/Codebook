@@ -30,3 +30,8 @@ const Feed: FC<Props> = ({ author }) => {
 };
 
 export default Feed;
+
+// Use posts query is imported into feed
+// Post display components is imported into feed
+// Use comment query is imported into postdisplay
+// commmentdisplay query is imported into postdisplay

@@ -16,6 +16,7 @@ export const darkTheme: DefaultTheme = {
   border: '#ffffff08',
   fontFamily: `'Montserrat', sans-serif`,
   fontFamilySecondary: `'Fira Code', monospace`,
+  fontSizeXxxs: '0.65rem',
   fontSizeXxs: '0.75rem',
   fontSizeXs: '0.8125rem',
   fontSizeSm: '0.875rem',
