@@ -1,27 +1,29 @@
 import { FC } from 'react';
 
-import { Comment } from '../../models/comment';
 import Card from '../elements/Card';
 import Flexbox from '../elements/Flexbox';
 import Typography from '../elements/Typography';
+import { Container } from '../Header/styles';
 
-interface Props {
-  comment: Comment;
-}
 
-const CommentDisplay: FC<Props> = ({ comment }) => {
-  const { author, text } = comment;
+
+
+const CommentDisplay: FC = () => {
 
   return (
     <Card>
+      <Container>
       <Flexbox gap="0.5rem">
         <Typography variant="h5" transform="capitalize">
-          {author.name}
+          Working
         </Typography>
-        <Typography>{text}</Typography>
+        <Typography></Typography>
       </Flexbox>
+      </Container>
     </Card>
   );
 };
 
 export default CommentDisplay;
+
+// user display name, user avatar, date, text, likecount, replycount.
