@@ -32,7 +32,7 @@ const usePosts = (author?: string, limit = 20) => {
   const { user } = useAuth0User();
 
   return useInfiniteQuery<Data>(
-    ['posts', limit, author],
+    ['posts', author, limit],
     ({ pageParam }) => {
       return getPosts(limit, pageParam, author);
     },

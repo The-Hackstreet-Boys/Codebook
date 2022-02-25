@@ -18,7 +18,7 @@ const Card = styled.div<Props>`
   ${({ padding = 'lg' }) => {
     switch (padding) {
       case 'sm':
-        return 'padding: 0.5rem;';
+        return 'padding: 0.75rem;';
       case 'md':
         return 'padding: 1rem;';
       case 'lg':

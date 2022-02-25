@@ -1,17 +1,18 @@
-import dayjs from 'dayjs';
 import Link from 'next/link';
 import { FC } from 'react';
 import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
 import useLikePost from '../../hooks/mutations/useLikePost';
 import { ExtendedPost } from '../../hooks/queries/usePosts';
+import useBoolean from '../../hooks/useBoolean';
 import CommentList from '../CommentList';
 import Avatar from '../elements/Avatar';
-import { Flexbox } from '../elements/Box';
+import Box, { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
+import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
 import './styles';
-import { Container, IconButton, Timestamp } from './styles';
+import { Container, IconButton, IconButtonContainer } from './styles';
 
 interface Props {
   post: ExtendedPost;
@@ -19,6 +20,8 @@ interface Props {
 
 const PostCard: FC<Props> = ({ post }) => {
   const { author, text, likeCount, commentCount, createdAt, hasLiked } = post;
+  const { value: commentsVisibility, toggle: toggleCommentsVisibility } =
+    useBoolean(false);
   const { mutate: likePost } = useLikePost(post._id);
 
   return (
@@ -27,25 +30,25 @@ const PostCard: FC<Props> = ({ post }) => {
         <Link href={`/users/${author._id}`}>
           <a>{author.picture && <Avatar src={author.picture} />}</a>
         </Link>
-        <Flexbox direction="column" gap="0.5rem">
-          <Flexbox alignItems="center" gap="1rem">
+        <Flexbox direction="column" gap="1rem">
+          <Box>
             <Link href={`/users/${author._id}`}>
               <a>
-                <Typography variant="h5" transform="capitalize" isLink>
+                <Typography variant="h5" transform="capitalize" isClickable>
                   {author.name}
                 </Typography>
               </a>
             </Link>
-            <Timestamp>{dayjs(createdAt).format('DD MMM YYYY')}</Timestamp>
-          </Flexbox>
+            <Timestamp date={createdAt} />
+          </Box>
           <Typography>{text}</Typography>
         </Flexbox>
       </Container>
-      <Flexbox marginTop="0.5rem">
+      <IconButtonContainer>
         <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}
         </IconButton>
-        <IconButton>
+        <IconButton onClick={toggleCommentsVisibility}>
           <MdComment /> {commentCount}
         </IconButton>
         <IconButton>
@@ -54,8 +57,8 @@ const PostCard: FC<Props> = ({ post }) => {
         <IconButton>
           <MdShare />
         </IconButton>
-      </Flexbox>
-      <CommentList postId={post._id} />
+      </IconButtonContainer>
+      {commentsVisibility && <CommentList postId={post._id} />}
     </Card>
   );
 };

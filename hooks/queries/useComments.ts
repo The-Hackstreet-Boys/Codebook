@@ -7,6 +7,7 @@ import { User } from '../../models/user';
 
 export interface ExtendedComment extends Omit<Comment, 'author'> {
   author: User;
+  hasLiked: boolean;
 }
 
 interface Data {
@@ -27,7 +28,7 @@ const getComments = async (limit: number, page: number, postId: string) => {
   return data;
 };
 
-const useComments = (postId: string, limit = 10) => {
+const useComments = (postId: string, limit = 5) => {
   const { user } = useUser();
 
   return useInfiniteQuery<Data>(

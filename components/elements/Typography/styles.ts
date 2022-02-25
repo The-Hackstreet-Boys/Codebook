@@ -12,7 +12,7 @@ const BaseTypography = styled.div<Omit<TypographyProps, 'variant'>>`
   ${(props) => `text-align: ${props.align};`};
   ${(props) => `text-transform: ${props.transform};`};
   ${(props) =>
-    props.isLink &&
+    props.isClickable &&
     `
       &:hover {
         text-decoration: underline;

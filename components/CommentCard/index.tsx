@@ -1,44 +1,53 @@
-import dayjs from 'dayjs';
 import Link from 'next/link';
 import { FC } from 'react';
+import { MdComment, MdFavorite } from 'react-icons/md';
 
 import { ExtendedComment } from '../../hooks/queries/useComments';
 import Avatar from '../elements/Avatar';
-import { Flexbox } from '../elements/Box';
+import Box, { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
+import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
-import { Timestamp } from './styles';
+import { Container, IconButton, IconButtonContainer } from './styles';
 
 interface Props {
   comment: ExtendedComment;
 }
 
 const CommentCard: FC<Props> = ({ comment }) => {
-  const { author, text, createdAt } = comment;
+  const { author, text, createdAt, likeCount, replyCount, hasLiked } = comment;
 
   return (
-    <Flexbox gap="0.5rem">
+    <Container>
       <Link href={`/users/${author._id}`}>
         <a>{author.picture && <Avatar src={author.picture} />}</a>
       </Link>
-      <Flexbox direction="column" gap="0.3rem">
-        <Card padding="md">
-          <Flexbox direction="column">
-            <Flexbox alignItems="center" gap="1rem">
-              <Link href={`/users/${author._id}`}>
-                <a>
-                  <Typography variant="h6" transform="capitalize" isLink>
-                    {author.name}
-                  </Typography>
-                </a>
-              </Link>
-            </Flexbox>
+      <Flexbox direction="column" gap="0.2rem" width="fit-content">
+        <Card padding="sm">
+          <Flexbox direction="column" gap="0.2rem">
+            <Link href={`/users/${author._id}`}>
+              <a>
+                <Typography variant="h6" transform="capitalize" isClickable>
+                  {author.name}
+                </Typography>
+              </a>
+            </Link>
             <Typography>{text}</Typography>
+            <IconButtonContainer>
+              <IconButton secondary={hasLiked}>
+                <MdFavorite /> {likeCount}
+              </IconButton>
+              <IconButton>
+                <MdComment /> {replyCount}
+              </IconButton>
+            </IconButtonContainer>
           </Flexbox>
         </Card>
-        <Timestamp>{dayjs(createdAt).format('DD MMM YYYY')}</Timestamp>
+        <Box marginLeft="0.5rem">
+          <Timestamp date={createdAt} />
+        </Box>
       </Flexbox>
-    </Flexbox>
+    </Container>
   );
 };
 
