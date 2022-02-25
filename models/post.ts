@@ -1,15 +1,12 @@
-import mongoose, { Document, Model, Schema, model } from 'mongoose';
-
-import { Tag } from './tag';
-import { User } from './user';
+import mongoose, { Document, Model, Schema, model,Types } from 'mongoose';
 
 export interface Post extends Document {
-  author: User;
+  author: string;
   text: string;
   likeCount: number;
-  likes: User[];
+  likes: string[];
   commentCount: number;
-  tags: Tag[];
+  tags: Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
 }

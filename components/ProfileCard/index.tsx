@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { MdChat, MdPersonAddAlt1, MdPersonRemoveAlt1 } from 'react-icons/md';
 
-import useChangeFollowStatus from '../../hooks/mutations/useChangeFollowStatus';
+import useFollowUser from '../../hooks/mutations/useFollowUser';
 import { ExtendedUser } from '../../hooks/queries/useUser';
 import Avatar from '../elements/Avatar';
 import { Flexbox } from '../elements/Box';
@@ -15,9 +15,7 @@ interface Props {
 }
 
 const ProfileCard: FC<Props> = ({ user }) => {
-  const { mutate: changeFollowStatus, isLoading } = useChangeFollowStatus(
-    user._id,
-  );
+  const { mutate: followUser, isLoading } = useFollowUser(user._id);
 
   const getStatus = () => {
     if (user?.isFollowing && user?.isFollowing) return 'Following eachother';
@@ -46,7 +44,7 @@ const ProfileCard: FC<Props> = ({ user }) => {
             </Button>
           </Link>
           <Button
-            onClick={() => changeFollowStatus(user.isFollowing)}
+            onClick={() => followUser()}
             color="secondary"
             isFullWidth
             disabled={isLoading}

@@ -3,9 +3,15 @@ import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
 
 import { Post } from '../../models/post';
+import { User } from '../../models/user';
+
+export interface ExtendedPost extends Omit<Post, 'author'> {
+  author: User;
+  hasLiked: boolean;
+}
 
 interface Data {
-  data: Post[];
+  data: ExtendedPost[];
   limit: number;
   page: number;
   totalPages: number;

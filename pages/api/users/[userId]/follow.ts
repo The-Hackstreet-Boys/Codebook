@@ -6,11 +6,7 @@ import connectToDatabase from '../../../../middleware/connectToDatabase';
 import UserModel from '../../../../models/user';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { userId, followMethod } = req.query;
-  if (followMethod !== 'follow' && followMethod !== 'unfollow') {
-    res.status(404);
-    return;
-  }
+  const { userId } = req.query;
 
   switch (req.method) {
     case 'POST':
@@ -22,22 +18,41 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           return;
         }
 
-        const method = followMethod === 'follow' ? '$push' : '$pull';
+        const user = await UserModel.findById(userId);
 
-        const updatedUser = await UserModel.findByIdAndUpdate(userId, {
-          [method]: { followers: currentUserId },
-        });
-
-        if (!updatedUser) {
-          res.status(404).send('User not found!');
+        if (!user) {
+          res.status(404).send(`No user found with id ${userId}!`);
           return;
         }
 
-        await UserModel.findByIdAndUpdate(currentUserId, {
-          [method]: { following: userId },
-        });
+        const alreadyFollowing = req.user.following.includes(userId as string);
 
-        res.send(`Successfully ${followMethod} user!`);
+        console.log(alreadyFollowing);
+
+        if (alreadyFollowing) {
+          await user.updateOne({
+            $pull: { followers: currentUserId },
+          });
+
+          await req.user.updateOne({
+            $pull: { following: userId },
+            name: 'test',
+          });
+
+          console.log(user);
+
+          res.send(`The user has been unfollowed!`);
+        } else {
+          await user.updateOne({
+            $push: { followers: currentUserId },
+          });
+
+          await req.user.updateOne({
+            $push: { following: userId },
+          });
+
+          res.send(`The user has been followed!`);
+        }
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }

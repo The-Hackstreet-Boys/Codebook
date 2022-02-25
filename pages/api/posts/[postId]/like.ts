@@ -6,11 +6,7 @@ import connectToDatabase from '../../../../middleware/connectToDatabase';
 import PostModel from '../../../../models/post';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { postId, likeMethod } = req.query;
-  if (likeMethod !== 'like' && likeMethod !== 'unlike') {
-    res.status(404);
-    return;
-  }
+  const { postId } = req.query;
 
   switch (req.method) {
     case 'POST':
@@ -19,7 +15,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         const post = await PostModel.findById(postId);
 
         if (!post) {
-          res.status(404).send('No post found!');
+          res.status(404).send(`No post found with id ${postId}!`);
           return;
         }
 
@@ -28,19 +24,23 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           return;
         }
 
-        const method = likeMethod === 'like' ? '$push' : '$pull';
-        const countMethod = likeMethod === 'like' ? '$inc' : '$dec';
-        const updatedPost = await PostModel.findByIdAndUpdate(postId, {
-          [method]: { likes: userId },
-          [countMethod]: { likeCount: 1 },
-        });
+        const alreadyLiked = post.likes.includes(userId);
 
-        if (!updatedPost) {
-          res.status(404).send('Post not found!');
-          return;
+        if (alreadyLiked) {
+          await post.updateOne({
+            $pull: { likes: userId },
+            $inc: { likeCount: -1 },
+          });
+
+          res.send(`The post has been disliked!`);
+        } else {
+          await post.updateOne({
+            $push: { likes: userId },
+            $inc: { likeCount: 1 },
+          });
+
+          res.send(`The post has been liked!`);
         }
-
-        res.send(`Successfully ${likeMethod} post!`);
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }

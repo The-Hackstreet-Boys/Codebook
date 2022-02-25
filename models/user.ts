@@ -1,7 +1,4 @@
-import mongoose, { Document, Model, Schema, model } from 'mongoose';
-
-import { Post } from './post';
-import { Tag } from './tag';
+import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
 export interface User extends Document {
   name: string;
@@ -9,10 +6,10 @@ export interface User extends Document {
   email?: string;
   about?: string;
   isOpenToCollaborate: boolean;
-  followers: User[];
-  following: User[];
-  savedPosts: Post[];
-  tags: Tag[];
+  followers: string[];
+  following: string[];
+  savedPosts: Types.ObjectId[];
+  tags: Types.ObjectId[];
 }
 
 const userSchema = new Schema<User>(

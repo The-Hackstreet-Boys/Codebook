@@ -1,10 +1,10 @@
-import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import { FC } from 'react';
 import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
-import useChangeLikeStatus from '../../hooks/mutations/useChangeLikeStatus';
+import useLikePost from '../../hooks/mutations/useLikePost';
+import { ExtendedPost } from '../../hooks/queries/usePosts';
 import { Post } from '../../models/post';
 import Avatar from '../elements/Avatar';
 import { Flexbox } from '../elements/Box';
@@ -14,13 +14,12 @@ import './styles';
 import { Container, IconButton, Timestamp } from './styles';
 
 interface Props {
-  post: Post;
+  post: ExtendedPost;
 }
 
 const PostCard: FC<Props> = ({ post }) => {
-  const { author, text, likeCount, commentCount, createdAt } = post;
-  const { mutate: changeLikeStatus } = useChangeLikeStatus(post._id);
-  const { user } = useAuth0User();
+  const { author, text, likeCount, commentCount, createdAt, hasLiked } = post;
+  const { mutate: likePost } = useLikePost(post._id);
 
   return (
     <Card>
@@ -43,15 +42,7 @@ const PostCard: FC<Props> = ({ post }) => {
         </Flexbox>
       </Container>
       <Flexbox marginTop="1rem">
-        <IconButton
-          onClick={() =>
-            changeLikeStatus(
-              user?.sub
-                ? (post.likes as unknown as string[]).includes(user.sub)
-                : false,
-            )
-          }
-        >
+        <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}
         </IconButton>
         <IconButton>
