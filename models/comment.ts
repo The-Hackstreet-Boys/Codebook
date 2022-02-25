@@ -5,6 +5,8 @@ interface BaseComment extends Document {
   text: string;
   likeCount: number;
   likes: string[];
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface Comment extends BaseComment {

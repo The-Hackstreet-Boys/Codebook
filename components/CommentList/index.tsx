@@ -1,8 +1,9 @@
 import { FC } from 'react';
 
 import useComments from '../../hooks/queries/useComments';
-import CommentDisplay from '../CommentDisplay';
+import CommentCard from '../CommentCard';
 import CommentForm from '../CommentForm';
+import { Flexbox } from '../elements/Box';
 import Button from '../elements/Button';
 
 interface Props {
@@ -13,19 +14,19 @@ const CommentsList: FC<Props> = ({ postId }) => {
   const { data, fetchNextPage } = useComments(postId);
 
   return (
-    <>
+    <Flexbox direction="column" gap="0.75rem" margin="1rem 0">
       {data?.pages.map((page) => (
         <>
           {page.data.map((comment) => (
-            <CommentDisplay comment={comment} key={comment._id} />
+            <CommentCard comment={comment} key={comment._id} />
           ))}
         </>
       ))}
       <Button size="sm" onClick={() => fetchNextPage()}>
-        Fetch more...
+        View more comments...
       </Button>
       <CommentForm postId={postId} />
-    </>
+    </Flexbox>
   );
 };
 

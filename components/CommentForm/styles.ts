@@ -1,12 +1,10 @@
 import styled from 'styled-components';
 
-export const TextArea = styled.textarea`
+export const Input = styled.input`
   background: none;
   border: none;
   outline: none;
   width: 100%;
-  height: 5rem;
-  resize: none;
   color: ${(props) => props.theme.text};
   font-size: ${(props) => props.theme.fontSizeSm};
   &::placeholder {
@@ -15,12 +13,10 @@ export const TextArea = styled.textarea`
   }
 `;
 
-export const IconContainer = styled.div`
-  display: flex;
-  gap: 1rem;
-  border-top: 1px solid ${(props) => props.theme.overlay};
-  padding-top: 1rem;
-  & svg {
+export const SubmitButton = styled.button`
+  background: none;
+  border: none;
+  & > svg {
     width: 1.25rem;
     height: 1.25rem;
     cursor: pointer;
@@ -30,10 +26,4 @@ export const IconContainer = styled.div`
       color: ${(props) => props.theme.primary};
     }
   }
-`;
-
-export const SubmitButton = styled.button`
-  background: none;
-  border: none;
-  margin-left: auto;
 `;

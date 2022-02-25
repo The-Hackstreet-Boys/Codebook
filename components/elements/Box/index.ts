@@ -40,6 +40,7 @@ interface BoxProps {
   paddingLeft?: string;
   width?: string;
   height?: string;
+  minWidth?: string;
   maxWidth?: string;
   position?: string;
   top?: string;
@@ -74,6 +75,7 @@ const Box = styled.div<BoxProps>`
     paddingLeft = 0,
     width = 'auto',
     height = 'auto',
+    minWidth = 'none',
     maxWidth = 'none',
     position = 'static',
     top = 'auto',
@@ -103,6 +105,7 @@ const Box = styled.div<BoxProps>`
     }
     width:${width};
     height:${height};
+    min-width:${minWidth};
     max-width:${maxWidth};
     position:${position};
     top:${top};

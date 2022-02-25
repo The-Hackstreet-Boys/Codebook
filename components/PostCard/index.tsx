@@ -41,7 +41,7 @@ const PostCard: FC<Props> = ({ post }) => {
           <Typography>{text}</Typography>
         </Flexbox>
       </Container>
-      <Flexbox marginTop="1rem">
+      <Flexbox marginTop="0.5rem">
         <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}
         </IconButton>
@@ -55,7 +55,7 @@ const PostCard: FC<Props> = ({ post }) => {
           <MdShare />
         </IconButton>
       </Flexbox>
-     <CommentList postId={post._id}/>
+      <CommentList postId={post._id} />
     </Card>
   );
 };
