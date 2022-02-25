@@ -6,7 +6,7 @@ const likePost = async (postId: string) => {
   await axios.post(`${origin}/api/posts/${postId}/like`);
 };
 
-const onSuccess = (queryClient: QueryClient) => {
+const updateQueryCache = (queryClient: QueryClient) => {
   queryClient.invalidateQueries(['posts']);
 };
 
@@ -14,7 +14,7 @@ const useLikePost = (postId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation(() => likePost(postId), {
-    onSuccess: () => onSuccess(queryClient),
+    onSuccess: () => updateQueryCache(queryClient),
   });
 };
 

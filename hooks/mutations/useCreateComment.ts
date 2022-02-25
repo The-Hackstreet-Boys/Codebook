@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { useMutation } from 'react-query';
+import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
 import { Comment } from '../../models/comment';
 
@@ -18,11 +18,20 @@ const createComment = async (newComment: NewComment, postId: string) => {
   return createdComment;
 };
 
+const updateQueryCache = (queryClient: QueryClient, postId: string) => {
+  queryClient.invalidateQueries(['comments', postId]);
+};
+
 const useCreateComment = (onSuccess: () => void, postId: string) => {
+  const queryClient = useQueryClient();
+
   return useMutation(
     (newComment: NewComment) => createComment(newComment, postId),
     {
-      onSuccess,
+      onSuccess: () => {
+        updateQueryCache(queryClient, postId);
+        onSuccess();
+      },
     },
   );
 };

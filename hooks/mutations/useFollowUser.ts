@@ -6,7 +6,7 @@ const followUser = async (userId: string) => {
   await axios.post(`${origin}/api/users/${userId}/follow`);
 };
 
-const onSuccess = (queryClient: QueryClient, userId: string) => {
+const updateQueryCache = (queryClient: QueryClient, userId: string) => {
   queryClient.invalidateQueries(['user', userId]);
   queryClient.invalidateQueries(['contacts']);
 };
@@ -15,7 +15,7 @@ const useFollowUser = (userId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation(() => followUser(userId), {
-    onSuccess: () => onSuccess(queryClient, userId),
+    onSuccess: () => updateQueryCache(queryClient, userId),
   });
 };
 

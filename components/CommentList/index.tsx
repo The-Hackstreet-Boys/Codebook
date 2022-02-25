@@ -1,8 +1,9 @@
-import { FC, useEffect } from 'react';
-import { useInView } from 'react-intersection-observer';
+import { FC } from 'react';
 
 import useComments from '../../hooks/queries/useComments';
 import CommentDisplay from '../CommentDisplay';
+import CommentForm from '../CommentForm';
+import Button from '../elements/Button';
 
 interface Props {
   postId: string;
@@ -10,11 +11,7 @@ interface Props {
 
 const CommentsList: FC<Props> = ({ postId }) => {
   const { data, fetchNextPage } = useComments(postId);
-  const { ref, inView } = useInView();
 
-  useEffect(() => {
-    if (inView) fetchNextPage();
-  }, [inView, fetchNextPage]);
   return (
     <>
       {data?.pages.map((page) => (
@@ -24,7 +21,10 @@ const CommentsList: FC<Props> = ({ postId }) => {
           ))}
         </>
       ))}
-      <div ref={ref}></div>
+      <Button size="sm" onClick={() => fetchNextPage()}>
+        Fetch more...
+      </Button>
+      <CommentForm postId={postId} />
     </>
   );
 };

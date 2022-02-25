@@ -29,10 +29,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           post: postId,
         };
 
-        const data = await CommentModel.find()
+        const data = await CommentModel.find(query)
           .limit(limit)
           .skip(skipAmount)
-          .populate('author', UserModel);
+          .populate({
+            path: 'author',
+            model: UserModel,
+          });
 
         const documentCount = await PostModel.countDocuments(query);
         const totalPages = Math.ceil(documentCount / limit);
