@@ -29,7 +29,7 @@ const PostCard: FC<Props> = ({ post }) => {
         </Link>
         <Flexbox direction="column" gap="0.5rem">
           <Flexbox alignItems="center" gap="1rem">
-            <Link href={`/users/${author._id}`} passHref>
+            <Link href={`/users/${author._id}`}>
               <a>
                 <Typography variant="h5" transform="capitalize" isLink>
                   {author.name}

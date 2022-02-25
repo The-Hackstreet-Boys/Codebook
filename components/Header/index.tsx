@@ -7,6 +7,7 @@ import Avatar from '../elements/Avatar';
 import { Flexbox } from '../elements/Box';
 import Button from '../elements/Button';
 import Logo from '../elements/Logo';
+import Typography from '../elements/Typography';
 import { Container, SearchBar, SearchInput } from './styles';
 
 const Header: FC = () => {
@@ -33,7 +34,7 @@ const Header: FC = () => {
         {user && (
           <Flexbox alignItems="center" gap="1rem">
             {user.picture && <Avatar src={user.picture} />}
-            {user.name}
+            <Typography variant="h5">{user.name}</Typography>
             {
               // eslint-disable-next-line
               <a href="/api/auth/logout">

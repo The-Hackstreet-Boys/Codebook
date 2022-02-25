@@ -27,8 +27,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
         const alreadyFollowing = req.user.following.includes(userId as string);
 
-        console.log(alreadyFollowing);
-
         if (alreadyFollowing) {
           await user.updateOne({
             $pull: { followers: currentUserId },
@@ -38,8 +36,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             $pull: { following: userId },
             name: 'test',
           });
-
-          console.log(user);
 
           res.send(`The user has been unfollowed!`);
         } else {
