@@ -1,15 +1,13 @@
 import mongoose, { Document, Model, Schema, model } from 'mongoose';
 
-import { User } from './user';
-
 export type CommentType = 'comment' | 'reply';
 
 export interface Comment extends Document {
   type: CommentType;
-  author: User;
+  author: string;
   text: string;
   likeCount: number;
-  likes: User[];
+  likes: string[];
 }
 
 const commentSchema = new Schema<Comment>(

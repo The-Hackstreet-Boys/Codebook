@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
+import useLikePost from '../../hooks/mutations/useLikePost';
+import { ExtendedPost } from '../../hooks/queries/usePosts';
 import { Post } from '../../models/post';
 import Avatar from '../elements/Avatar';
 import { Flexbox } from '../elements/Box';
@@ -12,11 +14,12 @@ import './styles';
 import { Container, IconButton, Timestamp } from './styles';
 
 interface Props {
-  post: Post;
+  post: ExtendedPost;
 }
 
 const PostCard: FC<Props> = ({ post }) => {
-  const { author, text, likeCount, commentCount, createdAt } = post;
+  const { author, text, likeCount, commentCount, createdAt, hasLiked } = post;
+  const { mutate: likePost } = useLikePost(post._id);
 
   return (
     <Card>
@@ -39,7 +42,7 @@ const PostCard: FC<Props> = ({ post }) => {
         </Flexbox>
       </Container>
       <Flexbox marginTop="1rem">
-        <IconButton>
+        <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}
         </IconButton>
         <IconButton>

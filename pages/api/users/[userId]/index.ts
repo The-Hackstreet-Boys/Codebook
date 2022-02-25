@@ -15,14 +15,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       try {
         const user = await UserModel.findById(userId)
           .populate({
-            path: 'followers',
-            model: UserModel,
-          })
-          .populate({
-            path: 'following',
-            model: UserModel,
-          })
-          .populate({
             path: 'savedPosts',
             model: PostModel,
           })
