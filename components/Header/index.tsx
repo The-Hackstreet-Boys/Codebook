@@ -1,16 +1,17 @@
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
 import { FC } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
 
 import Avatar from '../elements/Avatar';
+import { Flexbox } from '../elements/Box';
 import Button from '../elements/Button';
-import Flexbox from '../elements/Flexbox';
 import Logo from '../elements/Logo';
+import Typography from '../elements/Typography';
 import { Container, SearchBar, SearchInput } from './styles';
 
 const Header: FC = () => {
-  const { user } = useUser();
+  const { user } = useAuth0User();
 
   return (
     <Container>
@@ -33,7 +34,7 @@ const Header: FC = () => {
         {user && (
           <Flexbox alignItems="center" gap="1rem">
             {user.picture && <Avatar src={user.picture} />}
-            {user.name}
+            <Typography variant="h5">{user.name}</Typography>
             {
               // eslint-disable-next-line
               <a href="/api/auth/logout">

@@ -8,7 +8,7 @@ export const Container = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.overlay};
 `;
 
-export const IconButton = styled.button`
+export const IconButton = styled.button<{ secondary?: boolean }>`
   background: none;
   border: none;
   flex-basis: 0;
@@ -27,6 +27,7 @@ export const IconButton = styled.button`
     background: ${(props) => props.theme.overlay};
   }
   & > svg {
+    ${(props) => props.secondary && `color: ${props.theme.secondary};`}
     width: 1.25rem;
     height: 1.25rem;
   }

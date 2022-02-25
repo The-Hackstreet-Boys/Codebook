@@ -21,15 +21,13 @@ export type FlexboxJustifyContent =
 
 export type FlexboxFlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse';
 
-export interface FlexboxProps {
-  direction?: 'row' | 'column';
-  alignItems?: FlexboxAlignItems;
-  justifyContent?: FlexboxJustifyContent;
+export type BoxDisplay = 'block' | 'flex' | 'inline' | 'inline-block';
+
+interface BoxProps {
+  display?: BoxDisplay;
   flexGrow?: number;
   flexShrink?: number;
   flexBasis?: string;
-  flexWrap?: FlexboxFlexWrap;
-  gap?: string;
   margin?: string;
   marginTop?: string;
   marginRight?: string;
@@ -43,18 +41,27 @@ export interface FlexboxProps {
   width?: string;
   height?: string;
   maxWidth?: string;
+  position?: string;
+  top?: string;
+  right?: string;
+  bottom?: string;
+  left?: string;
 }
 
-const Flexbox = styled.div<FlexboxProps>`
+interface FlexboxProps {
+  alignItems?: FlexboxAlignItems;
+  justifyContent?: FlexboxJustifyContent;
+  direction?: 'row' | 'column';
+  flexWrap?: FlexboxFlexWrap;
+  gap?: string;
+}
+
+const Box = styled.div<BoxProps>`
   ${({
-    direction = 'row',
-    alignItems = 'stretch',
-    justifyContent = 'flex-start',
+    display = 'block',
     flexGrow = 0,
     flexShrink = 0,
     flexBasis = 'auto',
-    flexWrap = 'nowrap',
-    gap = '0',
     margin = 0,
     marginTop = 0,
     marginRight = 0,
@@ -68,16 +75,16 @@ const Flexbox = styled.div<FlexboxProps>`
     width = 'auto',
     height = 'auto',
     maxWidth = 'none',
+    position = 'static',
+    top = 'auto',
+    right = 'auto',
+    bottom = 'auto',
+    left = 'auto',
   }) => `
-    display: flex;
-    flex-direction: ${direction};
-    align-items: ${alignItems};
-    justify-content: ${justifyContent};
+    display: ${display};
     flex-grow: ${flexGrow};
     flex-shrink: ${flexShrink};
     flex-basis: ${flexBasis};
-    flex-wrap: ${flexWrap};
-    gap: ${gap};
     ${
       margin
         ? `margin: ${margin};`
@@ -97,7 +104,29 @@ const Flexbox = styled.div<FlexboxProps>`
     width:${width};
     height:${height};
     max-width:${maxWidth};
+    position:${position};
+    top:${top};
+    right:${right};
+    bottom:${bottom};
+    left:${left};
   `}
 `;
 
-export default Flexbox;
+export const Flexbox = styled(Box)<FlexboxProps>`
+  ${({
+    direction = 'row',
+    alignItems = 'stretch',
+    justifyContent = 'flex-start',
+    flexWrap = 'nowrap',
+    gap = '0',
+  }) => `
+  display: flex;
+  flex-direction: ${direction};
+  align-items: ${alignItems};
+  justify-content: ${justifyContent};
+  flex-wrap: ${flexWrap};
+  gap: ${gap};
+`}
+`;
+
+export default Box;

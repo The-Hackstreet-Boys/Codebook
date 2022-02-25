@@ -33,11 +33,24 @@ export const PrimaryButton = styled.button<{
     width: 1.5rem;
     height: 1.5rem;
   }
+  &:disabled {
+    background: ${(props) => props.theme.buttonPrimaryDisabled};
+    cursor: default;
+    &:hover {
+      background: ${(props) => props.theme.buttonPrimaryDisabled};
+    }
+  }
 `;
 
 export const SecondaryButton = styled(PrimaryButton)`
   background: ${(props) => props.theme.secondary};
   &:hover {
     background: ${(props) => props.theme.buttonSecondaryHover};
+  }
+  &:disabled {
+    background: ${(props) => props.theme.buttonSecondaryDisabled};
+    &:hover {
+      background: ${(props) => props.theme.buttonSecondaryDisabled};
+    }
   }
 `;

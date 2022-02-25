@@ -1,14 +1,12 @@
-import mongoose, { Document, Model, Schema, model } from 'mongoose';
-
-import { Tag } from './tag';
-import { User } from './user';
+import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
 export interface Post extends Document {
-  author: User;
+  author: string;
   text: string;
   likeCount: number;
+  likes: string[];
   commentCount: number;
-  tags: Tag[];
+  tags: Types.ObjectId[];
   createdAt: Date;
   updatedAt: Date;
 }
@@ -17,9 +15,10 @@ const postSchema = new Schema<Post>(
   {
     author: { required: true, type: String, ref: 'User', index: true },
     text: { required: true, type: String, maxlength: 10000 },
-    likeCount: { type: Number, required: true, default: 0, min: 0 },
-    commentCount: { type: Number, required: true, default: 0, min: 0 },
-    tags: { required: true, type: [Schema.Types.ObjectId], ref: 'Tag' },
+    likeCount: { type: Number, default: 0, min: 0 },
+    likes: { type: [String], ref: 'User' },
+    commentCount: { type: Number, default: 0, min: 0 },
+    tags: { type: [Schema.Types.ObjectId], ref: 'Tag' },
   },
   { timestamps: true },
 );

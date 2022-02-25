@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import HomeSidebar from '../HomeSidebar';
-import Flexbox from '../elements/Flexbox';
+import ContactSidebar from '../ContactSidebar';
+import { Flexbox } from '../elements/Box';
 import { Container, ContentContainer } from './styles';
 
 const HomeLayout: FC = ({ children }) => (
@@ -17,7 +17,7 @@ const HomeLayout: FC = ({ children }) => (
         {children}
       </Flexbox>
     </ContentContainer>
-    <HomeSidebar />
+    <ContactSidebar />
   </Container>
 );
 

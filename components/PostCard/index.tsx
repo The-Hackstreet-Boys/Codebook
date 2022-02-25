@@ -1,45 +1,58 @@
 import dayjs from 'dayjs';
+import Link from 'next/link';
 import { FC } from 'react';
 import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
+import useLikePost from '../../hooks/mutations/useLikePost';
+import { ExtendedPost } from '../../hooks/queries/usePosts';
 import { Post } from '../../models/post';
-import LikeButton from '../LikeButton';
 import Avatar from '../elements/Avatar';
+import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
-import Flexbox from '../elements/Flexbox';
 import Typography from '../elements/Typography';
 import './styles';
 import { Container, IconButton, Timestamp } from './styles';
+<<<<<<< HEAD:components/PostDisplay/index.tsx
 import useComments from '../../hooks/queries/useComments';
 import CommentDisplay from '../CommentDisplay';
 
+=======
+import CommentDisplay from '../CommentDisplay';
+import comment from '../../models/comment';
+>>>>>>> origin/main:components/PostCard/index.tsx
 
 interface Props {
-  post: Post;
+  post: ExtendedPost;
 }
 
-const PostDisplay: FC<Props> = ({ post }) => {
-  const { author, text, likeCount, commentCount, createdAt } = post;
+const PostCard: FC<Props> = ({ post }) => {
+  const { author, text, likeCount, commentCount, createdAt, hasLiked } = post;
+  const { mutate: likePost } = useLikePost(post._id);
 
   return (
     <Card>
       <Container>
-        {author.picture && <Avatar src={author.picture} />}
+        <Link href={`/users/${author._id}`}>
+          <a>{author.picture && <Avatar src={author.picture} />}</a>
+        </Link>
         <Flexbox direction="column" gap="0.5rem">
           <Flexbox alignItems="center" gap="1rem">
-            <Typography variant="h5" transform="capitalize">
-              {author.name}
-            </Typography>
+            <Link href={`/users/${author._id}`}>
+              <a>
+                <Typography variant="h5" transform="capitalize" isLink>
+                  {author.name}
+                </Typography>
+              </a>
+            </Link>
             <Timestamp>{dayjs(createdAt).format('DD MMM YYYY')}</Timestamp>
           </Flexbox>
           <Typography>{text}</Typography>
         </Flexbox>
       </Container>
       <Flexbox marginTop="1rem">
-        <LikeButton>{likeCount}</LikeButton>
-        {/* <IconButton>
+        <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}
-        </IconButton> */}
+        </IconButton>
         <IconButton>
           <MdComment /> {commentCount}
         </IconButton>
@@ -50,9 +63,13 @@ const PostDisplay: FC<Props> = ({ post }) => {
           <MdShare />
         </IconButton>
       </Flexbox>
+<<<<<<< HEAD:components/PostDisplay/index.tsx
       <CommentDisplay comment={comment} key={comment._id}/>
+=======
+      <CommentDisplay/>
+>>>>>>> origin/main:components/PostCard/index.tsx
     </Card>
   );
 };
 
-export default PostDisplay;
+export default PostCard;

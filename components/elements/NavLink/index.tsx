@@ -2,11 +2,11 @@ import Link, { LinkProps } from 'next/link';
 import { useRouter } from 'next/router';
 import { FC, ReactElement, cloneElement } from 'react';
 
-export interface INavLinkProps extends LinkProps {
+export interface NavLinkProps extends LinkProps {
   children: ReactElement;
 }
 
-const NavLink: FC<INavLinkProps> = ({ children, href, ...props }) => {
+const NavLink: FC<NavLinkProps> = ({ children, href, ...props }) => {
   const { asPath: currentPath } = useRouter();
 
   if (currentPath === href) {

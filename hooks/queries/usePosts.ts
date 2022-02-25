@@ -1,34 +1,40 @@
-import { useUser } from '@auth0/nextjs-auth0';
+import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import axios from 'axios';
-import { useInfiniteQuery, useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 
 import { Post } from '../../models/post';
+import { User } from '../../models/user';
+
+export interface ExtendedPost extends Omit<Post, 'author'> {
+  author: User;
+  hasLiked: boolean;
+}
 
 interface Data {
-  data: Post[];
+  data: ExtendedPost[];
   limit: number;
   page: number;
   totalPages: number;
 }
 
-const getPosts = async (limit: number, page: number) => {
+const getPosts = async (limit: number, page: number, author?: string) => {
   const { origin } = window.location;
 
   const response = await axios.get(`${origin}/api/posts`, {
-    params: { limit, page, author: 'google-oauth2|116727138907129554811' },
+    params: { limit, page, author },
   });
 
   const data = response.data;
   return data;
 };
 
-const usePosts = (limit = 20) => {
-  const { user } = useUser();
+const usePosts = (author?: string, limit = 20) => {
+  const { user } = useAuth0User();
 
   return useInfiniteQuery<Data>(
-    ['posts', limit],
+    ['posts', limit, author],
     ({ pageParam }) => {
-      return getPosts(limit, pageParam);
+      return getPosts(limit, pageParam, author);
     },
     {
       enabled: !!user,

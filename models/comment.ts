@@ -1,23 +1,38 @@
-import mongoose, { Document, Model, Schema, model } from 'mongoose';
+import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
-import { User } from './user';
-
-export interface Comment extends Document {
-  author: User;
+interface BaseComment extends Document {
+  author: string;
   text: string;
   likeCount: number;
+  likes: string[];
+}
+
+export interface Comment extends BaseComment {
+  type: 'comment';
+  post: Types.ObjectId;
   replyCount: number;
 }
 
-const commentSchema = new Schema<Comment>(
+export interface Reply extends BaseComment {
+  type: 'reply';
+  comment: Types.ObjectId;
+}
+
+type Data = Comment | Reply;
+
+const commentSchema = new Schema<Data>(
   {
+    type: { required: true, type: String, enum: ['comment', 'reply'] },
+    post: { type: Schema.Types.ObjectId, ref: 'Post' },
+    comment: { type: Schema.Types.ObjectId, ref: 'Comment' },
     author: { required: true, type: String, ref: 'User' },
     text: { required: true, type: String },
-    likeCount: { type: Number, required: true, default: 0, min: 0 },
-    replyCount: { type: Number, required: true, default: 0, min: 0 },
+    likeCount: { type: Number, default: 0, min: 0 },
+    likes: { type: [String], ref: 'User' },
+    replyCount: { type: Number, default: 0, min: 0 },
   },
   { timestamps: true },
 );
 
 export default (mongoose.models.Comment ||
-  model<Comment>('Comment', commentSchema, 'comments')) as Model<Comment>;
+  model<Data>('Comment', commentSchema, 'comments')) as Model<Data>;

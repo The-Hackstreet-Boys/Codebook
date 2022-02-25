@@ -11,6 +11,8 @@ declare module 'styled-components' {
     secondary: string;
     buttonPrimaryHover: string;
     buttonSecondaryHover: string;
+    buttonPrimaryDisabled: string;
+    buttonSecondaryDisabled: string;
     active: string;
     border: string;
     fontFamily: string;

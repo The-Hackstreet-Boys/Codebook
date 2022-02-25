@@ -1,16 +1,15 @@
-import mongoose, { Document, Model, Schema, model } from 'mongoose';
-
-import { Post } from './post';
+import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
 export interface User extends Document {
   name: string;
   picture: string;
   email?: string;
   about?: string;
-  isLookingToCollaborate: boolean;
-  followers: User[];
-  following: User[];
-  savePosts: Post[];
+  isOpenToCollaborate: boolean;
+  followers: string[];
+  following: string[];
+  savedPosts: Types.ObjectId[];
+  tags: Types.ObjectId[];
 }
 
 const userSchema = new Schema<User>(
@@ -39,25 +38,25 @@ const userSchema = new Schema<User>(
       maxlength: 250,
       trim: true,
     },
-    isLookingToCollaborate: {
+    isOpenToCollaborate: {
       type: Boolean,
-      required: true,
       default: true,
     },
     followers: {
-      required: true,
       type: [String],
       ref: 'User',
     },
     following: {
-      required: true,
       type: [String],
       ref: 'User',
     },
-    savePosts: {
-      required: true,
+    savedPosts: {
       type: [Schema.Types.ObjectId],
       ref: 'Post',
+    },
+    tags: {
+      type: [Schema.Types.ObjectId],
+      ref: 'Tag',
     },
   },
   { timestamps: true },

@@ -6,7 +6,7 @@ import {
   MdSettings,
 } from 'react-icons/md';
 
-import Flexbox from '../elements/Flexbox';
+import { Flexbox } from '../elements/Box';
 import NavLink from '../elements/NavLink';
 import { Container, NavItem } from './styles';
 
