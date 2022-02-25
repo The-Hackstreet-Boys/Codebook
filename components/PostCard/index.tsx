@@ -5,7 +5,6 @@ import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
 import useLikePost from '../../hooks/mutations/useLikePost';
 import { ExtendedPost } from '../../hooks/queries/usePosts';
-
 import CommentList from '../CommentList';
 import Avatar from '../elements/Avatar';
 import { Flexbox } from '../elements/Box';
