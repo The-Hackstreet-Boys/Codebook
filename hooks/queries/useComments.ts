@@ -5,9 +5,10 @@ import { useInfiniteQuery, useQuery } from 'react-query';
 import { Comment } from '../../models/comment';
 import { User } from '../../models/user';
 
-export interface ExtendedComment extends Omit<Comment, 'author'> {
+export interface ExtendedComment extends Omit<Comment, 'author' | 'post'> {
   author: User;
   hasLiked: boolean;
+  post: string;
 }
 
 interface Data {

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { MdComment, MdFavorite } from 'react-icons/md';
 
+import useLikeComment from '../../hooks/mutations/useLikeComment';
 import { ExtendedComment } from '../../hooks/queries/useComments';
 import Avatar from '../elements/Avatar';
 import Box, { Flexbox } from '../elements/Box';
@@ -17,6 +18,7 @@ interface Props {
 
 const CommentCard: FC<Props> = ({ comment }) => {
   const { author, text, createdAt, likeCount, replyCount, hasLiked } = comment;
+  const { mutate: likeComment } = useLikeComment(comment.post, comment._id);
 
   return (
     <Container>
@@ -35,7 +37,12 @@ const CommentCard: FC<Props> = ({ comment }) => {
             </Link>
             <Typography>{text}</Typography>
             <IconButtonContainer>
-              <IconButton size="sm" grow={false} secondary={hasLiked}>
+              <IconButton
+                size="sm"
+                grow={false}
+                onClick={() => likeComment()}
+                secondary={hasLiked}
+              >
                 <MdFavorite /> {likeCount}
               </IconButton>
               <IconButton size="sm" grow={false}>
