@@ -26,7 +26,7 @@ const commentSchema = new Schema<Data>(
     post: { type: Schema.Types.ObjectId, ref: 'Post' },
     comment: { type: Schema.Types.ObjectId, ref: 'Comment' },
     author: { required: true, type: String, ref: 'User' },
-    text: { required: true, type: String },
+    text: { required: true, type: String, maxLength: 2500 },
     likeCount: { type: Number, default: 0, min: 0 },
     likes: { type: [String], ref: 'User' },
     replyCount: { type: Number, default: 0, min: 0 },
