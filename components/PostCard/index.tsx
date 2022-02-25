@@ -5,21 +5,15 @@ import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
 import useLikePost from '../../hooks/mutations/useLikePost';
 import { ExtendedPost } from '../../hooks/queries/usePosts';
+import comment from '../../models/comment';
 import { Post } from '../../models/post';
+import CommentDisplay from '../CommentDisplay';
 import Avatar from '../elements/Avatar';
 import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
 import Typography from '../elements/Typography';
 import './styles';
 import { Container, IconButton, Timestamp } from './styles';
-<<<<<<< HEAD:components/PostDisplay/index.tsx
-import useComments from '../../hooks/queries/useComments';
-import CommentDisplay from '../CommentDisplay';
-
-=======
-import CommentDisplay from '../CommentDisplay';
-import comment from '../../models/comment';
->>>>>>> origin/main:components/PostCard/index.tsx
 
 interface Props {
   post: ExtendedPost;
@@ -63,11 +57,7 @@ const PostCard: FC<Props> = ({ post }) => {
           <MdShare />
         </IconButton>
       </Flexbox>
-<<<<<<< HEAD:components/PostDisplay/index.tsx
-      <CommentDisplay comment={comment} key={comment._id}/>
-=======
-      <CommentDisplay/>
->>>>>>> origin/main:components/PostCard/index.tsx
+      <CommentDisplay comment={comment} key={comment._id} />
     </Card>
   );
 };

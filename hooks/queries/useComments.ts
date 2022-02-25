@@ -3,9 +3,14 @@ import axios from 'axios';
 import { useInfiniteQuery, useQuery } from 'react-query';
 
 import { Comment } from '../../models/comment';
+import { User } from '../../models/user';
+
+export interface ExtendedComment extends Omit<Comment, 'author'> {
+  author: User;
+}
 
 interface Data {
-  data: Comment[];
+  data: ExtendedComment[];
   limit: number;
   page: number;
   totalPages: number;

@@ -3,10 +3,10 @@ import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
 
 import { Post } from '../../models/post';
-import { User } from '../../models/user';
+import { ExtendedUser } from './useUser';
 
 export interface ExtendedPost extends Omit<Post, 'author'> {
-  author: User;
+  author: ExtendedUser;
   hasLiked: boolean;
 }
 
