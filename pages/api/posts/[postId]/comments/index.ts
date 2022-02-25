@@ -5,6 +5,7 @@ import authentication from '../../../../../middleware/authentication';
 import connectToDatabase from '../../../../../middleware/connectToDatabase';
 import CommentModel from '../../../../../models/comment';
 import PostModel from '../../../../../models/post';
+import UserModel from '../../../../../models/user';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { postId } = req.query;
@@ -19,12 +20,24 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
       try {
-        const comments = await CommentModel.find({
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 20;
+        const skipAmount = (page - 1) * limit;
+
+        const query = {
           type: 'comment',
           post: postId,
-        });
+        };
 
-        res.json(comments);
+        const data = await CommentModel.find()
+          .limit(limit)
+          .skip(skipAmount)
+          .populate('author', UserModel);
+
+        const documentCount = await PostModel.countDocuments(query);
+        const totalPages = Math.ceil(documentCount / limit);
+
+        res.json({ data, limit, page, totalPages });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }
