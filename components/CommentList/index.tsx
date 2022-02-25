@@ -14,7 +14,7 @@ const CommentsList: FC<Props> = ({ postId }) => {
   const { data, fetchNextPage } = useComments(postId);
 
   return (
-    <Flexbox direction="column" gap="1rem" margin="1rem 0">
+    <Flexbox direction="column" gap="1rem">
       <CommentForm postId={postId} />
       <Flexbox direction="column" gap="1rem">
         {data?.pages.map((page) => (

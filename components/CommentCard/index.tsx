@@ -6,9 +6,10 @@ import { ExtendedComment } from '../../hooks/queries/useComments';
 import Avatar from '../elements/Avatar';
 import Box, { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
+import IconButton from '../elements/IconButton';
 import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
-import { Container, IconButton, IconButtonContainer } from './styles';
+import { Container, IconButtonContainer } from './styles';
 
 interface Props {
   comment: ExtendedComment;
@@ -34,10 +35,10 @@ const CommentCard: FC<Props> = ({ comment }) => {
             </Link>
             <Typography>{text}</Typography>
             <IconButtonContainer>
-              <IconButton secondary={hasLiked}>
+              <IconButton size="sm" grow={false} secondary={hasLiked}>
                 <MdFavorite /> {likeCount}
               </IconButton>
-              <IconButton>
+              <IconButton size="sm" grow={false}>
                 <MdComment /> {replyCount}
               </IconButton>
             </IconButtonContainer>

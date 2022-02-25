@@ -9,10 +9,11 @@ import CommentList from '../CommentList';
 import Avatar from '../elements/Avatar';
 import Box, { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
+import IconButton from '../elements/IconButton';
 import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
 import './styles';
-import { Container, IconButton, IconButtonContainer } from './styles';
+import { Container, IconButtonContainer } from './styles';
 
 interface Props {
   post: ExtendedPost;

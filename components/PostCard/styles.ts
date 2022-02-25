@@ -14,30 +14,6 @@ export const IconButtonContainer = styled.div`
   &:not(:last-child) {
     border-bottom: 1px solid ${(props) => props.theme.overlay};
     padding-bottom: 0.5rem;
-  }
-`;
-
-export const IconButton = styled.button<{ secondary?: boolean }>`
-  background: none;
-  border: none;
-  flex-basis: 0;
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: ${(props) => props.theme.transition};
-  cursor: pointer;
-  color: ${(props) => props.theme.text};
-  padding: 0.5rem;
-  border-radius: 0.25rem;
-  & :hover {
-    color: ${(props) => props.theme.primary};
-    background: ${(props) => props.theme.overlay};
-  }
-  & > svg {
-    ${(props) => props.secondary && `color: ${props.theme.secondary};`}
-    width: 1.25rem;
-    height: 1.25rem;
+    margin-bottom: 1rem;
   }
 `;
