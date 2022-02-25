@@ -18,7 +18,7 @@ const ProfileCard: FC<Props> = ({ user }) => {
   const { mutate: followUser, isLoading } = useFollowUser(user._id);
 
   const getStatus = () => {
-    if (user?.isFollowing && user?.isFollowing) return 'Following eachother';
+    if (user?.isFollowing && user?.isFollowingYou) return 'Following eachother';
     if (user?.isFollowing) return 'Following';
     if (user?.isFollowingYou) return 'Following you';
     if (user?.isOpenToCollaborate) return 'Open to collaborate';
