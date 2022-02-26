@@ -15,7 +15,8 @@ interface Data {
   data: ExtendedComment[];
   limit: number;
   page: number;
-  totalPages: number;
+  pageCount: number;
+  commentCount: number;
 }
 
 const getComments = async (limit: number, page: number, postId: string) => {
@@ -40,7 +41,7 @@ const useComments = (postId: string, limit = 5) => {
     {
       enabled: !!user,
       getNextPageParam: (lastPage) => {
-        if (lastPage.page < lastPage.totalPages) return lastPage.page + 1;
+        if (lastPage.page < lastPage.pageCount) return lastPage.page + 1;
         return undefined;
       },
     },

@@ -11,7 +11,7 @@ interface Props {
 }
 
 const CommentsList: FC<Props> = ({ postId }) => {
-  const { data, fetchNextPage } = useComments(postId);
+  const { data, fetchNextPage, hasNextPage } = useComments(postId);
 
   return (
     <Flexbox direction="column" gap="1rem">
@@ -25,9 +25,11 @@ const CommentsList: FC<Props> = ({ postId }) => {
           </>
         ))}
       </Flexbox>
-      <Box onClick={() => fetchNextPage()} width="fit-content">
-        <Typography isClickable>View more comments...</Typography>
-      </Box>
+      {hasNextPage && (
+        <Box onClick={() => fetchNextPage()} width="fit-content">
+          <Typography isClickable>View more comments...</Typography>
+        </Box>
+      )}
     </Flexbox>
   );
 };

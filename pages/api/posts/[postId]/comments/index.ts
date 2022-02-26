@@ -44,9 +44,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         }));
 
         const documentCount = await CommentModel.countDocuments(query);
-        const totalPages = Math.ceil(documentCount / limit);
+        const pageCount = Math.ceil(documentCount / limit);
 
-        res.json({ data, limit, page, totalPages });
+        res.json({ data, limit, page, pageCount });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }
