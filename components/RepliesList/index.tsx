@@ -16,25 +16,29 @@ const RepliesList: FC<Props> = ({ postId, commentId, commentAuthorName }) => {
   const { data, fetchNextPage, hasNextPage } = useReplies(postId, commentId);
 
   return (
-    <Flexbox direction="column" gap="1rem">
+    <Flexbox direction="column" gap="1rem" marginBottom="1rem">
       <ReplyForm
         postId={postId}
         commentId={commentId}
         commentAuthorName={commentAuthorName}
       />
-      <Flexbox direction="column" gap="1rem">
-        {data?.pages.map((page) => (
-          <>
-            {page.data.map((reply) => (
-              <ReplyCard reply={reply} key={reply._id} />
+      {!!data?.pages[0]?.data.length && (
+        <>
+          <Flexbox direction="column" gap="1rem">
+            {data?.pages.map((page) => (
+              <>
+                {page.data.map((reply) => (
+                  <ReplyCard reply={reply} key={reply._id} />
+                ))}
+              </>
             ))}
-          </>
-        ))}
-      </Flexbox>
-      {hasNextPage && (
-        <Box onClick={() => fetchNextPage()} width="fit-content">
-          <Typography isClickable>View more replies...</Typography>
-        </Box>
+          </Flexbox>
+          {hasNextPage && (
+            <Box onClick={() => fetchNextPage()} width="fit-content">
+              <Typography isClickable>View more replies...</Typography>
+            </Box>
+          )}
+        </>
       )}
     </Flexbox>
   );

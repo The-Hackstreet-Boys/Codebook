@@ -16,19 +16,23 @@ const CommentsList: FC<Props> = ({ postId }) => {
   return (
     <Flexbox direction="column" gap="1rem">
       <CommentForm postId={postId} />
-      <Flexbox direction="column" gap="1rem">
-        {data?.pages.map((page) => (
-          <>
-            {page.data.map((comment) => (
-              <CommentCard comment={comment} key={comment._id} />
+      {!!data?.pages[0]?.data.length && (
+        <>
+          <Flexbox direction="column" gap="1rem">
+            {data?.pages.map((page) => (
+              <>
+                {page.data.map((comment) => (
+                  <CommentCard comment={comment} key={comment._id} />
+                ))}
+              </>
             ))}
-          </>
-        ))}
-      </Flexbox>
-      {hasNextPage && (
-        <Box onClick={() => fetchNextPage()} width="fit-content">
-          <Typography isClickable>View more comments...</Typography>
-        </Box>
+          </Flexbox>
+          {hasNextPage && (
+            <Box onClick={() => fetchNextPage()} width="fit-content">
+              <Typography isClickable>View more comments...</Typography>
+            </Box>
+          )}
+        </>
       )}
     </Flexbox>
   );

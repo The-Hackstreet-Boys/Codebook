@@ -25,7 +25,7 @@ const CommentCard: FC<Props> = ({ comment }) => {
   const { mutate: likeComment } = useLikeComment(comment.post, comment._id);
 
   return (
-    <>
+    <Flexbox direction="column" gap="0.5rem">
       <Container>
         <Link href={`/users/${author._id}`}>
           <a>{author.picture && <Avatar src={author.picture} />}</a>
@@ -65,16 +65,16 @@ const CommentCard: FC<Props> = ({ comment }) => {
           </Box>
         </Flexbox>
       </Container>
-      <Box marginLeft="3.25rem">
-        {repliesVisibility && (
+      {repliesVisibility && (
+        <Box marginLeft="3.25rem">
           <RepliesList
             postId={comment.post}
             commentId={comment._id}
             commentAuthorName={comment.author.name}
           />
-        )}
-      </Box>
-    </>
+        </Box>
+      )}
+    </Flexbox>
   );
 };
 
