@@ -1,9 +1,9 @@
 import axios from 'axios';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
-const likeComment = async (postId: string, commentId: string) => {
+const likeComment = async (commentId: string) => {
   const { origin } = window.location;
-  await axios.post(`${origin}/api/posts/${postId}/comments/${commentId}/like`);
+  await axios.post(`${origin}/api/comments/${commentId}/like`);
 };
 
 const updateQueryCache = (queryClient: QueryClient, postId: string) => {
@@ -13,7 +13,7 @@ const updateQueryCache = (queryClient: QueryClient, postId: string) => {
 const useLikeComment = (postId: string, commentId: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation(() => likeComment(postId, commentId), {
+  return useMutation(() => likeComment(commentId), {
     onSuccess: () => updateQueryCache(queryClient, postId),
   });
 };

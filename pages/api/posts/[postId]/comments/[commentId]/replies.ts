@@ -1,19 +1,18 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import authentication from '../../../../../middleware/authentication';
-import connectToDatabase from '../../../../../middleware/connectToDatabase';
-import CommentModel from '../../../../../models/comment';
-import PostModel from '../../../../../models/post';
-import UserModel from '../../../../../models/user';
+import authentication from '../../../../../../middleware/authentication';
+import connectToDatabase from '../../../../../../middleware/connectToDatabase';
+import CommentModel from '../../../../../../models/comment';
+import UserModel from '../../../../../../models/user';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { postId } = req.query;
+  const { commentId } = req.query;
 
-  const post = await PostModel.findById(postId);
+  const comment = await CommentModel.findById(commentId);
 
-  if (!post) {
-    res.status(404).send(`No post found with id ${postId}!`);
+  if (!comment) {
+    res.status(404).send(`No comment found with id ${commentId}!`);
     return;
   }
 
@@ -25,11 +24,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         const skipAmount = (page - 1) * limit;
 
         const query = {
-          type: 'comment',
-          post: postId,
+          type: 'reply',
+          comment: commentId,
         };
 
-        const comments = await CommentModel.find(query)
+        const replies = await CommentModel.find(query)
           .sort({ createdAt: -1 })
           .limit(limit)
           .skip(skipAmount)
@@ -38,9 +37,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             model: UserModel,
           });
 
-        const data = comments.map((comment) => ({
-          ...comment.toObject(),
-          hasLiked: comment.likes.includes(req.user.id),
+        const data = replies.map((reply) => ({
+          ...reply.toObject(),
+          hasLiked: reply.likes.includes(req.user.id),
         }));
 
         const documentCount = await CommentModel.countDocuments(query);
@@ -54,23 +53,23 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
     case 'POST':
       try {
-        const comment = new CommentModel({
+        const reply = new CommentModel({
           ...req.body,
-          post: postId,
+          comment: commentId,
           author: req.user._id,
-          type: 'comment',
+          type: 'reply',
         });
-        await comment.save();
+        await reply.save();
 
-        await post.updateOne({ $inc: { commentCount: 1 } });
+        await comment.updateOne({ $inc: { replyCount: 1 } });
 
-        res.json(comment);
+        res.json(reply);
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }
       break;
     default:
-      res.setHeader('Allow', ['GET','POST']);
+      res.setHeader('Allow', ['GET', 'POST']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

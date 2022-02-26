@@ -1,7 +1,7 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { MdSend } from 'react-icons/md';
 
-import useCreateComment from '../../hooks/mutations/useCreateComment';
+import useCreateReply from '../../hooks/mutations/useCreateReply';
 import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
 import './styles';
@@ -9,9 +9,11 @@ import { Input, SubmitButton } from './styles';
 
 interface Props {
   postId: string;
+  commentId: string;
+  commentAuthorName: string;
 }
 
-const CommentForm: FC<Props> = ({ postId }) => {
+const ReplyForm: FC<Props> = ({ postId, commentId, commentAuthorName }) => {
   const [text, setText] = useState('');
 
   const onSuccess = () => {
@@ -24,17 +26,17 @@ const CommentForm: FC<Props> = ({ postId }) => {
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    createComment({ text });
+    createReply({ text });
   };
 
-  const { mutate: createComment } = useCreateComment(onSuccess, postId);
+  const { mutate: createReply } = useCreateReply(onSuccess, postId, commentId);
 
   return (
     <Card padding="sm">
       <form onSubmit={handleSubmit}>
         <Flexbox gap="1rem">
           <Input
-            placeholder="Write a comment..."
+            placeholder={`Reply to ${commentAuthorName}...`}
             value={text}
             required
             maxLength={2500}
@@ -49,4 +51,4 @@ const CommentForm: FC<Props> = ({ postId }) => {
   );
 };
 
-export default CommentForm;
+export default ReplyForm;
