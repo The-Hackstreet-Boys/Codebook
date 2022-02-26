@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, MouseEvent } from 'react';
 
 import { H1, H2, H3, H4, H5, H6, P } from './styles';
 
@@ -18,7 +18,8 @@ export interface TypographyProps {
   transform?: TypographyTransform;
   m?: string;
   p?: string;
-  isLink?: boolean;
+  isClickable?: boolean;
+  onClick?: (e: MouseEvent) => void;
 }
 
 const Typography: FC<TypographyProps> = ({

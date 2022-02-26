@@ -19,11 +19,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           return;
         }
 
-        if (userId === comment.author) {
-          res.status(400).send('Cannot like your own comment!');
-          return;
-        }
-
         const alreadyLiked = comment.likes.includes(userId);
 
         if (alreadyLiked) {

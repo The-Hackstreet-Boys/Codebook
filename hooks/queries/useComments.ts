@@ -5,15 +5,18 @@ import { useInfiniteQuery, useQuery } from 'react-query';
 import { Comment } from '../../models/comment';
 import { User } from '../../models/user';
 
-export interface ExtendedComment extends Omit<Comment, 'author'> {
+export interface ExtendedComment extends Omit<Comment, 'author' | 'post'> {
   author: User;
+  hasLiked: boolean;
+  post: string;
 }
 
 interface Data {
   data: ExtendedComment[];
   limit: number;
   page: number;
-  totalPages: number;
+  pageCount: number;
+  commentCount: number;
 }
 
 const getComments = async (limit: number, page: number, postId: string) => {
@@ -27,7 +30,7 @@ const getComments = async (limit: number, page: number, postId: string) => {
   return data;
 };
 
-const useComments = (postId: string, limit = 10) => {
+const useComments = (postId: string, limit = 5) => {
   const { user } = useUser();
 
   return useInfiniteQuery<Data>(
@@ -38,7 +41,7 @@ const useComments = (postId: string, limit = 10) => {
     {
       enabled: !!user,
       getNextPageParam: (lastPage) => {
-        if (lastPage.page < lastPage.totalPages) return lastPage.page + 1;
+        if (lastPage.page < lastPage.pageCount) return lastPage.page + 1;
         return undefined;
       },
     },

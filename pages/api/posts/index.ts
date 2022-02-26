@@ -32,10 +32,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           hasLiked: post.likes.includes(req.user.id),
         }));
 
-        const documentCount = await PostModel.countDocuments(query);
-        const totalPages = Math.ceil(documentCount / limit);
+        const commentCount = await PostModel.countDocuments(query);
+        const pageCount = Math.ceil(commentCount / limit);
 
-        res.json({ data, limit, page, totalPages });
+        res.json({ data, limit, page, pageCount, commentCount });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }

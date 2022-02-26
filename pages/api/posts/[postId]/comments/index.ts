@@ -21,7 +21,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
     case 'GET':
       try {
         const page = parseInt(req.query.page as string) || 1;
-        const limit = parseInt(req.query.limit as string) || 20;
+        const limit = parseInt(req.query.limit as string) || 5;
         const skipAmount = (page - 1) * limit;
 
         const query = {
@@ -29,7 +29,8 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           post: postId,
         };
 
-        const data = await CommentModel.find(query)
+        const comments = await CommentModel.find(query)
+          .sort({ createdAt: -1 })
           .limit(limit)
           .skip(skipAmount)
           .populate({
@@ -37,10 +38,15 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
             model: UserModel,
           });
 
-        const documentCount = await PostModel.countDocuments(query);
-        const totalPages = Math.ceil(documentCount / limit);
+        const data = comments.map((comment) => ({
+          ...comment.toObject(),
+          hasLiked: comment.likes.includes(req.user.id),
+        }));
 
-        res.json({ data, limit, page, totalPages });
+        const documentCount = await CommentModel.countDocuments(query);
+        const pageCount = Math.ceil(documentCount / limit);
+
+        res.json({ data, limit, page, pageCount });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }

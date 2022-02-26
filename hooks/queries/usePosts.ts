@@ -14,7 +14,7 @@ interface Data {
   data: ExtendedPost[];
   limit: number;
   page: number;
-  totalPages: number;
+  pageCount: number;
 }
 
 const getPosts = async (limit: number, page: number, author?: string) => {
@@ -32,14 +32,14 @@ const usePosts = (author?: string, limit = 20) => {
   const { user } = useAuth0User();
 
   return useInfiniteQuery<Data>(
-    ['posts', limit, author],
+    ['posts', author, limit],
     ({ pageParam }) => {
       return getPosts(limit, pageParam, author);
     },
     {
       enabled: !!user,
       getNextPageParam: (lastPage) => {
-        if (lastPage.page < lastPage.totalPages) return lastPage.page + 1;
+        if (lastPage.page < lastPage.pageCount) return lastPage.page + 1;
         return undefined;
       },
     },

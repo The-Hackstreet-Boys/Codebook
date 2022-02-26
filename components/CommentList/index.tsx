@@ -1,31 +1,36 @@
 import { FC } from 'react';
 
 import useComments from '../../hooks/queries/useComments';
-import CommentDisplay from '../CommentDisplay';
+import CommentCard from '../CommentCard';
 import CommentForm from '../CommentForm';
-import Button from '../elements/Button';
+import Box, { Flexbox } from '../elements/Box';
+import Typography from '../elements/Typography';
 
 interface Props {
   postId: string;
 }
 
 const CommentsList: FC<Props> = ({ postId }) => {
-  const { data, fetchNextPage } = useComments(postId);
+  const { data, fetchNextPage, hasNextPage } = useComments(postId);
 
   return (
-    <>
-      {data?.pages.map((page) => (
-        <>
-          {page.data.map((comment) => (
-            <CommentDisplay comment={comment} key={comment._id} />
-          ))}
-        </>
-      ))}
-      <Button size="sm" onClick={() => fetchNextPage()}>
-        Fetch more...
-      </Button>
+    <Flexbox direction="column" gap="1rem">
       <CommentForm postId={postId} />
-    </>
+      <Flexbox direction="column" gap="1rem">
+        {data?.pages.map((page) => (
+          <>
+            {page.data.map((comment) => (
+              <CommentCard comment={comment} key={comment._id} />
+            ))}
+          </>
+        ))}
+      </Flexbox>
+      {hasNextPage && (
+        <Box onClick={() => fetchNextPage()} width="fit-content">
+          <Typography isClickable>View more comments...</Typography>
+        </Box>
+      )}
+    </Flexbox>
   );
 };
 
