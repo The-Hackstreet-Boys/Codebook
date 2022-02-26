@@ -2,40 +2,48 @@ import { useUser } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
 
-import { Comment } from '../../models/comment';
+import { Reply } from '../../models/comment';
 import { User } from '../../models/user';
 
-export interface ExtendedComment extends Omit<Comment, 'author' | 'post'> {
+export interface ExtendedReply extends Omit<Reply, 'author' | 'comment'> {
   author: User;
   hasLiked: boolean;
-  post: string;
+  comment: string;
 }
 
 interface Data {
-  data: ExtendedComment[];
+  data: ExtendedReply[];
   limit: number;
   page: number;
   pageCount: number;
 }
 
-const getComments = async (limit: number, page: number, postId: string) => {
+const getReplies = async (
+  limit: number,
+  page: number,
+  postId: string,
+  commentId: string,
+) => {
   const { origin } = window.location;
 
-  const response = await axios.get(`${origin}/api/posts/${postId}/comments`, {
-    params: { limit, page },
-  });
+  const response = await axios.get(
+    `${origin}/api/posts/${postId}/comments/${commentId}/replies`,
+    {
+      params: { limit, page },
+    },
+  );
 
   const data = response.data;
   return data;
 };
 
-const useComments = (postId: string, limit = 5) => {
+const useReplies = (postId: string, commentId: string, limit = 5) => {
   const { user } = useUser();
 
   return useInfiniteQuery<Data>(
-    ['comments', postId, limit],
+    ['replies', commentId, limit],
     ({ pageParam }) => {
-      return getComments(limit, pageParam, postId);
+      return getReplies(limit, pageParam, postId, commentId);
     },
     {
       enabled: !!user,
@@ -47,4 +55,4 @@ const useComments = (postId: string, limit = 5) => {
   );
 };
 
-export default useComments;
+export default useReplies;

@@ -1,9 +1,9 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import authentication from '../../../../../../middleware/authentication';
-import connectToDatabase from '../../../../../../middleware/connectToDatabase';
-import CommentModel from '../../../../../../models/comment';
+import authentication from '../../../../middleware/authentication';
+import connectToDatabase from '../../../../middleware/connectToDatabase';
+import CommentModel from '../../../../models/comment';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { commentId } = req.query;
