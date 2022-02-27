@@ -10,6 +10,7 @@ export interface User extends Document {
   following: string[];
   savedPosts: Types.ObjectId[];
   tags: Types.ObjectId[];
+  lastActiveAt: Date;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -59,6 +60,10 @@ const userSchema = new Schema<User>(
     tags: {
       type: [Schema.Types.ObjectId],
       ref: 'Tag',
+    },
+    lastActiveAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   { timestamps: true },

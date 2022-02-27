@@ -29,7 +29,7 @@ const ProfileCard: FC<Props> = ({ user }) => {
     <Card>
       <Flexbox direction="column" alignItems="center" gap="2rem">
         <Flexbox direction="column" alignItems="center" gap="0.25rem">
-          {user.picture && <Avatar src={user.picture} size="lg" />}
+          {user.picture && <Avatar user={user} size="lg" showStatus />}
           <Typography variant="h4" align="center">
             {user.name}
           </Typography>

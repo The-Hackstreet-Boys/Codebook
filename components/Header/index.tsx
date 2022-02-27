@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
 
+import useCurrentUser from '../../hooks/queries/useCurrentUser';
+import useUser from '../../hooks/queries/useUser';
 import Avatar from '../elements/Avatar';
 import { Flexbox } from '../elements/Box';
 import Button from '../elements/Button';
@@ -11,7 +13,7 @@ import Typography from '../elements/Typography';
 import { Container, SearchBar, SearchInput } from './styles';
 
 const Header: FC = () => {
-  const { user } = useAuth0User();
+  const { data: user } = useCurrentUser();
 
   return (
     <Container>
@@ -35,7 +37,7 @@ const Header: FC = () => {
         </Flexbox>
         {user && (
           <Flexbox alignItems="center" gap="1rem">
-            {user.picture && <Avatar src={user.picture} />}
+            {user.picture && <Avatar user={user} />}
             <Typography variant="h5">{user.name}</Typography>
             {
               // eslint-disable-next-line
