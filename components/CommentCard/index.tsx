@@ -28,7 +28,7 @@ const CommentCard: FC<Props> = ({ comment }) => {
     <Flexbox direction="column" gap="0.5rem">
       <Container>
         <Link href={`/users/${author._id}`}>
-          <a>{author.picture && <Avatar src={author.picture} />}</a>
+          <a>{author.picture && <Avatar user={author} />}</a>
         </Link>
         <Flexbox direction="column" gap="0.2rem" width="fit-content">
           <Card padding="sm">

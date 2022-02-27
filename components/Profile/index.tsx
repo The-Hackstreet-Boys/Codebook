@@ -14,7 +14,7 @@ const Profile: FC<Props> = ({ user }) => (
   <Link href={`/users/${user._id}`}>
     <a>
       <Flexbox gap="0.75rem">
-        {user && <Avatar src={user.picture} />}
+        {user && <Avatar user={user} showStatus />}
         <Flexbox direction="column" justifyContent="center">
           <Typography variant="h6" isClickable>
             {user.name}

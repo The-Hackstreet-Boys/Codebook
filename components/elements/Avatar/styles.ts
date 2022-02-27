@@ -2,7 +2,10 @@ import styled from 'styled-components';
 
 import { AvatarSize } from '.';
 
-export const Container = styled.div<{ size: AvatarSize }>`
+export const Container = styled.div<{
+  size: AvatarSize;
+  showActiveStatus: boolean;
+}>`
   position: relative;
   ${(props) =>
     props.size === 'sm' &&
@@ -16,7 +19,9 @@ export const Container = styled.div<{ size: AvatarSize }>`
     props.size === 'lg' &&
     `width: 7.5rem;
     height: 7.5rem;`}
-  &::after {
+  ${(props) =>
+    props.showActiveStatus &&
+    `&::after {
     position: absolute;
     bottom: 0;
     right: 0;
@@ -24,12 +29,12 @@ export const Container = styled.div<{ size: AvatarSize }>`
     width: 30%;
     height: 30%;
     border-radius: 50%;
-    background: ${(props) => props.theme.active};
-    border: solid ${(props) => props.theme.background};
-    ${(props) => props.size === 'sm' && ' border-width: 0.175rem;'}
-    ${(props) => props.size === 'md' && 'border-width: 0.25rem;'}
-    ${(props) => props.size === 'lg' && 'border-width: 0.325rem;'}
-  }
+    background: ${props.theme.active};
+    border: solid ${props.theme.background};
+    ${props.size === 'sm' ? ' border-width: 0.175rem;' : ''}
+    ${props.size === 'md' ? 'border-width: 0.25rem;' : ''}
+    ${props.size === 'lg' ? 'border-width: 0.325rem;' : ''}
+  }`}
 `;
 
 export const Image = styled.img`

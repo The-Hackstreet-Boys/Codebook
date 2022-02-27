@@ -19,16 +19,18 @@ const authentication = (handler: NextApiHandler) => {
       const existingUser = await UserModel.findById(sub);
 
       if (existingUser) {
-        existingUser.name = name;
-        existingUser.picture = picture;
-        existingUser.email = email;
+        await existingUser.updateOne({
+          name,
+          picture,
+          email,
+          lastActiveAt: new Date(),
+        });
 
-        await existingUser.save();
         req.user = existingUser;
       } else {
         const newUser = new UserModel({ _id: sub, name, picture, email });
-
         await newUser.save();
+
         req.user = newUser;
       }
 

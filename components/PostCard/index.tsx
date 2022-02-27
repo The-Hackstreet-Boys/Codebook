@@ -29,7 +29,7 @@ const PostCard: FC<Props> = ({ post }) => {
     <Card>
       <Container>
         <Link href={`/users/${author._id}`}>
-          <a>{author.picture && <Avatar src={author.picture} />}</a>
+          <a>{author.picture && <Avatar user={author} />}</a>
         </Link>
         <Flexbox direction="column" gap="1rem">
           <Box>

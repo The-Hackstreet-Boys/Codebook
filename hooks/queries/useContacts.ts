@@ -23,6 +23,7 @@ const useContacts = (author?: string, limit = 20) => {
 
   return useQuery<Data>(['contacts'], getContacts, {
     enabled: !!user,
+    refetchInterval: 15000,
   });
 };
 
