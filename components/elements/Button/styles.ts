@@ -10,7 +10,7 @@ export const PrimaryButton = styled.button<{
   color: ${(props) => props.theme.text};
   background: ${(props) => props.theme.primary};
   border: none;
-  border-radius: 0.25rem;
+  border-radius: ${({ theme }) => theme.borderRadius};
   ${(props) =>
     props.size === 'lg' &&
     `padding: 1rem 3rem; font-size: ${props.theme.fontSizeSm};`}

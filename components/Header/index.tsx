@@ -1,18 +1,12 @@
-import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import Link from 'next/link';
 import { FC } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
-import { MdMenu } from 'react-icons/md';
 
 import useCurrentUser from '../../hooks/queries/useCurrentUser';
-import useUser from '../../hooks/queries/useUser';
 import Profile from '../Profile';
-import Avatar from '../elements/Avatar';
 import { Flexbox } from '../elements/Box';
-import Button from '../elements/Button';
 import HeaderDropdown from '../elements/HeaderDropdown';
 import Logo from '../elements/Logo';
-import Typography from '../elements/Typography';
 import { Container, SearchBar, SearchInput } from './styles';
 
 const Header: FC = () => {
@@ -39,20 +33,10 @@ const Header: FC = () => {
           </SearchBar>
         </Flexbox>
         {user && (
-          //   <Flexbox alignItems="center" gap="1rem">
-          //     {user.picture && <Avatar user={user} />}
-          //     <Typography variant="h5">{user.name}</Typography>
-          //     {
-          //       // eslint-disable-next-line
-          //       <a href="/api/auth/logout">
-          //         <Button size="sm">Log Out</Button>
-          //       </a>
-          //     }
-          //   </Flexbox>
-          <HeaderDropdown>
-            <Avatar user={user} showStatus />
-            <MdMenu />
-          </HeaderDropdown>
+          <Flexbox alignItems="center" gap="1rem">
+            <Profile user={user} />
+            <HeaderDropdown />
+          </Flexbox>
         )}
       </Flexbox>
     </Container>

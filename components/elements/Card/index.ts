@@ -9,12 +9,9 @@ interface Props {
 const Card = styled.div<Props>`
   width: 100%;
   background: ${(props) => props.theme.foreground};
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
-    112.5deg,
-    ${(props) => props.theme.foreground},
-    ${(props) => props.theme.primary} 500%
-  );
+  background: ${(props) => props.theme.foregroundGradient};
+  border-radius: ${({ theme }) => theme.borderRadius};
+  ${({ theme }) => theme.shadow}
   ${({ padding = 'lg' }) => {
     switch (padding) {
       case 'sm':
@@ -25,7 +22,6 @@ const Card = styled.div<Props>`
         return 'padding: 2rem;';
     }
   }}
-  border-radius: 0.25rem;
 `;
 
 export default Card;

@@ -1,27 +1,57 @@
-import { FC } from "react";
-import {DropdownSection, DropdownTitle, DropdownContainer, Dropdown, DropdownItem} from "./styles"
+import { FC, useRef } from 'react';
+import {
+  MdArrowDropDown,
+  MdDarkMode,
+  MdLogout,
+  MdSettings,
+} from 'react-icons/md';
 
+import useBoolean from '../../../hooks/useBoolean';
+import useOnClickOutside from '../../../hooks/useOnClickOutside';
+import Box from '../Box';
+import {
+  Dropdown,
+  DropdownDivider,
+  DropdownItem,
+  DropdownToggle,
+} from './styles';
 
-const HeaderDropdown : FC = ({children})=> 
-          <DropdownSection>
-          <DropdownTitle>
-              {children}
-          </DropdownTitle>
-          <DropdownContainer>
-            <Dropdown>
-            {
-              // eslint-disable-next-line
-              <a href="/api/auth/logout">
-                    <DropdownItem>
-                      Log out
-                  </DropdownItem>
-              
-              </a>
-            }
-                
-            </Dropdown>
-          </DropdownContainer>
-        </DropdownSection>
-  
+const HeaderDropdown: FC = () => {
+  const {
+    value: isVisible,
+    toggle: toggleIsVisible,
+    setValue: setIsVisible,
+  } = useBoolean(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useOnClickOutside(ref, () => setIsVisible(false));
 
-  export default HeaderDropdown;
+  return (
+    <Box position="relative" ref={ref}>
+      <DropdownToggle onClick={toggleIsVisible} isVisible={isVisible}>
+        <MdArrowDropDown />
+      </DropdownToggle>
+      <Dropdown isVisible={isVisible}>
+        <DropdownItem>
+          <MdDarkMode />
+          Theme: Dark
+        </DropdownItem>
+        <DropdownItem>
+          <MdSettings />
+          Settings
+        </DropdownItem>
+        <DropdownDivider />
+        {
+          // eslint-disable-next-line
+          <a href="/api/auth/logout">
+            <DropdownItem>
+              <MdLogout />
+              Log out
+            </DropdownItem>
+          </a>
+        }
+      </Dropdown>
+    </Box>
+  );
+};
+
+export default HeaderDropdown;
