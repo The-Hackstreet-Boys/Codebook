@@ -3,9 +3,10 @@ import { FC } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
 
 import useCurrentUser from '../../hooks/queries/useCurrentUser';
+import HeaderDropdown from '../HeaderDropdown';
 import Profile from '../Profile';
 import { Flexbox } from '../elements/Box';
-import HeaderDropdown from '../HeaderDropdown';
+import Card from '../elements/Card';
 import Logo from '../elements/Logo';
 import { Container, SearchBar, SearchInput } from './styles';
 
@@ -27,10 +28,12 @@ const Header: FC = () => {
               <Logo />
             </a>
           </Link>
-          <SearchBar>
-            <MdOutlineSearch />
-            <SearchInput placeholder="Search for posts, groups or people..." />
-          </SearchBar>
+          <Card padding="sm">
+            <SearchBar>
+              <MdOutlineSearch />
+              <SearchInput placeholder="Search for posts, groups or people..." />
+            </SearchBar>
+          </Card>
         </Flexbox>
         {user && (
           <Flexbox alignItems="center" gap="1rem">

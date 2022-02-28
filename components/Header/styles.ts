@@ -11,8 +11,6 @@ export const SearchBar = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
-  background: ${({ theme }) => theme.foreground};
-  padding: 0.5rem 1rem;
   border-radius: ${({ theme }) => theme.borderRadius};
   & > svg {
     color: ${({ theme }) => theme.textSecondary};
