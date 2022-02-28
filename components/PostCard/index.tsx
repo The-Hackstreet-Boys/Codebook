@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
@@ -13,7 +14,7 @@ import IconButton from '../elements/IconButton';
 import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
 import './styles';
-import { Container, IconButtonContainer } from './styles';
+import { Container, IconButtonContainer, ImageContainer } from './styles';
 
 interface Props {
   post: ExtendedPost;
@@ -53,7 +54,17 @@ const PostCard: FC<Props> = ({ post }) => {
           <Typography>{text}</Typography>
         </Flexbox>
       </Container>
-      {picture && <img src={picture} />}
+      {picture && (
+        <ImageContainer>
+          <Image
+            src={picture.url}
+            alt="post image"
+            height={picture.height}
+            width={picture.width}
+            layout="responsive"
+          />
+        </ImageContainer>
+      )}
       <IconButtonContainer>
         <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}

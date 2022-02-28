@@ -7,10 +7,17 @@ export const Container = styled.div`
   padding-bottom: 1rem;
 `;
 
+export const ImageContainer = styled.div`
+  margin: 1rem -2rem;
+`;
+
 export const IconButtonContainer = styled.div`
   display: flex;
-  border-top: 1px solid ${(props) => props.theme.overlay};
   padding-top: 0.5rem;
+  border-top: 1px solid ${(props) => props.theme.overlay};
+  ${ImageContainer} ~ & {
+    border-top: none;
+  }
   &:not(:last-child) {
     border-bottom: 1px solid ${(props) => props.theme.overlay};
     padding-bottom: 0.5rem;

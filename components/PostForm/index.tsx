@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Image from 'next/image';
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
 
@@ -36,11 +37,13 @@ const PostForm: FC = () => {
       data.append('cloud_name', 'codebookspace');
 
       const response = await axios.post(
-        '  https://api.cloudinary.com/v1_1/codebookspace/image/upload',
+        'https://api.cloudinary.com/v1_1/codebookspace/image/upload',
         data,
       );
 
-      createPost({ text, picture: response.data.url });
+      const { secure_url, width, height } = response.data;
+
+      createPost({ text, picture: { url: secure_url, width, height } });
       return;
     }
 
@@ -70,7 +73,9 @@ const PostForm: FC = () => {
           maxLength={10000}
           onChange={handleChangeText}
         />
-        <img src={imageSrc} />
+        {imageSrc && (
+          <Image src={imageSrc} alt="Uploaded" width={100} height={100} />
+        )}
         <IconContainer>
           <input
             type="file"
