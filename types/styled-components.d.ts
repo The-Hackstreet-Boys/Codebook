@@ -9,6 +9,7 @@ declare module 'styled-components' {
     textSecondary: string;
     primary: string;
     secondary: string;
+    dropdownBackground: string;
     buttonPrimaryHover: string;
     buttonSecondaryHover: string;
     buttonPrimaryDisabled: string;

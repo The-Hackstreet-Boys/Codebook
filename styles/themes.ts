@@ -8,6 +8,7 @@ export const darkTheme: DefaultTheme = {
   textSecondary: 'hsla(0, 0%, 100%, 0.5)',
   primary: '#1ab4a4',
   secondary: '#E35789',
+  dropdownBackground: '#16998b',
   buttonPrimaryHover: '#16998b',
   buttonSecondaryHover: '#de3c76',
   buttonPrimaryDisabled: '#0e635a',
