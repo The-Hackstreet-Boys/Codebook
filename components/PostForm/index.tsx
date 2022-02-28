@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { ChangeEvent, FC, FormEvent, useState } from 'react';
+import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
 
 import useCreatePost from '../../hooks/mutations/useCreatePost';
@@ -10,10 +10,12 @@ import { IconContainer, SubmitButton, TextArea } from './styles';
 const PostForm: FC = () => {
   const [text, setText] = useState('');
   const [image, setImage] = useState<File>();
+  const [imageSrc, setImageSrc] = useState<string>();
 
   const onSuccess = () => {
     setText('');
     setImage(undefined);
+    setImageSrc(undefined);
 
     const fileInput = document.getElementById('fileInput');
     if (!fileInput) return;
@@ -52,6 +54,11 @@ const PostForm: FC = () => {
     setImage(file);
   };
 
+  useEffect(() => {
+    if (!image) return;
+    setImageSrc(URL.createObjectURL(image));
+  }, [image]);
+
   const { mutate: createPost } = useCreatePost(onSuccess);
   return (
     <Card>
@@ -63,6 +70,7 @@ const PostForm: FC = () => {
           maxLength={10000}
           onChange={handleChangeText}
         />
+        <img src={imageSrc} />
         <IconContainer>
           <input
             type="file"
