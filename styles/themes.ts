@@ -3,7 +3,17 @@ import { DefaultTheme } from 'styled-components';
 export const darkTheme: DefaultTheme = {
   background: '#12182B',
   foreground: 'hsla(0, 0%, 100%, 0.05)',
+  foregroundGradient: `linear-gradient(
+    112.5deg,
+    hsla(0, 0%, 100%, 0.05),
+    #1ab4a4 500%
+  )`,
+  foregroundBlur: 'backdrop-filter: blur(1.5rem);',
   overlay: 'hsla(0, 0%, 100%, 0.075)',
+  overlay2: 'hsla(0, 0%, 100%, 0.15)',
+  overlay3: 'hsla(0, 0%, 100%, 0.25)',
+  shadow: 'box-shadow: 0 0 0.75rem 0.125rem hsla(0, 0%, 0%, 0.1);',
+  borderRadius: '0.5rem',
   text: '#ffffff',
   textSecondary: 'hsla(0, 0%, 100%, 0.5)',
   primary: '#1ab4a4',
@@ -13,7 +23,7 @@ export const darkTheme: DefaultTheme = {
   buttonPrimaryDisabled: '#0e635a',
   buttonSecondaryDisabled: '#cd225f',
   active: '#31A24C',
-  border: '#ffffff08',
+  border: 'hsla(0,0%,100%,0.025)',
   fontFamily: `'Montserrat', sans-serif`,
   fontFamilySecondary: `'Fira Code', monospace`,
   fontSizeXxxs: '0.65rem',

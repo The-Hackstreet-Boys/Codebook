@@ -4,7 +4,13 @@ declare module 'styled-components' {
   export interface DefaultTheme {
     background: string;
     foreground: string;
+    foregroundGradient: string;
+    foregroundBlur: string;
     overlay: string;
+    overlay2: string;
+    overlay3: string;
+    shadow: string;
+    borderRadius: string;
     text: string;
     textSecondary: string;
     primary: string;
