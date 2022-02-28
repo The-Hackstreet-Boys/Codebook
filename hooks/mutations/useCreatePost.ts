@@ -5,7 +5,7 @@ import { Post } from '../../models/post';
 
 export interface NewPost {
   text: string;
-  picture?: { url: string; width: number; height: number };
+  image?: { url: string; width: number; height: number };
 }
 
 const createPost = async (newPost: NewPost) => {

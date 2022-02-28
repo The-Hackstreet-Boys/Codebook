@@ -43,7 +43,7 @@ const PostForm: FC = () => {
 
       const { secure_url, width, height } = response.data;
 
-      createPost({ text, picture: { url: secure_url, width, height } });
+      createPost({ text, image: { url: secure_url, width, height } });
       return;
     }
 
