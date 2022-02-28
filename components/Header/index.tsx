@@ -8,8 +8,10 @@ import useUser from '../../hooks/queries/useUser';
 import Avatar from '../elements/Avatar';
 import { Flexbox } from '../elements/Box';
 import Button from '../elements/Button';
+import HeaderDropdown from '../elements/HeaderDropdown';
 import Logo from '../elements/Logo';
 import Typography from '../elements/Typography';
+import Profile from '../Profile';
 import { Container, SearchBar, SearchInput } from './styles';
 
 const Header: FC = () => {
@@ -36,17 +38,21 @@ const Header: FC = () => {
           </SearchBar>
         </Flexbox>
         {user && (
-          <Flexbox alignItems="center" gap="1rem">
-            {user.picture && <Avatar user={user} />}
-            <Typography variant="h5">{user.name}</Typography>
-            {
-              // eslint-disable-next-line
-              <a href="/api/auth/logout">
-                <Button size="sm">Log Out</Button>
-              </a>
-            }
-          </Flexbox>
+        //   <Flexbox alignItems="center" gap="1rem">
+        //     {user.picture && <Avatar user={user} />}
+        //     <Typography variant="h5">{user.name}</Typography>
+        //     {
+        //       // eslint-disable-next-line
+        //       <a href="/api/auth/logout">
+        //         <Button size="sm">Log Out</Button>
+        //       </a>
+        //     }
+        //   </Flexbox>
+        <HeaderDropdown>
+          <Profile user={user} />
+        </HeaderDropdown>
         )}
+
       </Flexbox>
     </Container>
   );

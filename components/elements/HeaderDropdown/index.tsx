@@ -1,23 +1,27 @@
-import { DropdownSection,DropdownTitle, DropdownContainer, DropdownItem, Dropdown} from "./styles";
+import { FC } from "react";
+import {DropdownSection, DropdownTitle, DropdownContainer, Dropdown, DropdownItem} from "./styles"
 
 
-
-
-
-const HeaderDropDown : FC = ()=> {
-  return ( <DropdownSection>
+const HeaderDropdown : FC = ({children})=> 
+          <DropdownSection>
           <DropdownTitle>
-            <Profile />
+              {children}
           </DropdownTitle>
           <DropdownContainer>
             <Dropdown>
-                  <DropdownItem onClick={logOut}>
-                    <LogOutIcon />
-                    Log Out
+            {
+              // eslint-disable-next-line
+              <a href="/api/auth/logout">
+                    <DropdownItem>
+                      Log out
                   </DropdownItem>
+              
+              </a>
+            }
+                
             </Dropdown>
           </DropdownContainer>
         </DropdownSection>
-  )}
+  
 
-  export default HeaderDropDown;
+  export default HeaderDropdown;
