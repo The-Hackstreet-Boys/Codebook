@@ -1,9 +1,9 @@
 import { FC } from 'react';
 import {
+  MdBookmark,
   MdDashboard,
   MdMessage,
   MdPeopleAlt,
-  MdSettings,
 } from 'react-icons/md';
 
 import { Flexbox } from '../elements/Box';
@@ -28,9 +28,9 @@ const Sidebar: FC = () => (
           <MdMessage />
         </NavItem>
       </NavLink>
-      <NavLink href="/settings" passHref>
+      <NavLink href="/saved-posts" passHref>
         <NavItem>
-          <MdSettings />
+          <MdBookmark />
         </NavItem>
       </NavLink>
     </Flexbox>

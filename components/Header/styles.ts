@@ -13,7 +13,7 @@ export const SearchBar = styled.div`
   gap: 1rem;
   background: ${(props) => props.theme.foreground};
   padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
+  border-radius: ${({ theme }) => theme.borderRadius};
   & > svg {
     color: ${(props) => props.theme.textSecondary};
     cursor: pointer;
