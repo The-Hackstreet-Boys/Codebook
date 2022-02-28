@@ -37,3 +37,53 @@ export const SubmitButton = styled.button`
   border: none;
   margin-left: auto;
 `;
+
+export const FileButton = styled.label`
+  & > input {
+    position: absolute;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+  }
+`;
+
+export const ImagePreviewRemoveButton = styled.button`
+  position: absolute;
+  visibility: hidden;
+  cursor: pointer;
+  top: 0;
+  right: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 1rem;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  color: ${({ theme }) => theme.textSecondary};
+  background: ${({ theme }) => theme.foreground};
+  & > svg {
+    width: 1rem;
+    height: 1rem;
+  }
+  &:hover {
+    color: ${({ theme }) => theme.text};
+    background: ${({ theme }) => theme.overlay3};
+  }
+`;
+
+export const ImagePreviewContainer = styled.div`
+  width: 5rem;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  position: relative;
+  &:hover ${ImagePreviewRemoveButton} {
+    visibility: visible;
+  }
+`;
+
+export const ImagePreview = styled.img`
+  width: 100%;
+`;

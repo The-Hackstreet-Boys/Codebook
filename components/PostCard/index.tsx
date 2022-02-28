@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
 import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
@@ -13,14 +14,15 @@ import IconButton from '../elements/IconButton';
 import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
 import './styles';
-import { Container, IconButtonContainer } from './styles';
+import { Container, IconButtonContainer, ImageContainer } from './styles';
 
 interface Props {
   post: ExtendedPost;
 }
 
 const PostCard: FC<Props> = ({ post }) => {
-  const { author, text, likeCount, commentCount, createdAt, hasLiked } = post;
+  const { author, text, likeCount, commentCount, createdAt, hasLiked, image } =
+    post;
   const { value: commentsVisibility, toggle: toggleCommentsVisibility } =
     useBoolean(false);
   const { mutate: likePost } = useLikePost(post._id);
@@ -45,6 +47,17 @@ const PostCard: FC<Props> = ({ post }) => {
           <Typography>{text}</Typography>
         </Flexbox>
       </Container>
+      {image && (
+        <ImageContainer>
+          <Image
+            src={image.url}
+            alt="post image"
+            height={image.height}
+            width={image.width}
+            layout="responsive"
+          />
+        </ImageContainer>
+      )}
       <IconButtonContainer>
         <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}

@@ -20,6 +20,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         if (author) query.author = author;
 
         const posts = await PostModel.find(query)
+          .sort({ createdAt: -1 })
           .limit(limit)
           .skip(skipAmount)
           .populate({

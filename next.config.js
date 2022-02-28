@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   productionBrowserSourceMaps: true,
   images: {
-    domains: ['images.ctfassets.net'],
+    domains: ['res.cloudinary.com'],
   },
 };
 
