@@ -37,3 +37,18 @@ export const SubmitButton = styled.button`
   border: none;
   margin-left: auto;
 `;
+
+export const FileButton = styled.label`
+  & > input {
+    position: absolute;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+  }
+`;
+
+export const ImagePreviewContainer = styled.div``;
+
+export const ImagePreview = styled.img`
+  width: 5rem;
+`;

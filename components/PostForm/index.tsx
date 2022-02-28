@@ -1,12 +1,18 @@
 import axios from 'axios';
-import Image from 'next/image';
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
-import { MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
+import { MdClose, MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
 
 import useCreatePost from '../../hooks/mutations/useCreatePost';
 import Card from '../elements/Card';
 import './styles';
-import { IconContainer, SubmitButton, TextArea } from './styles';
+import {
+  FileButton,
+  IconContainer,
+  ImagePreview,
+  ImagePreviewContainer,
+  SubmitButton,
+  TextArea,
+} from './styles';
 
 const PostForm: FC = () => {
   const [text, setText] = useState('');
@@ -15,12 +21,7 @@ const PostForm: FC = () => {
 
   const onSuccess = () => {
     setText('');
-    setImage(undefined);
-    setImageSrc(undefined);
-
-    const fileInput = document.getElementById('fileInput');
-    if (!fileInput) return;
-    (fileInput as HTMLInputElement).value = '';
+    handleRemoveImage();
   };
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -57,6 +58,15 @@ const PostForm: FC = () => {
     setImage(file);
   };
 
+  const handleRemoveImage = () => {
+    setImage(undefined);
+    setImageSrc(undefined);
+
+    const fileInput = document.getElementById('fileInput');
+    if (!fileInput) return;
+    (fileInput as HTMLInputElement).value = '';
+  };
+
   useEffect(() => {
     if (!image) return;
     setImageSrc(URL.createObjectURL(image));
@@ -74,16 +84,21 @@ const PostForm: FC = () => {
           onChange={handleChangeText}
         />
         {imageSrc && (
-          <Image src={imageSrc} alt="Uploaded" width={100} height={100} />
+          <ImagePreviewContainer>
+            <ImagePreview src={imageSrc} alt="Uploaded image" />
+            <MdClose onClick={handleRemoveImage} />
+          </ImagePreviewContainer>
         )}
         <IconContainer>
-          <input
-            type="file"
-            name="file"
-            onChange={handleChange}
-            id="fileInput"
-          />
-          {/* <MdImage /> */}
+          <FileButton>
+            <MdImage />
+            <input
+              type="file"
+              name="file"
+              onChange={handleChange}
+              id="fileInput"
+            />
+          </FileButton>
           <MdTag />
           <MdCode />
           <SubmitButton>
