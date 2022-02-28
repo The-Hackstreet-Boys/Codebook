@@ -19,8 +19,8 @@ export const DropdownTitle = styled.div`
 `;
 export const Dropdown = styled.div`
   width: 20rem;
-  background-color: ${dropdownBackground};
-  box-shadow: 0 0.75rem 1.75rem 0 ${dropdownShadow};
+  background-color: ${(props)=>props.theme.dropdownBackground};
+  box-shadow: 0 0.75rem 1.75rem 0 ${(props)=>props.theme.dropdownShadow};
   border-radius: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -31,7 +31,7 @@ export const DropdownItem = styled.button`
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: ${secondaryTextColor};
+  color: ${(props)=> props.theme.secondary};
   font-size: 0.8rem;
   font-weight: 600;
   white-space: nowrap;
@@ -42,25 +42,25 @@ export const DropdownItem = styled.button`
   border: none;
   outline: none;
   &:hover {
-    background-color: ${dropdownBackgroundHover};
-    color: ${textColor};
+    background-color: ${(props)=> props.theme.buttonPrimaryHover};
+    color: ${(props)=> props.theme.text};
     & > svg {
-      fill: ${textColor};
+      fill: ${(props)=> props.theme.text};
     }
   }
   & > svg {
     transition: fill 150ms;
     height: 1.25rem;
     width: 1.25rem;
-    fill: ${secondaryTextColor};
+    fill: ${(props)=> props.theme.secondary};
   }
 `;
 export const DropdownSection = styled.div`
   position: relative;
   &:hover {
     & > ${DropdownTitle} {
-      & > ${ExpandMore} {
-        fill: ${textColor};
+      & > ${(props)=> props.theme.primary} {
+        fill: ${(props)=> props.theme.text};
         transform: rotate(180deg);
       }
     }

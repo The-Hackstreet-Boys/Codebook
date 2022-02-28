@@ -10,6 +10,7 @@ declare module 'styled-components' {
     primary: string;
     secondary: string;
     dropdownBackground: string;
+    dropdownShadow: string;
     buttonPrimaryHover: string;
     buttonSecondaryHover: string;
     buttonPrimaryDisabled: string;
