@@ -3,6 +3,7 @@ import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { MdClose, MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
 
 import useCreatePost from '../../hooks/mutations/useCreatePost';
+import Box from '../elements/Box';
 import Card from '../elements/Card';
 import './styles';
 import {
@@ -10,6 +11,7 @@ import {
   IconContainer,
   ImagePreview,
   ImagePreviewContainer,
+  ImagePreviewRemoveButton,
   SubmitButton,
   TextArea,
 } from './styles';
@@ -84,10 +86,16 @@ const PostForm: FC = () => {
           onChange={handleChangeText}
         />
         {imageSrc && (
-          <ImagePreviewContainer>
-            <ImagePreview src={imageSrc} alt="Uploaded image" />
-            <MdClose onClick={handleRemoveImage} />
-          </ImagePreviewContainer>
+          <Box width="fit-content" marginBottom="1rem">
+            <Card padding="sm">
+              <ImagePreviewContainer>
+                <ImagePreview src={imageSrc} alt="Uploaded image" />
+                <ImagePreviewRemoveButton>
+                  <MdClose onClick={handleRemoveImage} />
+                </ImagePreviewRemoveButton>
+              </ImagePreviewContainer>
+            </Card>
+          </Box>
         )}
         <IconContainer>
           <FileButton>
