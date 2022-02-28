@@ -7,27 +7,27 @@ export const TextArea = styled.textarea`
   width: 100%;
   height: 5rem;
   resize: none;
-  color: ${(props) => props.theme.text};
-  font-size: ${(props) => props.theme.fontSizeSm};
+  color: ${({ theme }) => theme.text};
+  font-size: ${({ theme }) => theme.fontSizeSm};
   &::placeholder {
-    color: ${(props) => props.theme.textSecondary};
-    font-weight: ${(props) => props.theme.fontWeightMedium};
+    color: ${({ theme }) => theme.textSecondary};
+    font-weight: ${({ theme }) => theme.fontWeightMedium};
   }
 `;
 
 export const IconContainer = styled.div`
   display: flex;
   gap: 1rem;
-  border-top: 1px solid ${(props) => props.theme.overlay};
+  border-top: 1px solid ${({ theme }) => theme.overlay};
   padding-top: 1rem;
   & svg {
     width: 1.25rem;
     height: 1.25rem;
     cursor: pointer;
-    transition: ${(props) => props.theme.transition};
-    color: ${(props) => props.theme.text};
+    transition: ${({ theme }) => theme.transition};
+    color: ${({ theme }) => theme.text};
     & :hover {
-      color: ${(props) => props.theme.primary};
+      color: ${({ theme }) => theme.primary};
     }
   }
 `;
@@ -51,8 +51,8 @@ export const ImagePreviewRemoveButton = styled.button`
   position: absolute;
   visibility: hidden;
   cursor: pointer;
-  top: 0;
-  right: 0;
+  top: 0.5rem;
+  right: 0.5rem;
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 1rem;
@@ -62,7 +62,7 @@ export const ImagePreviewRemoveButton = styled.button`
   justify-content: center;
   padding: 0;
   color: ${({ theme }) => theme.textSecondary};
-  background: ${({ theme }) => theme.foreground};
+  background: ${({ theme }) => theme.overlay2};
   & > svg {
     width: 1rem;
     height: 1rem;
@@ -74,8 +74,7 @@ export const ImagePreviewRemoveButton = styled.button`
 `;
 
 export const ImagePreviewContainer = styled.div`
-  width: 5rem;
-  height: 5rem;
+  max-width: 15rem;
   display: flex;
   align-items: center;
   position: relative;

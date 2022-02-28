@@ -8,6 +8,6 @@ export const Container = styled.div`
 
 export const IconButtonContainer = styled.div`
   display: flex;
-  border-top: 1px solid ${(props) => props.theme.overlay};
+  border-top: 1px solid ${({ theme }) => theme.overlay};
   padding-top: 0.5rem;
 `;

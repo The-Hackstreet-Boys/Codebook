@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
   width: 5rem;
-  border-right: 1px solid ${(props) => props.theme.border};
+  border-right: 1px solid ${({ theme }) => theme.border};
   grid-area: sidebar;
 `;
 
@@ -12,24 +12,24 @@ export const NavItem = styled.a`
   align-items: center;
   justify-content: center;
   height: 5rem;
-  color: ${(props) => props.theme.textSecondary};
-  transition: ${(props) => props.theme.transition};
+  color: ${({ theme }) => theme.textSecondary};
+  transition: ${({ theme }) => theme.transition};
   &:hover {
-    color: ${(props) => props.theme.text};
+    color: ${({ theme }) => theme.text};
   }
   & > svg {
     width: 1.5rem;
     height: 1.5rem;
   }
   &.active {
-    color: ${(props) => props.theme.text};
-    border: 1px solid ${(props) => props.theme.border};
-    border-left: 0.25rem solid ${(props) => props.theme.primary};
+    color: ${({ theme }) => theme.text};
+    border: 1px solid ${({ theme }) => theme.border};
+    border-left: 0.25rem solid ${({ theme }) => theme.primary};
     border-right: none;
     padding-right: 0.25rem;
     background: linear-gradient(
       90deg,
-      ${(props) => props.theme.primary} -500%,
+      ${({ theme }) => theme.primary} -500%,
       transparent
     );
   }

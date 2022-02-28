@@ -5,7 +5,7 @@ import { MdOutlineSearch } from 'react-icons/md';
 import useCurrentUser from '../../hooks/queries/useCurrentUser';
 import Profile from '../Profile';
 import { Flexbox } from '../elements/Box';
-import HeaderDropdown from '../elements/HeaderDropdown';
+import HeaderDropdown from '../HeaderDropdown';
 import Logo from '../elements/Logo';
 import { Container, SearchBar, SearchInput } from './styles';
 

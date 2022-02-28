@@ -1,9 +1,9 @@
 import styled from 'styled-components';
 
 export const Primary = styled.span`
-  color: ${(props) => props.theme.primary};
+  color: ${({ theme }) => theme.primary};
 `;
 
 export const Secondary = styled.span`
-  color: ${(props) => props.theme.secondary};
+  color: ${({ theme }) => theme.secondary};
 `;

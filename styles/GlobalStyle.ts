@@ -10,13 +10,13 @@ const GlobalStyle = createGlobalStyle`
     *:after {
         box-sizing: inherit;
         scrollbar-width: thin;
-        scrollbar-color: ${(props) => props.theme.overlay} transparent;
+        scrollbar-color: ${({ theme }) => theme.overlay} transparent;
     }
 
     :root {
         font-size: 16px;
-        font-family: ${(props) => props.theme.fontFamily};
-        color: ${(props) => props.theme.text};
+        font-family: ${({ theme }) => theme.fontFamily};
+        color: ${({ theme }) => theme.text};
         line-height: 1.3;
         
         @media (max-width: 768px) {
@@ -28,7 +28,7 @@ const GlobalStyle = createGlobalStyle`
     }
 
     body {
-        background: ${(props) => props.theme.background};
+        background: ${({ theme }) => theme.background};
     }
 
     a {
@@ -43,7 +43,7 @@ const GlobalStyle = createGlobalStyle`
     }
     ::-webkit-scrollbar-thumb {
         cursor: pointer;
-        background-color: ${(props) => props.theme.overlay};
+        background-color: ${({ theme }) => theme.overlay};
     }
 `;
 

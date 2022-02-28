@@ -5,11 +5,11 @@ export const Input = styled.input`
   border: none;
   outline: none;
   width: 100%;
-  color: ${(props) => props.theme.text};
-  font-size: ${(props) => props.theme.fontSizeSm};
+  color: ${({ theme }) => theme.text};
+  font-size: ${({ theme }) => theme.fontSizeSm};
   &::placeholder {
-    color: ${(props) => props.theme.textSecondary};
-    font-weight: ${(props) => props.theme.fontWeightMedium};
+    color: ${({ theme }) => theme.textSecondary};
+    font-weight: ${({ theme }) => theme.fontWeightMedium};
   }
 `;
 
@@ -20,10 +20,10 @@ export const SubmitButton = styled.button`
     width: 1.25rem;
     height: 1.25rem;
     cursor: pointer;
-    transition: ${(props) => props.theme.transition};
-    color: ${(props) => props.theme.text};
+    transition: ${({ theme }) => theme.transition};
+    color: ${({ theme }) => theme.text};
     & :hover {
-      color: ${(props) => props.theme.primary};
+      color: ${({ theme }) => theme.primary};
     }
   }
 `;

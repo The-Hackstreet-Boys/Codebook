@@ -19,20 +19,20 @@ const IconButton = styled.button<Props>`
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  transition: ${(props) => props.theme.transition};
+  transition: ${({ theme }) => theme.transition};
   cursor: pointer;
-  color: ${(props) => props.theme.text};
+  color: ${({ theme }) => theme.text};
   padding: ${({ size = 'md' }) =>
     size === 'md' ? '0.5rem 1.25rem' : '0.25rem 1rem'};
   border-radius: 0.25rem;
   font-size: ${({ size = 'md', theme }) =>
     size === 'md' ? theme.fontSizeMd : theme.fontSizeXs};
   & :hover {
-    color: ${(props) => props.theme.primary};
-    background: ${(props) => props.theme.overlay};
+    color: ${({ theme }) => theme.primary};
+    background: ${({ theme }) => theme.overlay};
   }
   & > svg {
-    ${(props) => props.secondary && `color: ${props.theme.secondary};`}
+    ${({ secondary, theme }) => secondary && `color: ${theme.secondary};`}
     width: ${({ size = 'md' }) => (size === 'md' ? '1.25rem' : '0.75')};
     height: ${({ size = 'md' }) => (size === 'md' ? '1.25rem' : '0.75')};
   }

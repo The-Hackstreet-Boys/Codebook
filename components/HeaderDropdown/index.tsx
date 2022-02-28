@@ -6,9 +6,9 @@ import {
   MdSettings,
 } from 'react-icons/md';
 
-import useBoolean from '../../../hooks/useBoolean';
-import useOnClickOutside from '../../../hooks/useOnClickOutside';
-import Box from '../Box';
+import useBoolean from '../../hooks/useBoolean';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
+import Box from '../elements/Box';
 import {
   Dropdown,
   DropdownDivider,

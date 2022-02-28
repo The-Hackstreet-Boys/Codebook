@@ -7,20 +7,20 @@ export const Container = styled.div<{
   showActiveStatus: boolean;
 }>`
   position: relative;
-  ${(props) =>
-    props.size === 'sm' &&
+  ${({size}) =>
+    size === 'sm' &&
     `width: 2.5rem;
     height: 2.5rem;`}
-  ${(props) =>
-    props.size === 'md' &&
+  ${({size}) =>
+    size === 'md' &&
     `width: 5rem;
     height: 5rem;`}
-  ${(props) =>
-    props.size === 'lg' &&
+  ${({size}) =>
+    size === 'lg' &&
     `width: 7.5rem;
     height: 7.5rem;`}
-  ${(props) =>
-    props.showActiveStatus &&
+  ${({showActiveStatus, theme, size}) =>
+    showActiveStatus &&
     `&::after {
     position: absolute;
     bottom: 0;
@@ -29,11 +29,11 @@ export const Container = styled.div<{
     width: 30%;
     height: 30%;
     border-radius: 50%;
-    background: ${props.theme.active};
-    border: solid ${props.theme.background};
-    ${props.size === 'sm' ? ' border-width: 0.175rem;' : ''}
-    ${props.size === 'md' ? 'border-width: 0.25rem;' : ''}
-    ${props.size === 'lg' ? 'border-width: 0.325rem;' : ''}
+    background: ${theme.active};
+    border: solid ${theme.background};
+    ${size === 'sm' ? ' border-width: 0.175rem;' : ''}
+    ${size === 'md' ? 'border-width: 0.25rem;' : ''}
+    ${size === 'lg' ? 'border-width: 0.325rem;' : ''}
   }`}
 `;
 
