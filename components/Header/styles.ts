@@ -39,3 +39,32 @@ export const SearchInput = styled.input`
     color: ${(props) => props.theme.textSecondary};
   }
 `;
+
+export const HeaderDropdownItem = styled.a`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 5rem;
+  color: ${(props) => props.theme.textSecondary};
+  transition: ${(props) => props.theme.transition};
+  &:hover {
+    color: ${(props) => props.theme.text};
+  }
+  & > svg {
+    width: 2rem;
+    height: 2rem;
+  }
+  &.active {
+    color: ${(props) => props.theme.text};
+    border: 1px solid ${(props) => props.theme.border};
+    border-left: 0.25rem solid ${(props) => props.theme.primary};
+    border-right: none;
+    padding-left: 10rem;
+    background: linear-gradient(
+      90deg,
+      ${(props) => props.theme.primary} -500%,
+      transparent
+    );
+  }
+`;
