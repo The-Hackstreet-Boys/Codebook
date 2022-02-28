@@ -7,6 +7,7 @@ export interface Post extends Document {
   likes: string[];
   commentCount: number;
   tags: Types.ObjectId[];
+  picture?: string;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -19,6 +20,7 @@ const postSchema = new Schema<Post>(
     likes: { type: [String], ref: 'User' },
     commentCount: { type: Number, default: 0, min: 0 },
     tags: { type: [Schema.Types.ObjectId], ref: 'Tag' },
+    picture: String,
   },
   { timestamps: true },
 );

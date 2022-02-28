@@ -20,7 +20,15 @@ interface Props {
 }
 
 const PostCard: FC<Props> = ({ post }) => {
-  const { author, text, likeCount, commentCount, createdAt, hasLiked } = post;
+  const {
+    author,
+    text,
+    likeCount,
+    commentCount,
+    createdAt,
+    hasLiked,
+    picture,
+  } = post;
   const { value: commentsVisibility, toggle: toggleCommentsVisibility } =
     useBoolean(false);
   const { mutate: likePost } = useLikePost(post._id);
@@ -45,6 +53,7 @@ const PostCard: FC<Props> = ({ post }) => {
           <Typography>{text}</Typography>
         </Flexbox>
       </Container>
+      {picture && <img src={picture} />}
       <IconButtonContainer>
         <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}

@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
 
@@ -8,26 +9,47 @@ import { IconContainer, SubmitButton, TextArea } from './styles';
 
 const PostForm: FC = () => {
   const [text, setText] = useState('');
-  const [imageSrc, setImageSrc] = useState('');
-  const [uploadData, setUploadData] = useState('');
+  const [image, setImage] = useState<File>();
 
   const onSuccess = () => {
     setText('');
+    setImage(undefined);
+
+    const fileInput = document.getElementById('fileInput');
+    if (!fileInput) return;
+    (fileInput as HTMLInputElement).value = '';
   };
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (image) {
+      const data = new FormData();
+      data.append('file', image);
+      data.append('upload_preset', 'svryaukj');
+      data.append('cloud_name', 'codebookspace');
+
+      const response = await axios.post(
+        '  https://api.cloudinary.com/v1_1/codebookspace/image/upload',
+        data,
+      );
+
+      createPost({ text, picture: response.data.url });
+      return;
+    }
+
     createPost({ text });
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
+
     if (!file) return;
-    console.log(file);
+    setImage(file);
   };
 
   const { mutate: createPost } = useCreatePost(onSuccess);
@@ -41,9 +63,13 @@ const PostForm: FC = () => {
           maxLength={10000}
           onChange={handleChangeText}
         />
-        {imageSrc}
         <IconContainer>
-          <input type="file" name="file" onChange={handleChange} />
+          <input
+            type="file"
+            name="file"
+            onChange={handleChange}
+            id="fileInput"
+          />
           {/* <MdImage /> */}
           <MdTag />
           <MdCode />
