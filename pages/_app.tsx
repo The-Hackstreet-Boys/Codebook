@@ -9,7 +9,7 @@ import { ThemeProvider } from 'styled-components';
 import { Normalize } from 'styled-normalize';
 
 import GlobalStyle from '../styles/GlobalStyle';
-import { darkTheme } from '../styles/themes';
+import { lightTheme } from '../styles/themes';
 
 dayjs.extend(relativeTime);
 
@@ -19,7 +19,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <UserProvider>
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={darkTheme}>
+        <ThemeProvider theme={lightTheme}>
           <Normalize />
           <GlobalStyle />
           <Component {...pageProps} />
