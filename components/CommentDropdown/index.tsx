@@ -4,12 +4,7 @@ import { MdDelete, MdMoreHoriz } from 'react-icons/md';
 import useDeleteComment from '../../hooks/mutations/useDeleteComment';
 import useBoolean from '../../hooks/useBoolean';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-} from '../elements/Dropdown';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from '../elements/Dropdown';
 
 interface Props {
   commentId: string;

@@ -25,16 +25,14 @@ export const IconButtonContainer = styled.div`
   }
 `;
 
-export const MenuToggle = styled.button< {isVisible: boolean}>`
-
+export const MenuToggle = styled.button<{ isVisible: boolean }>`
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${({ theme, isVisible }) =>
-    isVisible ? theme.overlay2 :"none"};
- 
+  background: ${({ theme, isVisible }) => (isVisible ? theme.overlay2 : 'none')};
+
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 1.25rem;
@@ -48,6 +46,4 @@ export const MenuToggle = styled.button< {isVisible: boolean}>`
     background: ${({ theme }) => theme.overlay3};
     ${({ theme }) => theme.shadow}
   }
-  
-
-`
+`;

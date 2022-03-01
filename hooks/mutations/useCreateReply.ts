@@ -19,10 +19,7 @@ const createReply = async (newReply: NewReply, comment: ExtendedComment) => {
   return createdReply;
 };
 
-const updateQueryCache = (
-  queryClient: QueryClient,
-  comment: ExtendedComment,
-) => {
+const updateQueryCache = (queryClient: QueryClient, comment: ExtendedComment) => {
   queryClient.invalidateQueries(['replies', comment._id]);
 };
 

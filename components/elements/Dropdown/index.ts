@@ -42,14 +42,12 @@ export const Dropdown = styled.div<{ isOpen: boolean }>`
   position: relative;
   & ${DropdownToggle} {
     ${({ isOpen: isVisible }) => !isVisible && 'box-shadow: none;'}
-    background: ${({ theme, isOpen: isVisible }) =>
-      isVisible && theme.overlay2};
+    background: ${({ theme, isOpen: isVisible }) => isVisible && theme.overlay2};
     ${({ isOpen: isVisible }) => isVisible && 'opacity: 1 !important;'}
   }
   & ${DropdownMenu} {
     margin-top: ${({ isOpen: isVisible }) => (isVisible ? '1rem' : '0')};
-    visibility: ${({ isOpen: isVisible }) =>
-      isVisible ? 'visible' : 'hidden'};
+    visibility: ${({ isOpen: isVisible }) => (isVisible ? 'visible' : 'hidden')};
     opacity: ${({ isOpen: isVisible }) => (isVisible ? '1' : '0')};
   }
 `;

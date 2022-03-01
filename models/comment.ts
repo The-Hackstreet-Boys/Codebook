@@ -38,8 +38,4 @@ const commentSchema = new Schema<CommentOrReply>(
 );
 
 export default (mongoose.models.Comment ||
-  model<CommentOrReply>(
-    'Comment',
-    commentSchema,
-    'comments',
-  )) as Model<CommentOrReply>;
+  model<CommentOrReply>('Comment', commentSchema, 'comments')) as Model<CommentOrReply>;

@@ -9,10 +9,7 @@ const likeComment = async (comment: ExtendedComment | ExtendedReply) => {
   await axios.post(`${origin}/api/comments/${comment._id}/like`);
 };
 
-const updateQueryCache = (
-  queryClient: QueryClient,
-  comment: ExtendedComment | ExtendedReply,
-) => {
+const updateQueryCache = (queryClient: QueryClient, comment: ExtendedComment | ExtendedReply) => {
   switch (comment.type) {
     case 'comment':
       queryClient.invalidateQueries(['comments', comment.post]);

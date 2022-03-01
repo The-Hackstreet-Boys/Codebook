@@ -22,8 +22,7 @@ interface Props {
 }
 
 const PostCard: FC<Props> = ({ post }) => {
-  const { author, text, likeCount, commentCount, createdAt, hasLiked, image } =
-    post;
+  const { author, text, likeCount, commentCount, createdAt, hasLiked, image } = post;
   const [commentsVisibility, toggleCommentsVisibility] = useBoolean(false);
   const { mutate: likePost } = useLikePost(post._id);
 

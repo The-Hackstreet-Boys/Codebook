@@ -1,10 +1,5 @@
 import { FC, useRef } from 'react';
-import {
-  MdArrowDropDown,
-  MdDarkMode,
-  MdLogout,
-  MdSettings,
-} from 'react-icons/md';
+import { MdArrowDropDown, MdDarkMode, MdLogout, MdSettings } from 'react-icons/md';
 
 import useBoolean from '../../hooks/useBoolean';
 import useOnClickOutside from '../../hooks/useOnClickOutside';

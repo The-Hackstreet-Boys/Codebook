@@ -100,12 +100,7 @@ const PostForm: FC = () => {
         <IconContainer>
           <FileButton>
             <MdImage />
-            <input
-              type="file"
-              name="file"
-              onChange={handleChange}
-              id="fileInput"
-            />
+            <input type="file" name="file" onChange={handleChange} id="fileInput" />
           </FileButton>
           <MdTag />
           <MdCode />

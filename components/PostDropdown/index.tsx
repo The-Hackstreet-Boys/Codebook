@@ -4,12 +4,7 @@ import { MdDelete, MdMoreHoriz } from 'react-icons/md';
 import useDeletePost from '../../hooks/mutations/useDeletePost';
 import useBoolean from '../../hooks/useBoolean';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
-import {
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-} from '../elements/Dropdown';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from '../elements/Dropdown';
 
 interface Props {
   postId: string;

@@ -19,11 +19,7 @@ interface Data {
   pageCount: number;
 }
 
-const getReplies = async (
-  limit: number,
-  page: number,
-  comment: ExtendedComment,
-) => {
+const getReplies = async (limit: number, page: number, comment: ExtendedComment) => {
   const { origin } = window.location;
 
   const response = await axios.get(

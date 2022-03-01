@@ -28,7 +28,7 @@ const ReplyForm: FC<Props> = ({ comment }) => {
     createReply({ text });
   };
 
-  const { mutate: createReply } = useCreateReply(onSuccess,comment);
+  const { mutate: createReply } = useCreateReply(onSuccess, comment);
 
   return (
     <Card padding="sm">
