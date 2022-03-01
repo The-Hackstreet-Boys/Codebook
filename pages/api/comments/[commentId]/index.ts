@@ -4,7 +4,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import authentication from '../../../../middleware/authentication';
 import connectToDatabase from '../../../../middleware/connectToDatabase';
 import CommentModel from '../../../../models/comment';
- import PostModel from '../../../../models/comment';
+import PostModel from '../../../../models/post';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { commentId } = req.query;
@@ -21,19 +21,21 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           res.status(403).send('Not authorised to delete');
           return;
         }
-        if(comment.type === 'reply'){
-             await CommentModel.findByIdAndUpdate(comment.comment,{$inc:{replyCount: -1}})
+        if (comment.type === 'reply') {
+          await CommentModel.findByIdAndUpdate(comment.comment, {
+            $inc: { replyCount: -1 },
+          });
         }
-        if(comment.type === 'comment'){
-            await PostModel.findByIdAndUpdate(comment.post,{$inc:{commentCount: -1}})
-       }
+        if (comment.type === 'comment') {
+          await PostModel.findByIdAndUpdate(comment.post, {
+            $inc: { commentCount: -1 },
+          });
+        }
 
-        
-    await CommentModel.deleteMany({type:'reply',comment: commentId})   
-     const deletedComment =   await  comment.deleteOne();
-     
-     res.json(deletedComment);
+        await CommentModel.deleteMany({ type: 'reply', comment: commentId });
+        const deletedComment = await comment.deleteOne();
 
+        res.json(deletedComment);
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }

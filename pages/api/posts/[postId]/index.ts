@@ -4,10 +4,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import authentication from '../../../../middleware/authentication';
 import connectToDatabase from '../../../../middleware/connectToDatabase';
 import CommentModel from '../../../../models/comment';
- import PostModel from '../../../../models/comment';
+import PostModel from '../../../../models/post';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { postId} = req.query;
+  const { postId } = req.query;
 
   switch (req.method) {
     case 'DELETE':
@@ -21,13 +21,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           res.status(403).send('Not authorised to delete');
           return;
         }
-        
-        
-    await CommentModel.deleteMany({post: postId})   
-     const deletedPost =   await  post.deleteOne();
-     
-     res.json(deletedPost);
 
+        await CommentModel.deleteMany({ post: postId });
+        const deletedPost = await post.deleteOne();
+
+        res.json(deletedPost);
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }

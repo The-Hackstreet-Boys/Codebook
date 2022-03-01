@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
+import useDeletePost from '../../hooks/mutations/useDeletePost';
 import useLikePost from '../../hooks/mutations/useLikePost';
 import { ExtendedPost } from '../../hooks/queries/usePosts';
 import useBoolean from '../../hooks/useBoolean';
@@ -26,6 +27,7 @@ const PostCard: FC<Props> = ({ post }) => {
   const { value: commentsVisibility, toggle: toggleCommentsVisibility } =
     useBoolean(false);
   const { mutate: likePost } = useLikePost(post._id);
+  const { mutate: deletePost } = useDeletePost(post._id);
 
   return (
     <Card>
@@ -59,6 +61,7 @@ const PostCard: FC<Props> = ({ post }) => {
         </ImageContainer>
       )}
       <IconButtonContainer>
+        <button onClick={() => deletePost()}>Delete</button>
         <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}
         </IconButton>
