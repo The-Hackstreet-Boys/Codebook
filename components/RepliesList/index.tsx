@@ -1,34 +1,29 @@
 import { FC } from 'react';
 
+import { ExtendedComment } from '../../hooks/queries/useComments';
 import useReplies from '../../hooks/queries/useReplies';
-import ReplyCard from '../ReplyCard';
+import CommentCard from '../CommentCard';
 import ReplyForm from '../ReplyForm';
 import Box, { Flexbox } from '../elements/Box';
 import Typography from '../elements/Typography';
 
 interface Props {
-  postId: string;
-  commentId: string;
-  commentAuthorName: string;
+  comment: ExtendedComment;
 }
 
-const RepliesList: FC<Props> = ({ postId, commentId, commentAuthorName }) => {
-  const { data, fetchNextPage, hasNextPage } = useReplies(postId, commentId);
+const RepliesList: FC<Props> = ({ comment }) => {
+  const { data, fetchNextPage, hasNextPage } = useReplies(comment);
 
   return (
     <Flexbox direction="column" gap="1rem" marginBottom="1rem">
-      <ReplyForm
-        postId={postId}
-        commentId={commentId}
-        commentAuthorName={commentAuthorName}
-      />
+      <ReplyForm comment={comment} />
       {!!data?.pages[0]?.data.length && (
         <>
           <Flexbox direction="column" gap="1rem">
             {data?.pages.map((page) => (
               <>
                 {page.data.map((reply) => (
-                  <ReplyCard reply={reply} key={reply._id} />
+                  <CommentCard comment={reply} key={reply._id} />
                 ))}
               </>
             ))}

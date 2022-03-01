@@ -1,21 +1,12 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 
-interface ReturnType {
-  value: boolean;
-  setValue: Dispatch<SetStateAction<boolean>>;
-  setTrue: () => void;
-  setFalse: () => void;
-  toggle: () => void;
-}
+type ReturnType = [boolean, () => void, Dispatch<SetStateAction<boolean>>];
 
-function useBoolean(defaultValue?: boolean): ReturnType {
-  const [value, setValue] = useState(!!defaultValue);
+const useBoolean = (defaultValue = false): ReturnType => {
+  const [value, setValue] = useState(defaultValue);
+  const toggleValue = () => setValue((x) => !x);
 
-  const setTrue = () => setValue(true);
-  const setFalse = () => setValue(false);
-  const toggle = () => setValue((x) => !x);
-
-  return { value, setValue, setTrue, setFalse, toggle };
-}
+  return [value, toggleValue, setValue];
+};
 
 export default useBoolean;

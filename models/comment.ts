@@ -21,9 +21,9 @@ export interface Reply extends BaseComment {
   comment: Types.ObjectId;
 }
 
-type Data = Comment | Reply;
+export type CommentOrReply = Comment | Reply;
 
-const commentSchema = new Schema<Data>(
+const commentSchema = new Schema<CommentOrReply>(
   {
     type: { required: true, type: String, enum: ['comment', 'reply'] },
     post: { required: true, type: Schema.Types.ObjectId, ref: 'Post' },
@@ -38,4 +38,8 @@ const commentSchema = new Schema<Data>(
 );
 
 export default (mongoose.models.Comment ||
-  model<Data>('Comment', commentSchema, 'comments')) as Model<Data>;
+  model<CommentOrReply>(
+    'Comment',
+    commentSchema,
+    'comments',
+  )) as Model<CommentOrReply>;

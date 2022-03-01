@@ -5,6 +5,8 @@ declare module 'styled-components' {
     background: string;
     foreground: string;
     foregroundGradient: string;
+    dropdown: string;
+    dropdownGradient: string;
     foregroundBlur: string;
     overlay: string;
     overlay2: string;

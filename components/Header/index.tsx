@@ -36,7 +36,7 @@ const Header: FC = () => {
           </Card>
         </Flexbox>
         {user && (
-          <Flexbox alignItems="center" gap="1rem">
+          <Flexbox alignItems="center" gap="0.5rem">
             <Profile user={user} />
             <HeaderDropdown />
           </Flexbox>

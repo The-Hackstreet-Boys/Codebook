@@ -1,20 +1,33 @@
 import axios from 'axios';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
-const likeComment = async (commentId: string) => {
+import { ExtendedComment } from '../queries/useComments';
+import { ExtendedReply } from '../queries/useReplies';
+
+const likeComment = async (comment: ExtendedComment | ExtendedReply) => {
   const { origin } = window.location;
-  await axios.post(`${origin}/api/comments/${commentId}/like`);
+  await axios.post(`${origin}/api/comments/${comment._id}/like`);
 };
 
-const updateQueryCache = (queryClient: QueryClient, postId: string) => {
-  queryClient.invalidateQueries(['comments', postId]);
+const updateQueryCache = (
+  queryClient: QueryClient,
+  comment: ExtendedComment | ExtendedReply,
+) => {
+  switch (comment.type) {
+    case 'comment':
+      queryClient.invalidateQueries(['comments', comment.post]);
+      break;
+    case 'reply':
+      queryClient.invalidateQueries(['replies', comment.comment]);
+      break;
+  }
 };
 
-const useLikeComment = (postId: string, commentId: string) => {
+const useLikeComment = (comment: ExtendedComment | ExtendedReply) => {
   const queryClient = useQueryClient();
 
-  return useMutation(() => likeComment(commentId), {
-    onSuccess: () => updateQueryCache(queryClient, postId),
+  return useMutation(() => likeComment(comment), {
+    onSuccess: () => updateQueryCache(queryClient, comment),
   });
 };
 

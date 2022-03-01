@@ -2,19 +2,16 @@ import axios from 'axios';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
 import { Reply } from '../../models/comment';
+import { ExtendedComment } from '../queries/useComments';
 
 export interface NewReply {
   text: string;
 }
 
-const createReply = async (
-  newReply: NewReply,
-  postId: string,
-  commentId: string,
-) => {
+const createReply = async (newReply: NewReply, comment: ExtendedComment) => {
   const { origin } = window.location;
   const response = await axios.post<Reply>(
-    `${origin}/api/posts/${postId}/comments/${commentId}/replies`,
+    `${origin}/api/posts/${comment.post}/comments/${comment._id}/replies`,
     newReply,
   );
 
@@ -22,26 +19,22 @@ const createReply = async (
   return createdReply;
 };
 
-const updateQueryCache = (queryClient: QueryClient, commentId: string) => {
-  queryClient.invalidateQueries(['replies', commentId]);
+const updateQueryCache = (
+  queryClient: QueryClient,
+  comment: ExtendedComment,
+) => {
+  queryClient.invalidateQueries(['replies', comment._id]);
 };
 
-const useCreateReply = (
-  onSuccess: () => void,
-  postId: string,
-  commentId: string,
-) => {
+const useCreateReply = (onSuccess: () => void, comment: ExtendedComment) => {
   const queryClient = useQueryClient();
 
-  return useMutation(
-    (newReply: NewReply) => createReply(newReply, postId, commentId),
-    {
-      onSuccess: () => {
-        updateQueryCache(queryClient, commentId);
-        onSuccess();
-      },
+  return useMutation((newReply: NewReply) => createReply(newReply, comment), {
+    onSuccess: () => {
+      updateQueryCache(queryClient, comment);
+      onSuccess();
     },
-  );
+  });
 };
 
 export default useCreateReply;
