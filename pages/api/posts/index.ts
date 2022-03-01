@@ -8,9 +8,7 @@ import UserModel from '../../../models/user';
 
 import Filter from 'bad-words';
 
-
 const filter = new Filter();
-
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
@@ -49,7 +47,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       break;
     case 'POST':
       try {
-        const post = new PostModel({ ...req.body, author: req.user._id,text:filter.clean(req.body.text) });
+        const post = new PostModel({
+          ...req.body,
+          author: req.user._id,
+          text: filter.clean(req.body.text),
+        });
 
         await post.save();
         res.json(post);
