@@ -7,19 +7,19 @@ export const Container = styled.div<{
   showActiveStatus: boolean;
 }>`
   position: relative;
-  ${({size}) =>
+  ${({ size }) =>
     size === 'sm' &&
     `width: 2.5rem;
     height: 2.5rem;`}
-  ${({size}) =>
+  ${({ size }) =>
     size === 'md' &&
     `width: 5rem;
     height: 5rem;`}
-  ${({size}) =>
+  ${({ size }) =>
     size === 'lg' &&
     `width: 7.5rem;
     height: 7.5rem;`}
-  ${({showActiveStatus, theme, size}) =>
+  ${({ showActiveStatus, theme, size }) =>
     showActiveStatus &&
     `&::after {
     position: absolute;
