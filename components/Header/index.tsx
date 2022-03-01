@@ -11,7 +11,7 @@ import Logo from '../elements/Logo';
 import { Container, SearchBar, SearchInput } from './styles';
 
 const Header: FC = () => {
-  const { data: user } = useCurrentUser();
+  const { data: user, isLoading } = useCurrentUser();
 
   return (
     <Container>
@@ -35,12 +35,14 @@ const Header: FC = () => {
             </SearchBar>
           </Card>
         </Flexbox>
-        {user && (
-          <Flexbox alignItems="center" gap="1rem">
-            <Profile user={user} />
-            <HeaderDropdown />
-          </Flexbox>
-        )}
+        <Flexbox alignItems="center" gap="1rem">
+          {isLoading || !user ? (
+            <Profile variant="skeleton" />
+          ) : (
+            <Profile variant="default" user={user} />
+          )}
+          <HeaderDropdown />
+        </Flexbox>
       </Flexbox>
     </Container>
   );

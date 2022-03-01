@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const DropdownToggle = styled.button<{ isVisible: boolean }>`
   border: none;
+  outline: none;
   cursor: pointer;
   display: flex;
   align-items: center;

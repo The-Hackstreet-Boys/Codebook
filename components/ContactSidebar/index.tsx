@@ -17,7 +17,7 @@ const ContactSidebar: FC = () => {
           <Flexbox direction="column" gap="1rem">
             <Typography variant="h5">Suggested contacts</Typography>
             {data?.suggestedContacts.map((user) => (
-              <Profile key={user._id} user={user} />
+              <Profile variant="default" key={user._id} user={user} />
             ))}
           </Flexbox>
         </Card>
@@ -25,7 +25,7 @@ const ContactSidebar: FC = () => {
           <Flexbox direction="column" gap="1rem">
             <Typography variant="h5">Contacts</Typography>
             {data?.contacts.map((user) => (
-              <Profile key={user._id} user={user} />
+              <Profile variant="default" key={user._id} user={user} />
             ))}
           </Flexbox>
         </Card>
