@@ -24,3 +24,30 @@ export const IconButtonContainer = styled.div`
     margin-bottom: 1rem;
   }
 `;
+
+export const MenuToggle = styled.button< {isVisible: boolean}>`
+
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: ${({ theme, isVisible }) =>
+    isVisible ? theme.overlay2 :"none"};
+ 
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 1.25rem;
+  color: ${({ theme }) => theme.text};
+  transition: ${({ theme }) => theme.transition};
+  & > svg {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  &:hover {
+    background: ${({ theme }) => theme.overlay3};
+    ${({ theme }) => theme.shadow}
+  }
+  
+
+`

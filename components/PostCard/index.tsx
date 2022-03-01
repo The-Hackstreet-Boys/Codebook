@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
-import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
+import { MdBookmarkAdd, MdComment, MdFavorite, MdShare, MdMoreHoriz } from 'react-icons/md';
 
 import useDeletePost from '../../hooks/mutations/useDeletePost';
 import useLikePost from '../../hooks/mutations/useLikePost';
@@ -15,7 +15,7 @@ import IconButton from '../elements/IconButton';
 import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
 import './styles';
-import { Container, IconButtonContainer, ImageContainer } from './styles';
+import { Container, IconButtonContainer, ImageContainer, MenuToggle } from './styles';
 
 interface Props {
   post: ExtendedPost;
@@ -36,6 +36,7 @@ const PostCard: FC<Props> = ({ post }) => {
           <a>{author.picture && <Avatar user={author} />}</a>
         </Link>
         <Flexbox direction="column" gap="1rem">
+            <Flexbox justifyContent='space-between'>
           <Box>
             <Link href={`/users/${author._id}`}>
               <a>
@@ -44,9 +45,15 @@ const PostCard: FC<Props> = ({ post }) => {
                 </Typography>
               </a>
             </Link>
+           
+         
             <Timestamp date={createdAt} />
+           
           </Box>
+          <MenuToggle isVisbile={false} onClick={() => deletePost()}> <MdMoreHoriz/> </MenuToggle>
+            </Flexbox>
           <Typography>{text}</Typography>
+          
         </Flexbox>
       </Container>
       {image && (
@@ -60,8 +67,10 @@ const PostCard: FC<Props> = ({ post }) => {
           />
         </ImageContainer>
       )}
+       
       <IconButtonContainer>
-        <button onClick={() => deletePost()}>Delete</button>
+     
+       
         <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}
         </IconButton>
