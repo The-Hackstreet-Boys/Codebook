@@ -3,28 +3,12 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import authentication from '../../../../middleware/authentication';
 import connectToDatabase from '../../../../middleware/connectToDatabase';
-import TagModel from '../../../../models/tag';
-import UserModel from '../../../../models/user';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { userId } = req.query;
-
   switch (req.method) {
     case 'GET':
       try {
-        const user = await UserModel.findById(userId).populate({
-          path: 'tags',
-          model: TagModel,
-        });
-
-        if (!user) {
-          res.status(404).json({ error: `No user found with ID ${userId}` });
-          return;
-        }
-
-        const isFollowing = req.user.following.includes(user._id);
-        const isFollowingYou = req.user.followers.includes(user._id);
-        res.json({ ...user.toObject(), isFollowing, isFollowingYou });
+        res.json(req.user);
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }
