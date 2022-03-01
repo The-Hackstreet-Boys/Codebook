@@ -6,6 +6,10 @@ import connectToDatabase from '../../../../../middleware/connectToDatabase';
 import CommentModel from '../../../../../models/comment';
 import PostModel from '../../../../../models/post';
 import UserModel from '../../../../../models/user';
+import Filter from 'bad-words';
+
+
+const filter = new Filter();
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { postId } = req.query;
@@ -59,6 +63,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           post: postId,
           author: req.user._id,
           type: 'comment',
+          text:filter.clean(req.body.text),
         });
         await comment.save();
 

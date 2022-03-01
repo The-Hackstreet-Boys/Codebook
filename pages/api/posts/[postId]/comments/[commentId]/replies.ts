@@ -5,6 +5,11 @@ import authentication from '../../../../../../middleware/authentication';
 import connectToDatabase from '../../../../../../middleware/connectToDatabase';
 import CommentModel from '../../../../../../models/comment';
 import UserModel from '../../../../../../models/user';
+import Filter from 'bad-words';
+
+
+const filter = new Filter();
+
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { commentId } = req.query;
@@ -58,6 +63,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           comment: commentId,
           author: req.user._id,
           type: 'reply',
+          text:filter.clean(req.body.text),
         });
         await reply.save();
 
