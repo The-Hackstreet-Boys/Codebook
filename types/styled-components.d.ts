@@ -15,6 +15,7 @@ declare module 'styled-components' {
     borderRadius: string;
     text: string;
     textSecondary: string;
+    buttonText: string;
     primary: string;
     secondary: string;
     buttonPrimaryHover: string;
