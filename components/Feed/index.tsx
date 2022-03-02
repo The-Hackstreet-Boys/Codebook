@@ -17,8 +17,8 @@ const Feed: FC<Props> = ({ author, onlySavedPosts }) => {
   const limit = 10;
   const { data, fetchNextPage, hasNextPage, isLoading, isError } = usePosts(
     author,
-    limit,
     onlySavedPosts,
+    limit,
   );
   const { ref, inView } = useInView();
 
