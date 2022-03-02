@@ -28,9 +28,7 @@ export const ThemeProvider: FC = ({ children }) => {
         toggleTheme,
       }}
     >
-      <StyledThemeProvider theme={dark ? darkTheme : lightTheme}>
-        {children}
-      </StyledThemeProvider>
+      <StyledThemeProvider theme={dark ? darkTheme : lightTheme}>{children}</StyledThemeProvider>
     </ThemeContext.Provider>
   );
 };
