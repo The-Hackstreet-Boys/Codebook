@@ -25,5 +25,4 @@ const postSchema = new Schema<Post>(
   { timestamps: true },
 );
 
-export default (mongoose.models.Post ||
-  model<Post>('Post', postSchema, 'posts')) as Model<Post>;
+export default (mongoose.models.Post || model<Post>('Post', postSchema, 'posts')) as Model<Post>;

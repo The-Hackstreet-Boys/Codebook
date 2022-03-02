@@ -4,14 +4,14 @@ import { MdOutlineSearch } from 'react-icons/md';
 
 import useCurrentUser from '../../hooks/queries/useCurrentUser';
 import HeaderDropdown from '../HeaderDropdown';
-import Profile from '../Profile';
+import Profile, { ProfileSkeleton } from '../Profile';
 import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
 import Logo from '../elements/Logo';
 import { Container, SearchBar, SearchInput } from './styles';
 
 const Header: FC = () => {
-  const { data: user } = useCurrentUser();
+  const { data: user, isLoading } = useCurrentUser();
 
   return (
     <Container>
@@ -35,12 +35,10 @@ const Header: FC = () => {
             </SearchBar>
           </Card>
         </Flexbox>
-        {user && (
-          <Flexbox alignItems="center" gap="1rem">
-            <Profile user={user} />
-            <HeaderDropdown />
-          </Flexbox>
-        )}
+        <Flexbox alignItems="center" gap="1rem">
+          {isLoading || !user ? <ProfileSkeleton /> : <Profile user={user} />}
+          <HeaderDropdown />
+        </Flexbox>
       </Flexbox>
     </Container>
   );

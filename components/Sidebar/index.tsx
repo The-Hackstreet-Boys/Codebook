@@ -1,10 +1,5 @@
 import { FC } from 'react';
-import {
-  MdBookmark,
-  MdDashboard,
-  MdMessage,
-  MdPeopleAlt,
-} from 'react-icons/md';
+import { MdBookmark, MdDashboard, MdMessage, MdPeopleAlt } from 'react-icons/md';
 
 import { Flexbox } from '../elements/Box';
 import NavLink from '../elements/NavLink';

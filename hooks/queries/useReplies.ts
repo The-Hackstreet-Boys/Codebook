@@ -4,6 +4,7 @@ import { useInfiniteQuery } from 'react-query';
 
 import { Reply } from '../../models/comment';
 import { User } from '../../models/user';
+import { ExtendedComment } from './useComments';
 
 export interface ExtendedReply extends Omit<Reply, 'author' | 'comment'> {
   author: User;
@@ -18,16 +19,11 @@ interface Data {
   pageCount: number;
 }
 
-const getReplies = async (
-  limit: number,
-  page: number,
-  postId: string,
-  commentId: string,
-) => {
+const getReplies = async (limit: number, page: number, comment: ExtendedComment) => {
   const { origin } = window.location;
 
   const response = await axios.get(
-    `${origin}/api/posts/${postId}/comments/${commentId}/replies`,
+    `${origin}/api/posts/${comment.post}/comments/${comment._id}/replies`,
     {
       params: { limit, page },
     },
@@ -37,13 +33,13 @@ const getReplies = async (
   return data;
 };
 
-const useReplies = (postId: string, commentId: string, limit = 5) => {
+const useReplies = (comment: ExtendedComment, limit = 5) => {
   const { user } = useUser();
 
   return useInfiniteQuery<Data>(
-    ['replies', commentId, limit],
+    ['replies', comment._id, limit],
     ({ pageParam }) => {
-      return getReplies(limit, pageParam, postId, commentId);
+      return getReplies(limit, pageParam, comment);
     },
     {
       enabled: !!user,

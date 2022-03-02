@@ -8,6 +8,12 @@ export const darkTheme: DefaultTheme = {
     hsla(0, 0%, 100%, 0.05),
     #1ab4a4 500%
   )`,
+  dropdown: 'hsla(0, 0%, 0%, 0.15)',
+  dropdownGradient: `linear-gradient(
+    112.5deg,
+    hsla(0, 0%, 100%, 0.15),
+    #1ab4a4 500%
+  )`,
   foregroundBlur: 'backdrop-filter: blur(1.5rem);',
   overlay: 'hsla(0, 0%, 100%, 0.075)',
   overlay2: 'hsla(0, 0%, 100%, 0.15)',
@@ -90,4 +96,6 @@ export const lightTheme: DefaultTheme = {
   fontWeightExtraBold: '800',
   fontWeightBlack: '900',
   transition: 'all 150ms ease-in-out',
+  dropdown: '',
+  dropdownGradient: '',
 };

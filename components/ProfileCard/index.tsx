@@ -43,12 +43,7 @@ const ProfileCard: FC<Props> = ({ user }) => {
               <MdChat />
             </Button>
           </Link>
-          <Button
-            onClick={() => followUser()}
-            color="secondary"
-            isFullWidth
-            disabled={isLoading}
-          >
+          <Button onClick={() => followUser()} color="secondary" isFullWidth disabled={isLoading}>
             {user.isFollowing ? <MdPersonRemoveAlt1 /> : <MdPersonAddAlt1 />}
           </Button>
         </Flexbox>

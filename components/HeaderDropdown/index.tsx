@@ -4,29 +4,26 @@ import { MdArrowDropDown, MdLogout, MdSettings } from 'react-icons/md';
 import useBoolean from '../../hooks/useBoolean';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import ToggleTheme from '../ToggleTheme';
-import Box from '../elements/Box';
+
 import {
   Dropdown,
   DropdownDivider,
   DropdownItem,
+  DropdownMenu,
   DropdownToggle,
-} from './styles';
+} from '../elements/Dropdown';
 
 const HeaderDropdown: FC = () => {
-  const {
-    value: isVisible,
-    toggle: toggleIsVisible,
-    setValue: setIsVisible,
-  } = useBoolean(false);
+  const [isVisible, toggleIsVisible, setIsVisible] = useBoolean(false);
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, () => setIsVisible(false));
 
   return (
-    <Box position="relative" ref={ref}>
-      <DropdownToggle onClick={toggleIsVisible} isVisible={isVisible}>
+    <Dropdown ref={ref} isOpen={isVisible}>
+      <DropdownToggle onClick={toggleIsVisible}>
         <MdArrowDropDown />
       </DropdownToggle>
-      <Dropdown isVisible={isVisible}>
+      <DropdownMenu>
         <DropdownItem>
           <ToggleTheme />
         </DropdownItem>
@@ -44,8 +41,8 @@ const HeaderDropdown: FC = () => {
             </DropdownItem>
           </a>
         }
-      </Dropdown>
-    </Box>
+      </DropdownMenu>
+    </Dropdown>
   );
 };
 

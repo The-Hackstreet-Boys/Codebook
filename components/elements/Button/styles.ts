@@ -11,11 +11,9 @@ export const PrimaryButton = styled.button<{
   background: ${({ theme }) => theme.primary};
   border: none;
   border-radius: ${({ theme }) => theme.borderRadius};
+  ${({ theme, size }) => size === 'lg' && `padding: 1rem 3rem; font-size: ${theme.fontSizeSm};`}
   ${({ theme, size }) =>
-    size === 'lg' && `padding: 1rem 3rem; font-size: ${theme.fontSizeSm};`}
-  ${({ theme, size }) =>
-    size === 'md' &&
-    `padding: 0.75rem 2.25rem; font-size: ${theme.fontSizeXs};`}
+    size === 'md' && `padding: 0.75rem 2.25rem; font-size: ${theme.fontSizeXs};`}
     ${({ theme, size }) =>
     size === 'sm' && `padding: 0.5rem 1.5rem; font-size: ${theme.fontSizeXxs};`}
   font-family: ${({ theme }) => theme.fontFamily};
