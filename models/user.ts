@@ -69,5 +69,4 @@ const userSchema = new Schema<User>(
   { timestamps: true },
 );
 
-export default (mongoose.models.User ||
-  model<User>('User', userSchema, 'users')) as Model<User>;
+export default (mongoose.models.User || model<User>('User', userSchema, 'users')) as Model<User>;

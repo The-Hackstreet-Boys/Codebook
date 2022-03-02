@@ -10,7 +10,7 @@ import Filter from 'bad-words';
 const filter = new Filter();
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
-  const { commentId } = req.query;
+  const { postId, commentId } = req.query;
 
   const comment = await CommentModel.findById(commentId);
 
@@ -58,6 +58,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       try {
         const reply = new CommentModel({
           ...req.body,
+          post: postId,
           comment: commentId,
           author: req.user._id,
           type: 'reply',

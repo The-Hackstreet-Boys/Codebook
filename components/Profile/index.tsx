@@ -25,4 +25,5 @@ const Profile: FC<Props> = ({ user }) => (
   </Link>
 );
 
+export * from './skeleton';
 export default Profile;

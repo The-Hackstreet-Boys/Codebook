@@ -7,15 +7,13 @@ export const PrimaryButton = styled.button<{
   isFullWidth?: boolean;
 }>`
   margin: 0;
-  color: ${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.buttonText};
   background: ${({ theme }) => theme.primary};
   border: none;
   border-radius: ${({ theme }) => theme.borderRadius};
+  ${({ theme, size }) => size === 'lg' && `padding: 1rem 3rem; font-size: ${theme.fontSizeSm};`}
   ${({ theme, size }) =>
-    size === 'lg' && `padding: 1rem 3rem; font-size: ${theme.fontSizeSm};`}
-  ${({ theme, size }) =>
-    size === 'md' &&
-    `padding: 0.75rem 2.25rem; font-size: ${theme.fontSizeXs};`}
+    size === 'md' && `padding: 0.75rem 2.25rem; font-size: ${theme.fontSizeXs};`}
     ${({ theme, size }) =>
     size === 'sm' && `padding: 0.5rem 1.5rem; font-size: ${theme.fontSizeXxs};`}
   font-family: ${({ theme }) => theme.fontFamily};

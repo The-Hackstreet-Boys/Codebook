@@ -22,11 +22,9 @@ const IconButton = styled.button<Props>`
   transition: ${({ theme }) => theme.transition};
   cursor: pointer;
   color: ${({ theme }) => theme.text};
-  padding: ${({ size = 'md' }) =>
-    size === 'md' ? '0.5rem 1.25rem' : '0.25rem 1rem'};
+  padding: ${({ size = 'md' }) => (size === 'md' ? '0.5rem 1.25rem' : '0.25rem 1rem')};
   border-radius: 0.25rem;
-  font-size: ${({ size = 'md', theme }) =>
-    size === 'md' ? theme.fontSizeMd : theme.fontSizeXs};
+  font-size: ${({ size = 'md', theme }) => (size === 'md' ? theme.fontSizeMd : theme.fontSizeXs)};
   & :hover {
     color: ${({ theme }) => theme.primary};
     background: ${({ theme }) => theme.overlay};
