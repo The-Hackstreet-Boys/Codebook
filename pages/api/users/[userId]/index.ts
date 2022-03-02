@@ -3,7 +3,6 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import authentication from '../../../../middleware/authentication';
 import connectToDatabase from '../../../../middleware/connectToDatabase';
-import PostModel from '../../../../models/post';
 import TagModel from '../../../../models/tag';
 import UserModel from '../../../../models/user';
 
@@ -13,15 +12,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
       try {
-        const user = await UserModel.findById(userId)
-          .populate({
-            path: 'savedPosts',
-            model: PostModel,
-          })
-          .populate({
-            path: 'tags',
-            model: TagModel,
-          });
+        const user = await UserModel.findById(userId).populate({
+          path: 'tags',
+          model: TagModel,
+        });
 
         if (!user) {
           res.status(404).json({ error: `No user found with ID ${userId}` });

@@ -38,7 +38,7 @@ const useReplies = (comment: ExtendedComment, limit = 5) => {
 
   return useInfiniteQuery<Data>(
     ['replies', comment._id, limit],
-    ({ pageParam }) => {
+    ({ pageParam = 1 }) => {
       return getReplies(limit, pageParam, comment);
     },
     {

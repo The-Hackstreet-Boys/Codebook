@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
-import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
+import { MdBookmarkAdd, MdBookmarkRemove, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
 import useLikePost from '../../hooks/mutations/useLikePost';
+import useSavePost from '../../hooks/mutations/useSavePost';
 import { ExtendedPost } from '../../hooks/queries/usePosts';
 import useBoolean from '../../hooks/useBoolean';
 import CommentList from '../CommentList';
@@ -22,9 +23,10 @@ interface Props {
 }
 
 const PostCard: FC<Props> = ({ post }) => {
-  const { author, text, likeCount, commentCount, createdAt, hasLiked, image } = post;
+  const { author, text, likeCount, commentCount, createdAt, hasLiked, hasSaved, image } = post;
   const [commentsVisibility, toggleCommentsVisibility] = useBoolean(false);
   const { mutate: likePost } = useLikePost(post._id);
+  const { mutate: savePost } = useSavePost(post._id);
 
   return (
     <Card>
@@ -68,8 +70,8 @@ const PostCard: FC<Props> = ({ post }) => {
         <IconButton onClick={toggleCommentsVisibility}>
           <MdComment /> {commentCount}
         </IconButton>
-        <IconButton>
-          <MdBookmarkAdd />
+        <IconButton onClick={() => savePost()} secondary={hasSaved}>
+          {hasSaved ? <MdBookmarkRemove /> : <MdBookmarkAdd />}
         </IconButton>
         <IconButton>
           <MdShare />
