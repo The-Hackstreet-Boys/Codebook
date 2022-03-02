@@ -6,6 +6,7 @@ export const SkeletonWrapper = styled.div<SkeletonProps>`
   ${(props) =>
     props.variant === 'title' &&
     `width: ${props.width || '25%'};
+    min-width: 10rem;
     height: ${props.height || '1.375rem'};
   `}
   ${(props) =>

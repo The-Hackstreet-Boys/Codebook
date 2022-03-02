@@ -1,16 +1,11 @@
 import React from 'react';
 
-import {
-  Shimmer,
-  ShimmerWrapper,
-  SkeletonWrapper,
-  StyledSkeleton,
-} from './styles';
+import { Shimmer, ShimmerWrapper, SkeletonWrapper, StyledSkeleton } from './styles';
 
 export type SkeletonVariant = 'title' | 'text' | 'rect' | 'circle';
 
 export interface SkeletonProps {
-  variant: SkeletonVariant
+  variant: SkeletonVariant;
   width?: string;
   height?: string;
 }
