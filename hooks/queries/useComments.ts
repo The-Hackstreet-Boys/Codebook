@@ -34,7 +34,7 @@ const useComments = (postId: string, limit = 5) => {
 
   return useInfiniteQuery<Data>(
     ['comments', postId, limit],
-    ({ pageParam }) => {
+    ({ pageParam = 1 }) => {
       return getComments(limit, pageParam, postId);
     },
     {

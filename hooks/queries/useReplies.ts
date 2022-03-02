@@ -42,7 +42,7 @@ const useReplies = (postId: string, commentId: string, limit = 5) => {
 
   return useInfiniteQuery<Data>(
     ['replies', commentId, limit],
-    ({ pageParam }) => {
+    ({ pageParam = 1 }) => {
       return getReplies(limit, pageParam, postId, commentId);
     },
     {

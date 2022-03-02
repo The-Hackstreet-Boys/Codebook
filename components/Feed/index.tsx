@@ -6,10 +6,11 @@ import PostCard from '../PostCard';
 
 interface Props {
   author?: string;
+  onlySavedPosts?: boolean;
 }
 
-const Feed: FC<Props> = ({ author }) => {
-  const { data, fetchNextPage } = usePosts(author);
+const Feed: FC<Props> = ({ author, onlySavedPosts }) => {
+  const { data, fetchNextPage } = usePosts(author, onlySavedPosts);
   const { ref, inView } = useInView();
 
   useEffect(() => {

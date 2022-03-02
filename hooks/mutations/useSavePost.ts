@@ -1,20 +1,20 @@
 import axios from 'axios';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
-const savePost = async (savedPost: string) => {
+const savePost = async (postId: string) => {
   const { origin } = window.location;
-  await axios.post(`${origin}/api/users/me/saved-posts`);
+  await axios.post(`${origin}/api/posts/${postId}/save`);
 };
 
-const updateQueryCache = (queryClient: QueryClient, savedPost: string) => {
-  queryClient.invalidateQueries(['saved-post', savedPost]);
+const updateQueryCache = (queryClient: QueryClient) => {
+  queryClient.invalidateQueries(['posts']);
 };
 
-const useSavePost = (savedPost: string) => {
+const useSavePost = (postId: string) => {
   const queryClient = useQueryClient();
 
-  return useMutation(() => savePost(savedPost), {
-    onSuccess: () => updateQueryCache(queryClient, savedPost),
+  return useMutation(() => savePost(postId), {
+    onSuccess: () => updateQueryCache(queryClient),
   });
 };
 

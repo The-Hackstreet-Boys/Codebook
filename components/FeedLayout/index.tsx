@@ -4,7 +4,7 @@ import ContactSidebar from '../ContactSidebar';
 import { Flexbox } from '../elements/Box';
 import { Container, ContentContainer } from './styles';
 
-const HomeLayout: FC = ({ children }) => (
+const FeedLayout: FC = ({ children }) => (
   <Container>
     <ContentContainer>
       <Flexbox
@@ -21,4 +21,4 @@ const HomeLayout: FC = ({ children }) => (
   </Container>
 );
 
-export default HomeLayout;
+export default FeedLayout;

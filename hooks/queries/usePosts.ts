@@ -8,6 +8,7 @@ import { ExtendedUser } from './useUser';
 export interface ExtendedPost extends Omit<Post, 'author'> {
   author: ExtendedUser;
   hasLiked: boolean;
+  hasSaved: boolean;
 }
 
 interface Data {
@@ -17,24 +18,29 @@ interface Data {
   pageCount: number;
 }
 
-const getPosts = async (limit: number, page: number, author?: string) => {
+const getPosts = async (
+  limit: number,
+  page: number,
+  author?: string,
+  onlySavedPosts?: boolean,
+) => {
   const { origin } = window.location;
 
   const response = await axios.get(`${origin}/api/posts`, {
-    params: { limit, page, author },
+    params: { limit, page, author, onlySavedPosts },
   });
 
   const data = response.data;
   return data;
 };
 
-const usePosts = (author?: string, limit = 20) => {
+const usePosts = (author?: string, onlySavedPosts?: boolean, limit = 20) => {
   const { user } = useAuth0User();
 
   return useInfiniteQuery<Data>(
-    ['posts', author, limit],
-    ({ pageParam }) => {
-      return getPosts(limit, pageParam, author);
+    ['posts', author, onlySavedPosts, limit],
+    ({ pageParam = 1 }) => {
+      return getPosts(limit, pageParam, author, onlySavedPosts);
     },
     {
       enabled: !!user,
