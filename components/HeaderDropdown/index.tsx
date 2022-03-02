@@ -1,13 +1,9 @@
-import { FC, useContext, useRef } from 'react';
-import {
-  MdArrowDropDown,
-  MdDarkMode,
-  MdLogout,
-  MdSettings,
-} from 'react-icons/md';
+import { FC, useRef } from 'react';
+import { MdArrowDropDown, MdLogout, MdSettings } from 'react-icons/md';
 
 import useBoolean from '../../hooks/useBoolean';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
+import ToggleTheme from '../ToggleTheme';
 import Box from '../elements/Box';
 import {
   Dropdown,
@@ -32,8 +28,7 @@ const HeaderDropdown: FC = () => {
       </DropdownToggle>
       <Dropdown isVisible={isVisible}>
         <DropdownItem>
-          <MdDarkMode />
-          Theme: Dark
+          <ToggleTheme />
         </DropdownItem>
         <DropdownItem>
           <MdSettings />
