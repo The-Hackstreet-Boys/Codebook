@@ -1,6 +1,7 @@
-import React, { FC, createContext, useEffect, useState } from 'react';
+import React, { FC, createContext, useContext, useState } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
+import useLocalStorage from '../hooks/useLocalStorage';
 import { darkTheme, lightTheme } from '../styles/themes';
 
 interface Props {
@@ -15,22 +16,24 @@ const defaultState = {
 const ThemeContext = createContext<Props>(defaultState);
 
 export const ThemeProvider: FC = ({ children }) => {
-  const [dark, setDark] = useState(true);
+  const [isDarkTheme, setIsDarkTheme] = useLocalStorage('isDarkTheme', true);
 
   const toggleTheme = () => {
-    setDark(!dark);
+    setIsDarkTheme(!isDarkTheme);
   };
 
   return (
     <ThemeContext.Provider
       value={{
-        isDarkTheme: dark,
+        isDarkTheme,
         toggleTheme,
       }}
     >
-      <StyledThemeProvider theme={dark ? darkTheme : lightTheme}>{children}</StyledThemeProvider>
+      <StyledThemeProvider theme={isDarkTheme ? darkTheme : lightTheme}>
+        {children}
+      </StyledThemeProvider>
     </ThemeContext.Provider>
   );
 };
 
-export default ThemeContext;
+export const useTheme = () => useContext(ThemeContext);
