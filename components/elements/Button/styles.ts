@@ -7,7 +7,7 @@ export const PrimaryButton = styled.button<{
   isFullWidth?: boolean;
 }>`
   margin: 0;
-  color: ${({ theme }) => theme.text};
+  color: ${({ theme }) => theme.buttonText};
   background: ${({ theme }) => theme.primary};
   border: none;
   border-radius: ${({ theme }) => theme.borderRadius};
