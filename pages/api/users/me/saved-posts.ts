@@ -15,7 +15,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           _id: { $in: savedPosts, $ne: _id },
         });
 
-        res.json({ savedPosts });
+        res.json({ usersSavedPosts });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }
