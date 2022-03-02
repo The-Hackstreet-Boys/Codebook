@@ -18,12 +18,7 @@ interface Data {
   pageCount: number;
 }
 
-const getPosts = async (
-  limit: number,
-  page: number,
-  author?: string,
-  onlySavedPosts?: boolean,
-) => {
+const getPosts = async (limit: number, page: number, author?: string, onlySavedPosts?: boolean) => {
   const { origin } = window.location;
 
   const response = await axios.get(`${origin}/api/posts`, {

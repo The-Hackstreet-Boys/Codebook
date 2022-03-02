@@ -18,8 +18,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         const skipAmount = (page - 1) * limit;
 
         const author = req.query.author as string;
-        const onlySavedPosts =
-          (req.query.onlySavedPosts as string) === 'true' ? true : false;
+        const onlySavedPosts = (req.query.onlySavedPosts as string) === 'true' ? true : false;
         const query: any = {};
         if (author) query.author = author;
         if (onlySavedPosts) query._id = { $in: req.user.savedPosts };
@@ -41,7 +40,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
         const documentCount = await PostModel.countDocuments(query);
         const pageCount = Math.ceil(documentCount / limit);
-
 
         res.json({ data, limit, page, pageCount });
       } catch (err) {

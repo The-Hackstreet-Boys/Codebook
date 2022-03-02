@@ -19,9 +19,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           return;
         }
 
-        const alreadySaved = req.user.savedPosts.includes(
-          postId as unknown as Types.ObjectId,
-        );
+        const alreadySaved = req.user.savedPosts.includes(postId as unknown as Types.ObjectId);
 
         if (alreadySaved) {
           await req.user.updateOne({
