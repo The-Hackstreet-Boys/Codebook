@@ -58,7 +58,7 @@ export const lightTheme: DefaultTheme = {
   overlay: 'hsla(0, 0%, 0%, 0.075)',
   overlay2: 'hsla(0, 0%, 0%, 0.15)',
   overlay3: 'hsla(0, 0%, 0%, 0.25)',
-  shadow: 'box-shadow: 0 0.2rem 0.5rem 0.05rem hsla(0, 0%, 0%, 0.15);',
+  shadow: 'box-shadow: 0 0 0.25rem 0.05rem hsla(0, 0%, 0%, 0.15);',
   borderRadius: '0.5rem',
   text: '#3C3C3C',
   textSecondary: 'hsla(0, 0%, 10%, 0.6)',

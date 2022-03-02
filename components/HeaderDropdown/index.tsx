@@ -1,4 +1,4 @@
-import { FC, useRef } from 'react';
+import { FC, useContext, useRef } from 'react';
 import {
   MdArrowDropDown,
   MdDarkMode,
