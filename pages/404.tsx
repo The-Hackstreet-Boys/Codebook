@@ -23,9 +23,6 @@ const NotFoundPage: FC = () => (
               <Link href="/" passHref>
                 <Button>Return to homepage</Button>
               </Link>
-              <Link href="/" passHref>
-                <Button color="secondary">Return to previous page</Button>
-              </Link>
             </Flexbox>
           </Flexbox>
         </Card>
