@@ -3,6 +3,7 @@ import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { MdClose, MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
 
 import useCreatePost from '../../hooks/mutations/useCreatePost';
+import Tag from '../Tag';
 import Box from '../elements/Box';
 import Card from '../elements/Card';
 import './styles';
@@ -20,11 +21,6 @@ const PostForm: FC = () => {
   const [text, setText] = useState('');
   const [image, setImage] = useState<File>();
   const [imageSrc, setImageSrc] = useState<string>();
-
-  const onSuccess = () => {
-    setText('');
-    handleRemoveImage();
-  };
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
@@ -74,6 +70,11 @@ const PostForm: FC = () => {
     setImageSrc(URL.createObjectURL(image));
   }, [image]);
 
+  const onSuccess = () => {
+    setText('');
+    handleRemoveImage();
+  };
+
   const { mutate: createPost } = useCreatePost(onSuccess);
   return (
     <Card>
@@ -102,7 +103,7 @@ const PostForm: FC = () => {
             <MdImage />
             <input type="file" name="file" onChange={handleChange} id="fileInput" />
           </FileButton>
-          <MdTag />
+          <Tag />
           <MdCode />
           <SubmitButton>
             <MdSend />
