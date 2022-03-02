@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
 import useContacts from '../../hooks/queries/useContacts';
-import Profile from '../Profile';
+import Profile, { ProfileSkeleton } from '../Profile';
 import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
 import Color from '../elements/Color';
@@ -31,21 +31,17 @@ const ContactSidebar: FC = () => {
           <Card>
             <Flexbox direction="column" gap="1rem">
               <Skeleton variant="title" />
-              {Array(5)
-                .fill(null)
-                .map((_, index) => (
-                  <Profile variant="skeleton" key={index} />
-                ))}
+              {[...Array(5)].map((_, index) => (
+                <ProfileSkeleton key={index} />
+              ))}
             </Flexbox>
           </Card>
           <Card>
             <Flexbox direction="column" gap="1rem">
               <Skeleton variant="title" />
-              {Array(10)
-                .fill(null)
-                .map((_, index) => (
-                  <Profile variant="skeleton" key={index} />
-                ))}
+              {[...Array(10)].map((_, index) => (
+                <ProfileSkeleton key={index} />
+              ))}
             </Flexbox>
           </Card>
         </Flexbox>
@@ -60,7 +56,7 @@ const ContactSidebar: FC = () => {
           <Flexbox direction="column" gap="1rem">
             <Typography variant="h5">Suggested contacts</Typography>
             {data?.suggestedContacts.map((user) => (
-              <Profile variant="default" key={user._id} user={user} />
+              <Profile key={user._id} user={user} />
             ))}
           </Flexbox>
         </Card>
@@ -68,7 +64,7 @@ const ContactSidebar: FC = () => {
           <Flexbox direction="column" gap="1rem">
             <Typography variant="h5">Contacts</Typography>
             {data?.contacts.map((user) => (
-              <Profile variant="default" key={user._id} user={user} />
+              <Profile key={user._id} user={user} />
             ))}
           </Flexbox>
         </Card>

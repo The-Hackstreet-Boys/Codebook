@@ -4,7 +4,7 @@ import { MdOutlineSearch } from 'react-icons/md';
 
 import useCurrentUser from '../../hooks/queries/useCurrentUser';
 import HeaderDropdown from '../HeaderDropdown';
-import Profile from '../Profile';
+import Profile, { ProfileSkeleton } from '../Profile';
 import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
 import Logo from '../elements/Logo';
@@ -36,11 +36,7 @@ const Header: FC = () => {
           </Card>
         </Flexbox>
         <Flexbox alignItems="center" gap="1rem">
-          {isLoading || !user ? (
-            <Profile variant="skeleton" />
-          ) : (
-            <Profile variant="default" user={user} />
-          )}
+          {isLoading || !user ? <ProfileSkeleton /> : <Profile user={user} />}
           <HeaderDropdown />
         </Flexbox>
       </Flexbox>

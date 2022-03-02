@@ -34,7 +34,7 @@ const PostCard: FC<Props> = ({ post }) => {
         </Link>
         <Flexbox direction="column" gap="1rem">
           <Flexbox justifyContent="space-between">
-            <Box>
+            <div>
               <Link href={`/users/${author._id}`}>
                 <a>
                   <Typography variant="h5" transform="capitalize" isClickable>
@@ -43,7 +43,7 @@ const PostCard: FC<Props> = ({ post }) => {
                 </a>
               </Link>
               <Timestamp date={createdAt} />
-            </Box>
+            </div>
             <PostDropdown postId={post._id} />
           </Flexbox>
           <Typography>{text}</Typography>
@@ -80,4 +80,5 @@ const PostCard: FC<Props> = ({ post }) => {
   );
 };
 
+export * from './skeleton';
 export default PostCard;
