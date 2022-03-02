@@ -9,7 +9,7 @@ import useBoolean from '../../hooks/useBoolean';
 import CommentList from '../CommentList';
 import PostDropdown from '../PostDropdown';
 import Avatar from '../elements/Avatar';
-import Box, { Flexbox } from '../elements/Box';
+import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
 import IconButton from '../elements/IconButton';
 import Timestamp from '../elements/Timestamp';

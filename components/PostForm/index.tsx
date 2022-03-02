@@ -3,7 +3,7 @@ import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { MdClose, MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
 
 import useCreatePost from '../../hooks/mutations/useCreatePost';
-import Tag from '../Tag';
+import Tag from '../TagPostForm';
 import Box from '../elements/Box';
 import Card from '../elements/Card';
 import './styles';
