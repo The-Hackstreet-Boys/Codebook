@@ -5,11 +5,7 @@ import { H1, H2, H3, H4, H5, H6, P } from './styles';
 export type TypographyVariant = 'p' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
 export type TypographyAlign = 'left' | 'center' | 'right';
 export type TypographyFont = 'primary' | 'secondary';
-export type TypographyTransform =
-  | 'capitalize'
-  | 'uppercase'
-  | 'lowercase'
-  | 'none';
+export type TypographyTransform = 'capitalize' | 'uppercase' | 'lowercase' | 'none';
 
 export interface TypographyProps {
   variant?: TypographyVariant;

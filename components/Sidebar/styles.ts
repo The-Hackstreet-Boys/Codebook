@@ -27,10 +27,6 @@ export const NavItem = styled.a`
     border-left: 0.25rem solid ${({ theme }) => theme.primary};
     border-right: none;
     padding-right: 0.25rem;
-    background: linear-gradient(
-      90deg,
-      ${({ theme }) => theme.primary} -500%,
-      transparent
-    );
+    background: linear-gradient(90deg, ${({ theme }) => theme.primary} -500%, transparent);
   }
 `;

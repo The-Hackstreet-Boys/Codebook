@@ -11,11 +11,7 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   isFullWidth?: boolean;
 }
 
-const Button: FC<ButtonProps> = ({
-  color = 'primary',
-  size = 'md',
-  ...props
-}) => {
+const Button: FC<ButtonProps> = ({ color = 'primary', size = 'md', ...props }) => {
   switch (color) {
     case 'primary':
       return <PrimaryButton size={size} {...props} />;

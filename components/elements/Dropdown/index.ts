@@ -1,45 +1,56 @@
 import styled from 'styled-components';
 
-export const DropdownToggle = styled.button<{ isVisible: boolean }>`
+export const DropdownToggle = styled.button`
   border: none;
   outline: none;
   cursor: pointer;
+  background: none;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${({ theme, isVisible }) =>
-    isVisible ? theme.overlay2 : theme.foreground};
-  ${({ theme }) => theme.shadow}
   width: 2.5rem;
   height: 2.5rem;
   border-radius: 1.25rem;
   color: ${({ theme }) => theme.text};
   transition: ${({ theme }) => theme.transition};
+  ${({ theme }) => theme.shadow}
   & > svg {
     width: 1.5rem;
     height: 1.5rem;
   }
   &:hover {
-    background: ${({ theme }) => theme.overlay3};
+    background: ${({ theme }) => theme.overlay3} !important ;
+    ${({ theme }) => theme.shadow}
   }
 `;
 
-export const Dropdown = styled.div<{ isVisible: boolean }>`
+export const DropdownMenu = styled.div`
   z-index: 99;
   position: absolute;
   right: 0;
   top: 100%;
-  margin-top: ${({ isVisible }) => (isVisible ? '1rem' : '0')};
-  visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
-  opacity: ${({ isVisible }) => (isVisible ? '1' : '0')};
-  transition: ${({ theme }) => theme.foreground};
+  transition: ${({ theme }) => theme.transition};
   width: 15rem;
-  background: ${({ theme }) => theme.foreground};
-  background: ${({ theme }) => theme.foregroundGradient};
+  background: ${({ theme }) => theme.dropdown};
+  background: ${({ theme }) => theme.dropdownGradient};
   ${({ theme }) => theme.foregroundBlur}
   ${({ theme }) => theme.shadow}
   border-radius: ${({ theme }) => theme.borderRadius};
   padding: 0.5rem;
+`;
+
+export const Dropdown = styled.div<{ isOpen: boolean }>`
+  position: relative;
+  & ${DropdownToggle} {
+    ${({ isOpen: isVisible }) => !isVisible && 'box-shadow: none;'}
+    background: ${({ theme, isOpen: isVisible }) => isVisible && theme.overlay2};
+    ${({ isOpen: isVisible }) => isVisible && 'opacity: 1 !important;'}
+  }
+  & ${DropdownMenu} {
+    margin-top: ${({ isOpen: isVisible }) => (isVisible ? '1rem' : '0')};
+    visibility: ${({ isOpen: isVisible }) => (isVisible ? 'visible' : 'hidden')};
+    opacity: ${({ isOpen: isVisible }) => (isVisible ? '1' : '0')};
+  }
 `;
 
 export const DropdownItem = styled.button`
