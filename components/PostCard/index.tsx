@@ -13,6 +13,7 @@ import Avatar from '../elements/Avatar';
 import Box, { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
 import IconButton from '../elements/IconButton';
+import RSSUsage from '../elements/ShareButton';
 import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
 import './styles';
@@ -74,6 +75,7 @@ const PostCard: FC<Props> = ({ post }) => {
           {hasSaved ? <MdBookmarkRemove /> : <MdBookmarkAdd />}
         </IconButton>
         <IconButton>
+          <RSSUsage />
           <MdShare />
         </IconButton>
       </IconButtonContainer>

@@ -2,16 +2,9 @@ import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
-import { Post } from '../../models/post';
-import { User } from '../../models/user';
+import { ExtendedPost } from './usePosts';
 
-export interface SharedPost extends Omit<Post, 'author'> {
-    author: User;
-    hasLiked: boolean;
-    hasSaved: boolean;
-  }
-
-const getSharedPost = async (postId: string) => {
+const getPost = async (postId: string) => {
   const { origin } = window.location;
 
   const response = await axios.get(`${origin}/api/posts/${postId}`);
@@ -20,13 +13,13 @@ const getSharedPost = async (postId: string) => {
   return data;
 };
 
-const useSharedPost = (postId: string) => {
+const usePost = (postId: string) => {
   const { user } = useAuth0User();
 
-  return useQuery<SharedPost>(
+  return useQuery<ExtendedPost>(
     ['post', postId],
     () => {
-      return getSharedPost(postId);
+      return getPost(postId);
     },
     {
       enabled: !!user,
@@ -35,4 +28,4 @@ const useSharedPost = (postId: string) => {
   );
 };
 
-export default useSharedPost;
+export default usePost;
