@@ -1,16 +1,18 @@
 import { FC } from 'react';
 import { ShareSocial } from 'react-share-social';
 
-import { style } from './styles';
-
 interface Props {
   postId: string;
 }
 
+const styleRSS = {
+  background: 'hsla(0, 0%, 100%, 0)',
+};
+
 const RSSUsage: FC<Props> = ({ postId }) => {
   return (
     <ShareSocial
-      style={style}
+      style={styleRSS}
       url={`${origin}/posts/${postId}`}
       socialTypes={['facebook', 'twitter', 'reddit', 'linkedin']}
     />

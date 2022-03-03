@@ -47,3 +47,29 @@ export const MenuToggle = styled.button<{ isVisible: boolean }>`
     ${({ theme }) => theme.shadow}
   }
 `;
+
+export const RSSContainer = styled.div`
+  z-index: 99;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  transition: ${({ theme }) => theme.transition};
+  width: 20rem;
+  background: ${({ theme }) => theme.dropdown};
+  background: ${({ theme }) => theme.dropdownGradient};
+  ${({ theme }) => theme.foregroundBlur}
+  ${({ theme }) => theme.shadow}
+  border-radius: ${({ theme }) => theme.borderRadius};
+`;
+
+export const ToggleRSS = styled.div<{ isOpen: boolean }>`
+  position: relative;
+  & ${RSSContainer} {
+    margin-top: ${({ isOpen: shareVisibility }) => (shareVisibility ? '1rem' : '0')};
+    visibility: ${({ isOpen: shareVisibility }) => (shareVisibility ? 'visible' : 'hidden')};
+    opacity: ${({ isOpen: shareVisibility }) => (shareVisibility ? '1' : '0')};
+    color: ${({ theme }) => theme.textSecondary};
+    font-size: ${({ theme }) => theme.fontSizeXs};
+    font-weight: ${({ theme }) => theme.fontWeightMedium};
+  }
+`;
