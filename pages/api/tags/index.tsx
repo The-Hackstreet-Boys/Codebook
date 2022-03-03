@@ -1,5 +1,7 @@
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 
+import authentication from '../../../middleware/authentication';
 import connectToDatabase from '../../../middleware/connectToDatabase';
 import Tag from '../../../models/tag';
 
@@ -14,7 +16,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         res.status(500).json({ error: (err as Error).message });
       }
       break;
-    case 'PUT':
+    case 'POST':
       try {
         const tag = new Tag(req.body);
 
@@ -25,9 +27,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       }
       break;
     default:
-      res.setHeader('Allow', ['GET', 'PUT']);
+      res.setHeader('Allow', ['GET', 'POST']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }
 
-export default connectToDatabase(handler);
+export default withApiAuthRequired(connectToDatabase(authentication(handler)));
