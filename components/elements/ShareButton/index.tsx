@@ -1,18 +1,20 @@
-import { useRouter } from 'next/router';
+import { FC } from 'react';
 import { ShareSocial } from 'react-share-social';
 
-import usePost from '../../../hooks/queries/usePost';
 import { style } from './styles';
 
-export default function RSSUsage() {
-  const router = useRouter();
-  const { postId } = router.query;
-  const { data: post } = usePost(postId as string);
+interface Props {
+  postId: string;
+}
+
+const RSSUsage: FC<Props> = ({ postId }) => {
   return (
     <ShareSocial
       style={style}
-      url={}
+      url={`${origin}/posts/${postId}`}
       socialTypes={['facebook', 'twitter', 'reddit', 'linkedin']}
     />
   );
-}
+};
+
+export default RSSUsage;

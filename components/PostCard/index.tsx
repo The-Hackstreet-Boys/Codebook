@@ -75,11 +75,11 @@ const PostCard: FC<Props> = ({ post }) => {
           {hasSaved ? <MdBookmarkRemove /> : <MdBookmarkAdd />}
         </IconButton>
         <IconButton>
-          <RSSUsage />
           <MdShare />
         </IconButton>
       </IconButtonContainer>
       {commentsVisibility && <CommentList postId={post._id} />}
+      <RSSUsage postId={post._id} />
     </Card>
   );
 };
