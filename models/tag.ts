@@ -1,7 +1,7 @@
 import mongoose, { Document, Model, Schema, model } from 'mongoose';
 
 export interface Tag extends Document {
-  variant: 'technology' | 'tool';
+  variant: 'language' | 'tool' | 'other';
   name: string;
   createdAt: Date;
   updatedAt: Date;
@@ -12,7 +12,7 @@ const tagSchema = new Schema<Tag>(
     variant: {
       required: true,
       type: String,
-      enum: ['technology', 'tool'],
+      enum: ['language', 'tool', 'other'],
       index: true,
     },
     name: {
