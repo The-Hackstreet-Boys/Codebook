@@ -18,6 +18,7 @@ import {
   ImagePreview,
   ImagePreviewContainer,
   RemoveButton,
+  SubmitButton,
   TextArea,
 } from './styles';
 
@@ -33,6 +34,7 @@ const PostForm: FC = () => {
   const onSuccess = () => {
     setText('');
     setCode('');
+    setTags([]);
     setLanguage('typescript');
     setCodeVisibility(false);
     handleRemoveImage();
@@ -95,7 +97,12 @@ const PostForm: FC = () => {
   }, [image]);
 
   const addTag = (tag: Tag) => {
-    setTags((oldValue) => [...oldValue, tag]);
+    const alreadyExists = tags.some((t) => t._id === tag._id);
+    if (!alreadyExists) setTags((oldValue) => [...oldValue, tag]);
+  };
+
+  const removeTag = (tagId: string) => {
+    setTags((oldValue) => oldValue.filter((tag) => tag._id !== tagId));
   };
 
   const { mutate: createPost } = useCreatePost(onSuccess);
@@ -121,10 +128,10 @@ const PostForm: FC = () => {
             </Card>
           </Box>
         )}
-        <Flexbox gap="0.5rem" marginBottom="0.5rem" flexWrap="wrap">
+        <Flexbox gap="0.5rem" margin="0.5rem 0" flexWrap="wrap">
           {tags?.map((tag) => (
             <div key={tag._id}>
-              <Card padding="xs">
+              <Card padding="xs" onClick={() => removeTag(tag._id)}>
                 <Typography>{tag.name}</Typography>
               </Card>
             </div>
@@ -139,16 +146,12 @@ const PostForm: FC = () => {
             <input type="file" name="file" onChange={handleChange} id="fileInput" />
           </FileButton>
           <TagDropdown addTag={addTag} />
-          <MdCode />
-          <Button type="button">
-            <MdTag />
-          </Button>
-          <Button type="button" active={codeVisibility} onClick={toggleCodeVisibility}>
+          <Button active={codeVisibility} onClick={toggleCodeVisibility}>
             <MdCode />
           </Button>
-          <Button>
+          <SubmitButton>
             <MdSend />
-          </Button>
+          </SubmitButton>
         </IconContainer>
       </form>
     </Card>
