@@ -3,13 +3,7 @@ import { MdOutlineSearch } from 'react-icons/md';
 
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import Card from '../elements/Card';
-import {
-  Dropdown,
-  DropdownDivider,
-  DropdownItem,
-  DropdownMenu,
-  DropdownToggle,
-} from '../elements/Dropdown';
+import { Dropdown, DropdownMenu } from '../elements/Dropdown';
 import { SearchContainer, SearchInput } from './styles';
 
 const SearchBar: FC = () => {
