@@ -12,8 +12,9 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   switch (req.method) {
     case 'GET':
       try {
-        const tags = await TagModel.find({ name: { $regex: searchQuery, $options: 'i' } });
-        const users = await UserModel.find({ name: { $regex: searchQuery, $options: 'i' } });
+        const query = { name: { $regex: searchQuery, $options: 'i' } };
+        const tags = await TagModel.find(query).limit(5);
+        const users = await UserModel.find(query).limit(5);
 
         res.json({ tags, users });
       } catch (err) {
