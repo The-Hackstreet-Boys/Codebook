@@ -1,44 +1,30 @@
-import { FC, FormEvent, useRef } from 'react';
+import { FC, useRef } from 'react';
 import { MdTag } from 'react-icons/md';
 
-import useCreateTag from '../../hooks/mutations/useCreateTag';
-import { ExtendedPost } from '../../hooks/queries/usePosts';
+import useAssignTag from '../../hooks/mutations/useAssignTag';
 import useBoolean from '../../hooks/useBoolean';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
-import { Flexbox } from '../elements/Box';
-import Button from '../elements/Button';
-import { Dropdown } from '../elements/Dropdown';
-import { TagForm, TagInput, ToggleTag } from './styles';
+import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from '../elements/Dropdown';
 
 interface Props {
-  post: ExtendedPost;
+  tag: string;
 }
 
-const Tag: FC<Props> = ({ post }) => {
-  const [isVisible, toggleIsVisible, setIsVisible] = useBoolean(false);
-  // const { mutate: createTag } = useCreateTag(post._id);
+const TagDropdown: FC<Props> = ({ tag }) => {
+  const [isOpen, toggleIsOpen, setIsOpen] = useBoolean(false);
   const ref = useRef<HTMLDivElement>(null);
-  useOnClickOutside(ref, () => setIsVisible(false));
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-  };
+  useOnClickOutside(ref, () => setIsOpen(false));
+  const { mutate: assignTag } = useAssignTag(tag);
 
   return (
-    <ToggleTag ref={ref} isOpen={isVisible}>
-      <MdTag onClick={toggleIsVisible} />
-      <TagForm>
-        <Dropdown ref={ref} isOpen={isVisible}>
-          <Flexbox direction="row">
-            <form onSubmit={handleSubmit}>
-              <TagInput placeholder="Add a tag" />
-              <Button size="sm">+</Button>
-            </form>
-          </Flexbox>
-        </Dropdown>
-      </TagForm>
-    </ToggleTag>
+    <Dropdown ref={ref} isOpen={isOpen}>
+      <MdTag />
+      <DropdownToggle onClick={toggleIsOpen}></DropdownToggle>
+      <DropdownMenu>
+        <DropdownItem onClick={() => assignTag(tag)}>Add Tag</DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
   );
 };
 
-export default Tag;
+export default TagDropdown;

@@ -7,7 +7,7 @@ export interface NewTag {
   text: string;
 }
 
-const createTag = async (newTag: NewTag) => {
+const assignTag = async (newTag: NewTag) => {
   const { origin } = window.location;
   const response = await axios.post<Tag>(`${origin}/api/posts/tags`, newTag);
 
@@ -15,8 +15,8 @@ const createTag = async (newTag: NewTag) => {
   return createdTag;
 };
 
-const useCreateTag = (onSuccess: () => void) => {
-  return useMutation((newTag: NewTag) => createTag(newTag), { onSuccess });
+const useAssignTag = (onSuccess: () => void) => {
+  return useMutation((newTag: NewTag) => assignTag(newTag), { onSuccess });
 };
 
-export default useCreateTag;
+export default useAssignTag;
