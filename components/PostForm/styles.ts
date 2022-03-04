@@ -19,7 +19,17 @@ export const IconContainer = styled.div`
   display: flex;
   gap: 1rem;
   border-top: 1px solid ${({ theme }) => theme.overlay};
+  margin-top: 0.5rem;
   padding-top: 1rem;
+`;
+
+export const Button = styled.button<{ active?: boolean }>`
+  background: none;
+  border: none;
+  padding: 0;
+  &:last-child {
+    margin-left: auto;
+  }
   & svg {
     width: 1.25rem;
     height: 1.25rem;
@@ -30,15 +40,16 @@ export const IconContainer = styled.div`
       color: ${({ theme }) => theme.primary};
     }
   }
+  ${({ active, theme }) =>
+    active &&
+    `
+    &>svg {
+      color: ${theme.primary};
+    }
+  `}
 `;
 
-export const SubmitButton = styled.button`
-  background: none;
-  border: none;
-  margin-left: auto;
-`;
-
-export const FileButton = styled.label`
+export const FileButton = styled(Button).attrs({ as: 'label' })`
   & > input {
     position: absolute;
     width: 0.1px;
@@ -47,7 +58,7 @@ export const FileButton = styled.label`
   }
 `;
 
-export const ImagePreviewRemoveButton = styled.button`
+export const RemoveButton = styled.button`
   position: absolute;
   visibility: hidden;
   cursor: pointer;
@@ -78,7 +89,7 @@ export const ImagePreviewContainer = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  &:hover ${ImagePreviewRemoveButton} {
+  &:hover ${RemoveButton} {
     visibility: visible;
   }
 `;

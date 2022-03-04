@@ -5,6 +5,9 @@ import { TypographyProps } from './';
 const BaseTypography = styled.div<Omit<TypographyProps, 'variant'>>`
   margin: ${({ m }) => m ?? 0};
   padding: ${({ p }) => p ?? 0};
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   ${({ font, theme }) => font === 'secondary' && `font-family: ${theme.fontFamilySecondary};`};
   ${({ theme }) => `color: ${theme.text};`};
   ${({ align }) => `text-align: ${align};`};
