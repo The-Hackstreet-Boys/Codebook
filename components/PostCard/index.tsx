@@ -9,7 +9,7 @@ import useBoolean from '../../hooks/useBoolean';
 import CommentList from '../CommentList';
 import PostDropdown from '../PostDropdown';
 import Avatar from '../elements/Avatar';
-import { Flexbox } from '../elements/Box';
+import Box, { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
 import IconButton from '../elements/IconButton';
 import Timestamp from '../elements/Timestamp';
@@ -60,7 +60,15 @@ const PostCard: FC<Props> = ({ post }) => {
           />
         </ImageContainer>
       )}
-
+      <Flexbox gap="0.5rem" marginBottom="0.5rem">
+        {post?.tags.map((tag) => (
+          <div key={tag._id}>
+            <Card padding="sm">
+              <Typography>{tag.name}</Typography>
+            </Card>
+          </div>
+        ))}
+      </Flexbox>
       <IconButtonContainer>
         <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}

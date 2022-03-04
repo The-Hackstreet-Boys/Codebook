@@ -103,12 +103,14 @@ const PostForm: FC = () => {
             </Card>
           </Box>
         )}
-        <Flexbox gap="0.5rem">
+        <Flexbox gap="0.5rem" marginBottom="0.5rem" flexWrap="wrap">
           {tags?.map((tag) => (
-            <Card padding="sm" key={tag._id}>
-              <Typography>{tag.name}</Typography>
-            </Card>
-          ))}{' '}
+            <div key={tag._id}>
+              <Card padding="xs">
+                <Typography>{tag.name}</Typography>
+              </Card>
+            </div>
+          ))}
         </Flexbox>
         <IconContainer>
           <FileButton>

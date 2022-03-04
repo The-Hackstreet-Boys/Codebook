@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export type PaddingSize = 'sm' | 'md' | 'lg';
+export type PaddingSize = 'xs' | 'sm' | 'md' | 'lg';
 
 interface Props {
   padding?: PaddingSize;
@@ -14,6 +14,8 @@ const Card = styled.div<Props>`
   ${({ theme }) => theme.shadow}
   ${({ padding = 'lg' }) => {
     switch (padding) {
+      case 'xs':
+        return 'padding: 0.45rem 0.75rem;';
       case 'sm':
         return 'padding: 0.75rem;';
       case 'md':
