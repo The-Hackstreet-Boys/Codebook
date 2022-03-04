@@ -1,4 +1,4 @@
-import React, { FC, createContext, useContext, useState } from 'react';
+import React, { FC, createContext, useContext } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 import useLocalStorage from '../hooks/useLocalStorage';

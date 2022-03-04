@@ -18,7 +18,7 @@ const getContacts = async () => {
   return data;
 };
 
-const useContacts = (author?: string, limit = 20) => {
+const useContacts = () => {
   const { user } = useAuth0User();
 
   return useQuery<Data>(['contacts'], getContacts, {

@@ -19,8 +19,11 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
         const author = req.query.author as string;
         const onlySavedPosts = (req.query.onlySavedPosts as string) === 'true' ? true : false;
+        const tag = req.query.tag as string;
+
         const query: any = {};
         if (author) query.author = author;
+        if (tag) query.tags = tag;
         if (onlySavedPosts) query._id = { $in: req.user.savedPosts };
 
         const posts = await PostModel.find(query)

@@ -32,7 +32,6 @@ const useUser = (userId: string) => {
     },
     {
       enabled: !!user,
-      refetchInterval: 15000,
     },
   );
 };
