@@ -7,6 +7,9 @@ interface Props {
 
 const styleRSS = {
   background: 'hsla(0, 0%, 100%, 0)',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
 };
 
 const RSSUsage: FC<Props> = ({ postId }) => {
