@@ -38,6 +38,9 @@ const SearchBar: FC = () => {
       <DropdownMenu>
         {searchResults?.tags.map((tag) => (
           <DropdownItem key={tag._id}>{tag.name}</DropdownItem>
+        ))}{' '}
+        {searchResults?.users.map((user) => (
+          <DropdownItem key={user._id}>{user.name}</DropdownItem>
         ))}
       </DropdownMenu>
     </Dropdown>
