@@ -8,7 +8,6 @@ interface Props {
 
 const Card = styled.div<Props>`
   width: 100%;
-  background: ${({ theme }) => theme.foreground};
   background: ${({ theme }) => theme.foregroundGradient};
   border-radius: ${({ theme }) => theme.borderRadius};
   ${({ theme }) => theme.shadow}

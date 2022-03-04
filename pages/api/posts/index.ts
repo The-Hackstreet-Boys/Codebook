@@ -19,9 +19,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         const skipAmount = (page - 1) * limit;
 
         const author = req.query.author as string;
-
-        const query: { author?: string } = {};
+        const onlySavedPosts = (req.query.onlySavedPosts as string) === 'true' ? true : false;
+        const query: any = {};
         if (author) query.author = author;
+        if (onlySavedPosts) query._id = { $in: req.user.savedPosts };
 
         const posts = await PostModel.find(query)
           .sort({ createdAt: -1 })
@@ -39,12 +40,13 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         const data = posts.map((post) => ({
           ...post.toObject(),
           hasLiked: post.likes.includes(req.user.id),
+          hasSaved: req.user.savedPosts.includes(post._id),
         }));
 
-        const commentCount = await PostModel.countDocuments(query);
-        const pageCount = Math.ceil(commentCount / limit);
+        const documentCount = await PostModel.countDocuments(query);
+        const pageCount = Math.ceil(documentCount / limit);
 
-        res.json({ data, limit, page, pageCount, commentCount });
+        res.json({ data, limit, page, pageCount });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }

@@ -1,31 +1,41 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC } from 'react';
-import { MdBookmarkAdd, MdComment, MdFavorite, MdShare } from 'react-icons/md';
+import { FC, useRef } from 'react';
+import { MdBookmarkAdd, MdBookmarkRemove, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
 import useLikePost from '../../hooks/mutations/useLikePost';
+import useSavePost from '../../hooks/mutations/useSavePost';
 import { ExtendedPost } from '../../hooks/queries/usePosts';
 import useBoolean from '../../hooks/useBoolean';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
+import CodeBlock from '../CodeBlock';
 import CommentList from '../CommentList';
 import PostDropdown from '../PostDropdown';
 import Avatar from '../elements/Avatar';
-import Box, { Flexbox } from '../elements/Box';
+import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
 import IconButton from '../elements/IconButton';
+import RSSUsage from '../elements/ShareButton';
 import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
 import './styles';
-import { Container, IconButtonContainer, ImageContainer } from './styles';
+import { Container, IconButtonContainer, ImageContainer, RSSContainer, ToggleRSS } from './styles';
 
 interface Props {
   post: ExtendedPost;
 }
 
 const PostCard: FC<Props> = ({ post }) => {
-  const { author, text, likeCount, commentCount, createdAt, hasLiked, image } = post;
+  const { author, text, likeCount, commentCount, createdAt, hasLiked, hasSaved, code, image } =
+    post;
   const [commentsVisibility, toggleCommentsVisibility] = useBoolean(false);
-  const { mutate: likePost } = useLikePost(post._id);
 
+  const [shareVisibility, toggleShareVisibility, setShareVisability] = useBoolean(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useOnClickOutside(ref, () => setShareVisability(false));
+
+  const { mutate: likePost } = useLikePost(post._id);
+  const { mutate: savePost } = useSavePost(post._id);
   return (
     <Card>
       <Container>
@@ -49,6 +59,7 @@ const PostCard: FC<Props> = ({ post }) => {
           <Typography>{text}</Typography>
         </Flexbox>
       </Container>
+      {code && <CodeBlock code={code.text} language={code.language} />}
       {image && (
         <ImageContainer>
           <Image
@@ -76,11 +87,18 @@ const PostCard: FC<Props> = ({ post }) => {
         <IconButton onClick={toggleCommentsVisibility}>
           <MdComment /> {commentCount}
         </IconButton>
-        <IconButton>
-          <MdBookmarkAdd />
+        <IconButton onClick={() => savePost()} secondary={hasSaved}>
+          {hasSaved ? <MdBookmarkRemove /> : <MdBookmarkAdd />}
         </IconButton>
-        <IconButton>
+        <IconButton onClick={toggleShareVisibility}>
           <MdShare />
+          <>
+            <ToggleRSS ref={ref} isOpen={shareVisibility}>
+              <RSSContainer>
+                <RSSUsage postId={post._id} />
+              </RSSContainer>
+            </ToggleRSS>
+          </>
         </IconButton>
       </IconButtonContainer>
       {commentsVisibility && <CommentList postId={post._id} />}

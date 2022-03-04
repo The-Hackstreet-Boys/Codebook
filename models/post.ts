@@ -8,6 +8,7 @@ export interface Post extends Document {
   commentCount: number;
   tags: Types.ObjectId[];
   image?: { url: string; width: number; height: number };
+  code?: { text: string; language: string };
   createdAt: Date;
   updatedAt: Date;
 }
@@ -21,6 +22,7 @@ const postSchema = new Schema<Post>(
     commentCount: { type: Number, default: 0, min: 0 },
     tags: { type: [Schema.Types.ObjectId], ref: 'Tag' },
     image: { url: String, width: Number, height: Number },
+    code: { text: String, language: String },
   },
   { timestamps: true },
 );

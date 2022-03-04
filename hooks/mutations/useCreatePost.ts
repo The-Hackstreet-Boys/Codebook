@@ -7,7 +7,8 @@ import { Post } from '../../models/post';
 export interface NewPost {
   text: string;
   image?: { url: string; width: number; height: number };
-  tag?: Types.ObjectId[];
+  tags: Types.ObjectId[];
+  code?: { text: string; language: string };
 }
 
 const createPost = async (newPost: NewPost) => {

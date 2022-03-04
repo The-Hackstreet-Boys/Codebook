@@ -5,6 +5,7 @@ import useTags from '../../hooks/queries/useTags';
 import useBoolean from '../../hooks/useBoolean';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import { Tag } from '../../models/tag';
+import { Button } from '../PostForm/styles';
 import { Dropdown, DropdownItem, DropdownMenu } from '../elements/Dropdown';
 
 interface Props {
@@ -18,11 +19,19 @@ const TagDropdown: FC<Props> = ({ addTag }) => {
   const { data: tags } = useTags();
 
   return (
-    <Dropdown ref={ref} isOpen={isOpen}>
-      <MdTag onClick={toggleIsOpen} />
+    <Dropdown ref={ref} isOpen={isOpen} position="right">
+      <Button>
+        <MdTag onClick={toggleIsOpen} />
+      </Button>
       <DropdownMenu>
         {tags?.map((tag) => (
-          <DropdownItem key={tag._id} onClick={() => addTag(tag)}>
+          <DropdownItem
+            key={tag._id}
+            onClick={() => {
+              addTag(tag);
+              setIsOpen(false);
+            }}
+          >
             {tag.name}
           </DropdownItem>
         ))}

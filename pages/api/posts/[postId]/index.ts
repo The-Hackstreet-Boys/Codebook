@@ -5,11 +5,33 @@ import authentication from '../../../../middleware/authentication';
 import connectToDatabase from '../../../../middleware/connectToDatabase';
 import CommentModel from '../../../../models/comment';
 import PostModel from '../../../../models/post';
+import UserModel from '../../../../models/user';
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { postId } = req.query;
 
   switch (req.method) {
+    case 'GET':
+      try {
+        const post = await PostModel.findById(postId).populate({
+          path: 'author',
+          model: UserModel,
+        });
+        if (!post) {
+          res.status(404).send(`No post found with id ${postId}!`);
+          return;
+        }
+        const extendedPost = {
+          ...post.toObject(),
+          hasLiked: post.likes.includes(req.user.id),
+          hasSaved: req.user.savedPosts.includes(post._id),
+        };
+        res.json(extendedPost);
+      } catch (err) {
+        res.status(500).json({ error: (err as Error).message || err });
+      }
+      break;
+
     case 'DELETE':
       try {
         const post = await PostModel.findById(postId);
@@ -31,7 +53,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       }
       break;
     default:
-      res.setHeader('Allow', ['DELETE']);
+      res.setHeader('Allow', ['DELETE', 'GET']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 }

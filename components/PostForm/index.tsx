@@ -2,20 +2,22 @@ import axios from 'axios';
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { MdClose, MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
 
-import useCreatePost from '../../hooks/mutations/useCreatePost';
+import useCreatePost, { NewPost } from '../../hooks/mutations/useCreatePost';
+import useBoolean from '../../hooks/useBoolean';
 import { Tag } from '../../models/tag';
+import CodeBlock from '../CodeBlock';
 import TagDropdown from '../TagDropdown';
 import Box, { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
 import Typography from '../elements/Typography';
 import './styles';
 import {
+  Button,
   FileButton,
   IconContainer,
   ImagePreview,
   ImagePreviewContainer,
-  ImagePreviewRemoveButton,
-  SubmitButton,
+  RemoveButton,
   TextArea,
 } from './styles';
 
@@ -24,6 +26,17 @@ const PostForm: FC = () => {
   const [image, setImage] = useState<File>();
   const [imageSrc, setImageSrc] = useState<string>();
   const [tags, setTags] = useState<Tag[]>([]);
+  const [code, setCode] = useState('');
+  const [language, setLanguage] = useState('javascript');
+  const [codeVisibility, toggleCodeVisibility, setCodeVisibility] = useBoolean(false);
+
+  const onSuccess = () => {
+    setText('');
+    setCode('');
+    setLanguage('typescript');
+    setCodeVisibility(false);
+    handleRemoveImage();
+  };
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
@@ -31,6 +44,15 @@ const PostForm: FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const newPost: NewPost = { text, tags: tags.map((tag) => tag._id) };
+
+    if (codeVisibility && code.length) {
+      newPost.code = {
+        text: code,
+        language,
+      };
+    }
 
     if (image) {
       const data = new FormData();
@@ -45,11 +67,10 @@ const PostForm: FC = () => {
 
       const { secure_url, width, height } = response.data;
 
-      createPost({ text, image: { url: secure_url, width, height } });
-      return;
+      newPost.image = { url: secure_url, width, height };
     }
 
-    createPost({ text });
+    createPost(newPost);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -73,13 +94,10 @@ const PostForm: FC = () => {
     setImageSrc(URL.createObjectURL(image));
   }, [image]);
 
-  const onSuccess = () => {
-    setText('');
-    handleRemoveImage();
-  };
   const addTag = (tag: Tag) => {
     setTags((oldValue) => [...oldValue, tag]);
   };
+
   const { mutate: createPost } = useCreatePost(onSuccess);
   return (
     <Card>
@@ -96,9 +114,9 @@ const PostForm: FC = () => {
             <Card padding="sm">
               <ImagePreviewContainer>
                 <ImagePreview src={imageSrc} alt="Uploaded image" />
-                <ImagePreviewRemoveButton>
+                <RemoveButton>
                   <MdClose onClick={handleRemoveImage} />
-                </ImagePreviewRemoveButton>
+                </RemoveButton>
               </ImagePreviewContainer>
             </Card>
           </Box>
@@ -112,16 +130,25 @@ const PostForm: FC = () => {
             </div>
           ))}
         </Flexbox>
+        {codeVisibility && (
+          <CodeBlock language={language} setLanguage={setLanguage} code={code} setCode={setCode} />
+        )}
         <IconContainer>
-          <FileButton>
+          <FileButton active={!!image}>
             <MdImage />
             <input type="file" name="file" onChange={handleChange} id="fileInput" />
           </FileButton>
           <TagDropdown addTag={addTag} />
           <MdCode />
-          <SubmitButton>
+          <Button type="button">
+            <MdTag />
+          </Button>
+          <Button type="button" active={codeVisibility} onClick={toggleCodeVisibility}>
+            <MdCode />
+          </Button>
+          <Button>
             <MdSend />
-          </SubmitButton>
+          </Button>
         </IconContainer>
       </form>
     </Card>

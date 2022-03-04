@@ -7,6 +7,7 @@ export const Container = styled.div<{
   showActiveStatus: boolean;
 }>`
   position: relative;
+  flex-shrink: 0;
   ${({ size }) =>
     size === 'sm' &&
     `width: 2.5rem;

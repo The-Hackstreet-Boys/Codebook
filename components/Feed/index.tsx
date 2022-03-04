@@ -10,11 +10,16 @@ import Typography from '../elements/Typography';
 
 interface Props {
   author?: string;
+  onlySavedPosts?: boolean;
 }
 
-const Feed: FC<Props> = ({ author }) => {
+const Feed: FC<Props> = ({ author, onlySavedPosts }) => {
   const limit = 10;
-  const { data, fetchNextPage, hasNextPage, isLoading, isError } = usePosts(author, limit);
+  const { data, fetchNextPage, hasNextPage, isLoading, isError } = usePosts(
+    author,
+    onlySavedPosts,
+    limit,
+  );
   const { ref, inView } = useInView();
 
   useEffect(() => {
