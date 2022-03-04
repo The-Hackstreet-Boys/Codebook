@@ -6,9 +6,7 @@ import { Tag } from '../../models/tag';
 const getTags = async () => {
   const { origin } = window.location;
 
-  const response = await axios.get(`${origin}/api/tags`, {
-    params: {},
-  });
+  const response = await axios.get(`${origin}/api/tags`);
 
   const data = response.data;
   return data;
