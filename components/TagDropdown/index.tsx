@@ -1,33 +1,29 @@
 import { FC, useRef, useState } from 'react';
 import { MdTag } from 'react-icons/md';
-import useTags from '../../hooks/queries/useTags';
 
+import useTags from '../../hooks/queries/useTags';
 import useBoolean from '../../hooks/useBoolean';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
 import { Tag } from '../../models/tag';
 import { Dropdown, DropdownItem, DropdownMenu, DropdownToggle } from '../elements/Dropdown';
 
 interface Props {
-  tag: string;
+  addTag: (tag:Tag)=> void;
 }
 
-const TagDropdown: FC<Props> = ({ tag }) => {
+const TagDropdown: FC<Props> = ({ addTag}) => {
   const [isOpen, toggleIsOpen, setIsOpen] = useBoolean(false);
   const ref = useRef<HTMLDivElement>(null);
   useOnClickOutside(ref, () => setIsOpen(false));
-  const [tags, setTags] = useTags<Tag[]>([]);
-
+  const {data:tags}= useTags();
 
   return (
     <Dropdown ref={ref} isOpen={isOpen}>
-      <MdTag />
-      <DropdownToggle onClick={toggleIsOpen}></DropdownToggle>
+      <MdTag onClick={toggleIsOpen}/>
       <DropdownMenu>
-        
-        {tags?.tags.map((tag) => (
-          <DropdownItem key={tag._id}>{tag.name}</DropdownItem>
+        {tags?.map((tag) => (
+          <DropdownItem key={tag._id} onClick={()=> addTag(tag)}>{tag.name}</DropdownItem>
         ))}
-        
       </DropdownMenu>
     </Dropdown>
   );

@@ -3,9 +3,11 @@ import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { MdClose, MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
 
 import useCreatePost from '../../hooks/mutations/useCreatePost';
-import Tag from '../TagPostForm';
-import Box from '../elements/Box';
+import { Tag } from '../../models/tag';
+import TagDropdown from '../TagDropdown';
+import Box, { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
+import Typography from '../elements/Typography';
 import './styles';
 import {
   FileButton,
@@ -21,6 +23,7 @@ const PostForm: FC = () => {
   const [text, setText] = useState('');
   const [image, setImage] = useState<File>();
   const [imageSrc, setImageSrc] = useState<string>();
+  const [tags, setTags] = useState<Tag[]>([]);
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
@@ -74,7 +77,9 @@ const PostForm: FC = () => {
     setText('');
     handleRemoveImage();
   };
-
+  const addTag = (tag: Tag) => {
+    setTags((oldValue) => [...oldValue, tag]);
+  };
   const { mutate: createPost } = useCreatePost(onSuccess);
   return (
     <Card>
@@ -98,12 +103,19 @@ const PostForm: FC = () => {
             </Card>
           </Box>
         )}
+        <Flexbox gap="0.5rem">
+          {tags?.map((tag) => (
+            <Card padding="sm" key={tag._id}>
+              <Typography>{tag.name}</Typography>
+            </Card>
+          ))}{' '}
+        </Flexbox>
         <IconContainer>
           <FileButton>
             <MdImage />
             <input type="file" name="file" onChange={handleChange} id="fileInput" />
           </FileButton>
-          <Tag />
+          <TagDropdown addTag={addTag} />
           <MdCode />
           <SubmitButton>
             <MdSend />
