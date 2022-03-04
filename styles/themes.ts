@@ -50,6 +50,12 @@ export const darkTheme: DefaultTheme = {
   fontWeightExtraBold: '800',
   fontWeightBlack: '900',
   transition: 'all 150ms ease-in-out',
+  code: 'hsl(0, 0%, 100%)',
+  codeComments: 'hsla(0, 0%, 100%, 0.5)',
+  codePrimary: '#1ab4a4',
+  codeSecondary: '#E35789',
+  codeTertiary: '#FF7F11',
+  codeQuaternary: '#5887FF',
 };
 
 export const lightTheme: DefaultTheme = {
@@ -98,4 +104,10 @@ export const lightTheme: DefaultTheme = {
   transition: 'all 150ms ease-in-out',
   dropdown: '',
   dropdownGradient: '',
+  code: 'hsla(0, 0%, 100%, 0.9)',
+  codeComments: 'hsla(0, 0%, 100%, 0.75)',
+  codePrimary: '#1ab4a4',
+  codeSecondary: '#E35789',
+  codeTertiary: '#FF7F11',
+  codeQuaternary: '#5887FF',
 };

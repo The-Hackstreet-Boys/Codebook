@@ -27,10 +27,11 @@ export const DropdownToggle = styled.button`
 export const DropdownMenu = styled.div`
   z-index: 99;
   position: absolute;
-  right: 0;
   top: 100%;
   transition: ${({ theme }) => theme.transition};
   width: 15rem;
+  max-height: 15rem;
+  overflow-x: auto;
   background: ${({ theme }) => theme.dropdown};
   background: ${({ theme }) => theme.dropdownGradient};
   ${({ theme }) => theme.foregroundBlur}
@@ -39,8 +40,9 @@ export const DropdownMenu = styled.div`
   padding: 0.5rem;
 `;
 
-export const Dropdown = styled.div<{ isOpen: boolean }>`
+export const Dropdown = styled.div<{ isOpen: boolean; position?: 'left' | 'right' }>`
   position: relative;
+  width: fit-content;
   & ${DropdownToggle} {
     ${({ isOpen: isVisible }) => !isVisible && 'box-shadow: none;'}
     background: ${({ theme, isOpen: isVisible }) => isVisible && theme.overlay2};
@@ -50,6 +52,7 @@ export const Dropdown = styled.div<{ isOpen: boolean }>`
     margin-top: ${({ isOpen: isVisible }) => (isVisible ? '1rem' : '0')};
     visibility: ${({ isOpen: isVisible }) => (isVisible ? 'visible' : 'hidden')};
     opacity: ${({ isOpen: isVisible }) => (isVisible ? '1' : '0')};
+    ${({ position }) => (position === 'right' ? 'left: 0;' : 'right: 0;')}
   }
 `;
 

@@ -37,13 +37,20 @@ const GlobalStyle = createGlobalStyle`
 
     ::-webkit-scrollbar {
         width: 0.5rem;
+        height: 0.5rem;
         @media (max-width: 992px) {
-        display: none;
+            display: none;
         }
     }
+
     ::-webkit-scrollbar-thumb {
         cursor: pointer;
-        background-color: ${({ theme }) => theme.overlay};
+        background: ${({ theme }) => theme.overlay};
+        border-radius: ${({ theme }) => theme.borderRadius};
+    }
+
+    ::-webkit-scrollbar-corner{
+        background: transparent;
     }
 `;
 

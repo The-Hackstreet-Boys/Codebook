@@ -8,6 +8,7 @@ import useSavePost from '../../hooks/mutations/useSavePost';
 import { ExtendedPost } from '../../hooks/queries/usePosts';
 import useBoolean from '../../hooks/useBoolean';
 import useOnClickOutside from '../../hooks/useOnClickOutside';
+import CodeBlock from '../CodeBlock';
 import CommentList from '../CommentList';
 import PostDropdown from '../PostDropdown';
 import Avatar from '../elements/Avatar';
@@ -25,7 +26,8 @@ interface Props {
 }
 
 const PostCard: FC<Props> = ({ post }) => {
-  const { author, text, likeCount, commentCount, createdAt, hasLiked, hasSaved, image } = post;
+  const { author, text, likeCount, commentCount, createdAt, hasLiked, hasSaved, code, image } =
+    post;
   const [commentsVisibility, toggleCommentsVisibility] = useBoolean(false);
 
   const [shareVisibility, toggleShareVisibility, setShareVisability] = useBoolean(false);
@@ -34,7 +36,6 @@ const PostCard: FC<Props> = ({ post }) => {
 
   const { mutate: likePost } = useLikePost(post._id);
   const { mutate: savePost } = useSavePost(post._id);
-
   return (
     <Card>
       <Container>
@@ -58,6 +59,7 @@ const PostCard: FC<Props> = ({ post }) => {
           <Typography>{text}</Typography>
         </Flexbox>
       </Container>
+      {code && <CodeBlock code={code.text} language={code.language} />}
       {image && (
         <ImageContainer>
           <Image
@@ -69,7 +71,6 @@ const PostCard: FC<Props> = ({ post }) => {
           />
         </ImageContainer>
       )}
-
       <IconButtonContainer>
         <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}
