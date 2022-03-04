@@ -49,7 +49,31 @@ export const Button = styled.button.attrs({ type: 'button' })<{ active?: boolean
   `}
 `;
 
-export const SubmitButton = styled(Button).attrs({ type: 'submit' })``;
+export const SubmitButton = styled.button<{ active?: boolean }>`
+  background: none;
+  border: none;
+  padding: 0;
+  &:last-child {
+    margin-left: auto;
+  }
+  & svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+    transition: ${({ theme }) => theme.transition};
+    color: ${({ theme }) => theme.text};
+    & :hover {
+      color: ${({ theme }) => theme.primary};
+    }
+  }
+  ${({ active, theme }) =>
+    active &&
+    `
+    &>svg {
+      color: ${theme.primary};
+    }
+  `}
+`;
 
 export const FileButton = styled(Button).attrs({ as: 'label' })`
   & > input {
