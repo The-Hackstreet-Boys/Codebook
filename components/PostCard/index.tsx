@@ -1,12 +1,13 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC } from 'react';
+import { FC, useRef } from 'react';
 import { MdBookmarkAdd, MdBookmarkRemove, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
 import useLikePost from '../../hooks/mutations/useLikePost';
 import useSavePost from '../../hooks/mutations/useSavePost';
 import { ExtendedPost } from '../../hooks/queries/usePosts';
 import useBoolean from '../../hooks/useBoolean';
+import useOnClickOutside from '../../hooks/useOnClickOutside';
 import CodeBlock from '../CodeBlock';
 import CommentList from '../CommentList';
 import PostDropdown from '../PostDropdown';
@@ -14,10 +15,11 @@ import Avatar from '../elements/Avatar';
 import { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
 import IconButton from '../elements/IconButton';
+import RSSUsage from '../elements/ShareButton';
 import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
 import './styles';
-import { Container, IconButtonContainer, ImageContainer } from './styles';
+import { Container, IconButtonContainer, ImageContainer, RSSContainer, ToggleRSS } from './styles';
 
 interface Props {
   post: ExtendedPost;
@@ -27,6 +29,11 @@ const PostCard: FC<Props> = ({ post }) => {
   const { author, text, likeCount, commentCount, createdAt, hasLiked, hasSaved, code, image } =
     post;
   const [commentsVisibility, toggleCommentsVisibility] = useBoolean(false);
+
+  const [shareVisibility, toggleShareVisibility, setShareVisability] = useBoolean(false);
+  const ref = useRef<HTMLDivElement>(null);
+  useOnClickOutside(ref, () => setShareVisability(false));
+
   const { mutate: likePost } = useLikePost(post._id);
   const { mutate: savePost } = useSavePost(post._id);
   return (
@@ -74,8 +81,15 @@ const PostCard: FC<Props> = ({ post }) => {
         <IconButton onClick={() => savePost()} secondary={hasSaved}>
           {hasSaved ? <MdBookmarkRemove /> : <MdBookmarkAdd />}
         </IconButton>
-        <IconButton>
+        <IconButton onClick={toggleShareVisibility}>
           <MdShare />
+          <>
+            <ToggleRSS ref={ref} isOpen={shareVisibility}>
+              <RSSContainer>
+                <RSSUsage postId={post._id} />
+              </RSSContainer>
+            </ToggleRSS>
+          </>
         </IconButton>
       </IconButtonContainer>
       {commentsVisibility && <CommentList postId={post._id} />}
