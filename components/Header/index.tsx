@@ -1,14 +1,13 @@
 import Link from 'next/link';
 import { FC } from 'react';
-import { MdOutlineSearch } from 'react-icons/md';
 
 import useCurrentUser from '../../hooks/queries/useCurrentUser';
 import HeaderDropdown from '../HeaderDropdown';
 import Profile, { ProfileSkeleton } from '../Profile';
+import SearchBar from '../SearchBar';
 import { Flexbox } from '../elements/Box';
-import Card from '../elements/Card';
 import Logo from '../elements/Logo';
-import { Container, SearchBar, SearchInput } from './styles';
+import { Container } from './styles';
 
 const Header: FC = () => {
   const { data: user, isLoading } = useCurrentUser();
@@ -28,12 +27,7 @@ const Header: FC = () => {
               <Logo />
             </a>
           </Link>
-          <Card padding="sm">
-            <SearchBar>
-              <MdOutlineSearch />
-              <SearchInput placeholder="Search for posts, groups or people..." />
-            </SearchBar>
-          </Card>
+          <SearchBar />
         </Flexbox>
         <Flexbox alignItems="center" gap="1rem">
           {isLoading || !user ? <ProfileSkeleton /> : <Profile user={user} />}
