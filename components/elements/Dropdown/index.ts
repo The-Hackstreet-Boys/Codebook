@@ -56,7 +56,7 @@ export const Dropdown = styled.div<{ isOpen: boolean; position?: 'left' | 'right
   }
 `;
 
-export const DropdownItem = styled.button`
+export const DropdownItem = styled.button.attrs({ type: 'button' })`
   width: 100%;
   padding: 0.75rem;
   display: flex;

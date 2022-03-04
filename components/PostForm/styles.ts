@@ -23,7 +23,7 @@ export const IconContainer = styled.div`
   padding-top: 1rem;
 `;
 
-export const Button = styled.button<{ active?: boolean }>`
+export const Button = styled.button.attrs({ type: 'button' })<{ active?: boolean }>`
   background: none;
   border: none;
   padding: 0;
@@ -48,6 +48,8 @@ export const Button = styled.button<{ active?: boolean }>`
     }
   `}
 `;
+
+export const SubmitButton = styled(Button).attrs({ type: 'submit' })``;
 
 export const FileButton = styled(Button).attrs({ as: 'label' })`
   & > input {

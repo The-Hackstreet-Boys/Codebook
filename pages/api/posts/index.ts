@@ -5,6 +5,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 import authentication from '../../../middleware/authentication';
 import connectToDatabase from '../../../middleware/connectToDatabase';
 import PostModel from '../../../models/post';
+import TagModel from '../../../models/tag';
 import UserModel from '../../../models/user';
 
 const filter = new Filter();
@@ -33,6 +34,10 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
           .populate({
             path: 'author',
             model: UserModel,
+          })
+          .populate({
+            path: 'tags',
+            model: TagModel,
           });
 
         const data = posts.map((post) => ({

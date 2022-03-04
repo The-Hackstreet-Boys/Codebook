@@ -12,7 +12,7 @@ import CodeBlock from '../CodeBlock';
 import CommentList from '../CommentList';
 import PostDropdown from '../PostDropdown';
 import Avatar from '../elements/Avatar';
-import { Flexbox } from '../elements/Box';
+import Box, { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
 import IconButton from '../elements/IconButton';
 import RSSUsage from '../elements/ShareButton';
@@ -71,6 +71,15 @@ const PostCard: FC<Props> = ({ post }) => {
           />
         </ImageContainer>
       )}
+      <Flexbox gap="0.5rem" margin="0.5rem 0">
+        {post?.tags.map((tag) => (
+          <div key={tag._id}>
+            <Card padding="xs">
+              <Typography>{tag.name}</Typography>
+            </Card>
+          </div>
+        ))}
+      </Flexbox>
       <IconButtonContainer>
         <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}

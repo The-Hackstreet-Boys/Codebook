@@ -4,9 +4,12 @@ import { MdClose, MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
 
 import useCreatePost, { NewPost } from '../../hooks/mutations/useCreatePost';
 import useBoolean from '../../hooks/useBoolean';
+import { Tag } from '../../models/tag';
 import CodeBlock from '../CodeBlock';
-import Box from '../elements/Box';
+import TagDropdown from '../TagDropdown';
+import Box, { Flexbox } from '../elements/Box';
 import Card from '../elements/Card';
+import Typography from '../elements/Typography';
 import './styles';
 import {
   Button,
@@ -15,6 +18,7 @@ import {
   ImagePreview,
   ImagePreviewContainer,
   RemoveButton,
+  SubmitButton,
   TextArea,
 } from './styles';
 
@@ -22,6 +26,7 @@ const PostForm: FC = () => {
   const [text, setText] = useState('');
   const [image, setImage] = useState<File>();
   const [imageSrc, setImageSrc] = useState<string>();
+  const [tags, setTags] = useState<Tag[]>([]);
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState('javascript');
   const [codeVisibility, toggleCodeVisibility, setCodeVisibility] = useBoolean(false);
@@ -29,6 +34,7 @@ const PostForm: FC = () => {
   const onSuccess = () => {
     setText('');
     setCode('');
+    setTags([]);
     setLanguage('typescript');
     setCodeVisibility(false);
     handleRemoveImage();
@@ -41,7 +47,7 @@ const PostForm: FC = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newPost: NewPost = { text };
+    const newPost: NewPost = { text, tags: tags.map((tag) => tag._id) };
 
     if (codeVisibility && code.length) {
       newPost.code = {
@@ -90,6 +96,15 @@ const PostForm: FC = () => {
     setImageSrc(URL.createObjectURL(image));
   }, [image]);
 
+  const addTag = (tag: Tag) => {
+    const alreadyExists = tags.some((t) => t._id === tag._id);
+    if (!alreadyExists) setTags((oldValue) => [...oldValue, tag]);
+  };
+
+  const removeTag = (tagId: string) => {
+    setTags((oldValue) => oldValue.filter((tag) => tag._id !== tagId));
+  };
+
   const { mutate: createPost } = useCreatePost(onSuccess);
   return (
     <Card>
@@ -113,6 +128,15 @@ const PostForm: FC = () => {
             </Card>
           </Box>
         )}
+        <Flexbox gap="0.5rem" margin="0.5rem 0" flexWrap="wrap">
+          {tags?.map((tag) => (
+            <div key={tag._id}>
+              <Card padding="xs" onClick={() => removeTag(tag._id)}>
+                <Typography>{tag.name}</Typography>
+              </Card>
+            </div>
+          ))}
+        </Flexbox>
         {codeVisibility && (
           <CodeBlock language={language} setLanguage={setLanguage} code={code} setCode={setCode} />
         )}
@@ -121,15 +145,13 @@ const PostForm: FC = () => {
             <MdImage />
             <input type="file" name="file" onChange={handleChange} id="fileInput" />
           </FileButton>
-          <Button type="button">
-            <MdTag />
-          </Button>
-          <Button type="button" active={codeVisibility} onClick={toggleCodeVisibility}>
+          <TagDropdown addTag={addTag} />
+          <Button active={codeVisibility} onClick={toggleCodeVisibility}>
             <MdCode />
           </Button>
-          <Button>
+          <SubmitButton>
             <MdSend />
-          </Button>
+          </SubmitButton>
         </IconContainer>
       </form>
     </Card>
