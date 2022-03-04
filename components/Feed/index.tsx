@@ -10,13 +10,15 @@ import Typography from '../elements/Typography';
 
 interface Props {
   author?: string;
+  tag?: string;
   onlySavedPosts?: boolean;
 }
 
-const Feed: FC<Props> = ({ author, onlySavedPosts }) => {
+const Feed: FC<Props> = ({ author, onlySavedPosts, tag }) => {
   const limit = 10;
   const { data, fetchNextPage, hasNextPage, isLoading, isError } = usePosts(
     author,
+    tag,
     onlySavedPosts,
     limit,
   );

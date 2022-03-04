@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
 
@@ -37,10 +38,14 @@ const SearchBar: FC = () => {
       </Card>
       <DropdownMenu>
         {searchResults?.tags.map((tag) => (
-          <DropdownItem key={tag._id}>{tag.name}</DropdownItem>
-        ))}{' '}
+          <Link passHref href={`/tags/${tag._id}`} key={tag._id}>
+            <DropdownItem>{tag.name}</DropdownItem>
+          </Link>
+        ))}
         {searchResults?.users.map((user) => (
-          <DropdownItem key={user._id}>{user.name}</DropdownItem>
+          <Link passHref href={`/users/${user._id}`} key={user._id}>
+            <DropdownItem>{user.name}</DropdownItem>
+          </Link>
         ))}
       </DropdownMenu>
     </Dropdown>

@@ -18,24 +18,30 @@ interface Data {
   pageCount: number;
 }
 
-const getPosts = async (limit: number, page: number, author?: string, onlySavedPosts?: boolean) => {
+const getPosts = async (
+  limit: number,
+  page: number,
+  author?: string,
+  tag?: string,
+  onlySavedPosts?: boolean,
+) => {
   const { origin } = window.location;
 
   const response = await axios.get(`${origin}/api/posts`, {
-    params: { limit, page, author, onlySavedPosts },
+    params: { limit, page, author, tag, onlySavedPosts },
   });
 
   const data = response.data;
   return data;
 };
 
-const usePosts = (author?: string, onlySavedPosts?: boolean, limit = 20) => {
+const usePosts = (author?: string, tag?: string, onlySavedPosts?: boolean, limit = 20) => {
   const { user } = useAuth0User();
 
   return useInfiniteQuery<Data>(
-    ['posts', author, onlySavedPosts, limit],
+    ['posts', author, tag, onlySavedPosts, limit],
     ({ pageParam = 1 }) => {
-      return getPosts(limit, pageParam, author, onlySavedPosts);
+      return getPosts(limit, pageParam, author, tag, onlySavedPosts);
     },
     {
       enabled: !!user,
