@@ -15,6 +15,7 @@ export const IconButtonContainer = styled.div`
   display: flex;
   padding-top: 0.5rem;
   border-top: 1px solid ${({ theme }) => theme.overlay};
+  margin-top: 0.5rem;
   ${ImageContainer} ~ & {
     border-top: none;
   }

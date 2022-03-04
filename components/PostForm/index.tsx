@@ -2,17 +2,19 @@ import axios from 'axios';
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { MdClose, MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
 
-import useCreatePost from '../../hooks/mutations/useCreatePost';
+import useCreatePost, { NewPost } from '../../hooks/mutations/useCreatePost';
+import useBoolean from '../../hooks/useBoolean';
+import CodeBlock from '../CodeBlock';
 import Box from '../elements/Box';
 import Card from '../elements/Card';
 import './styles';
 import {
+  Button,
   FileButton,
   IconContainer,
   ImagePreview,
   ImagePreviewContainer,
-  ImagePreviewRemoveButton,
-  SubmitButton,
+  RemoveButton,
   TextArea,
 } from './styles';
 
@@ -20,9 +22,15 @@ const PostForm: FC = () => {
   const [text, setText] = useState('');
   const [image, setImage] = useState<File>();
   const [imageSrc, setImageSrc] = useState<string>();
+  const [code, setCode] = useState('');
+  const [language, setLanguage] = useState('javascript');
+  const [codeVisibility, toggleCodeVisibility, setCodeVisibility] = useBoolean(false);
 
   const onSuccess = () => {
     setText('');
+    setCode('');
+    setLanguage('typescript');
+    setCodeVisibility(false);
     handleRemoveImage();
   };
 
@@ -32,6 +40,15 @@ const PostForm: FC = () => {
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    const newPost: NewPost = { text };
+
+    if (codeVisibility && code.length) {
+      newPost.code = {
+        text: code,
+        language,
+      };
+    }
 
     if (image) {
       const data = new FormData();
@@ -46,11 +63,10 @@ const PostForm: FC = () => {
 
       const { secure_url, width, height } = response.data;
 
-      createPost({ text, image: { url: secure_url, width, height } });
-      return;
+      newPost.image = { url: secure_url, width, height };
     }
 
-    createPost({ text });
+    createPost(newPost);
   };
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -90,23 +106,30 @@ const PostForm: FC = () => {
             <Card padding="sm">
               <ImagePreviewContainer>
                 <ImagePreview src={imageSrc} alt="Uploaded image" />
-                <ImagePreviewRemoveButton>
+                <RemoveButton>
                   <MdClose onClick={handleRemoveImage} />
-                </ImagePreviewRemoveButton>
+                </RemoveButton>
               </ImagePreviewContainer>
             </Card>
           </Box>
         )}
+        {codeVisibility && (
+          <CodeBlock language={language} setLanguage={setLanguage} code={code} setCode={setCode} />
+        )}
         <IconContainer>
-          <FileButton>
+          <FileButton active={!!image}>
             <MdImage />
             <input type="file" name="file" onChange={handleChange} id="fileInput" />
           </FileButton>
-          <MdTag />
-          <MdCode />
-          <SubmitButton>
+          <Button type="button">
+            <MdTag />
+          </Button>
+          <Button type="button" active={codeVisibility} onClick={toggleCodeVisibility}>
+            <MdCode />
+          </Button>
+          <Button>
             <MdSend />
-          </SubmitButton>
+          </Button>
         </IconContainer>
       </form>
     </Card>

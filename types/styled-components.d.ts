@@ -43,5 +43,11 @@ declare module 'styled-components' {
     fontWeightExtraBold: string;
     fontWeightBlack: string;
     transition: string;
+    code: string;
+    codeComments: string;
+    codePrimary: string;
+    codeSecondary: string;
+    codeTertiary: string;
+    codeQuaternary: string;
   }
 }
