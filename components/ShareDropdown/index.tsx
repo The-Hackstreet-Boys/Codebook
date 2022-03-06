@@ -20,12 +20,12 @@ interface Props {
 }
 
 const ShareDropdown: FC<Props> = ({ postId }) => {
-  const [isOpen, toggleIsOpen, setIsOpen] = useBoolean(true);
+  const [isOpen, toggleIsOpen, setIsOpen] = useBoolean(false);
   const ref = useOnClickOutside<HTMLDivElement>(() => setIsOpen(false));
   const shareUrl = `www.codebook.space/posts/${postId}`;
 
   return (
-    <Dropdown ref={ref} isOpen={isOpen} position="right" grow>
+    <Dropdown ref={ref} isOpen={isOpen} grow>
       <IconButton onClick={toggleIsOpen}>
         <MdShare />
       </IconButton>

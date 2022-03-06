@@ -9,8 +9,8 @@ export const Container = styled.div`
     transition: ${({ theme }) => theme.transition};
     cursor: pointer;
     color: ${({ theme }) => theme.text};
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     & :hover {
       color: ${({ theme }) => theme.primary};
     }
