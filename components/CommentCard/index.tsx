@@ -11,19 +11,18 @@ import IconButton from '@/components/elements/IconButton';
 import Timestamp from '@/components/elements/Timestamp';
 import Typography from '@/components/elements/Typography';
 import useLikeComment from '@/hooks/mutations/useLikeComment';
-import { ExtendedComment } from '@/hooks/queries/useComments';
-import { ExtendedReply } from '@/hooks/queries/useReplies';
 import useBoolean from '@/hooks/useBoolean';
+import { ExtendedCommentOrReply } from '@/models/comment';
 
 import { Container, IconButtonContainer } from './styles';
 
 interface Props {
-  comment: ExtendedComment | ExtendedReply;
+  comment: ExtendedCommentOrReply;
 }
 
 const CommentCard: FC<Props> = ({ comment }) => {
   const { _id, type, author, text, createdAt, likeCount, hasLiked } = comment;
-  
+
   const { mutate: likeReply } = useLikeComment(comment);
   const [repliesVisibility, toggleRepliesVisibility] = useBoolean();
 

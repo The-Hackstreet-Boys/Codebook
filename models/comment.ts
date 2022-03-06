@@ -37,6 +37,8 @@ export interface ExtendedReply extends Omit<Reply, 'author' | 'comment'> {
   comment: string;
 }
 
+export type ExtendedCommentOrReply = ExtendedComment | ExtendedReply;
+
 const commentSchema = new Schema<CommentOrReply>(
   {
     type: { required: true, type: String, enum: ['comment', 'reply'] },
