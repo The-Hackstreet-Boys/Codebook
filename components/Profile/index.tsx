@@ -1,10 +1,10 @@
 import Link from 'next/link';
 import { FC } from 'react';
 
-import { User } from '../../models/user';
-import Avatar from '../elements/Avatar';
-import { Flexbox } from '../elements/Box';
-import Typography from '../elements/Typography';
+import Avatar from '@/components/elements/Avatar';
+import { Flexbox } from '@/components/elements/Box';
+import Typography from '@/components/elements/Typography';
+import { User } from '@/models/user';
 
 interface Props {
   user: User;

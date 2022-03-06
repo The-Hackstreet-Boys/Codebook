@@ -1,7 +1,8 @@
 import { FC } from 'react';
 
-import ContactSidebar from '../ContactSidebar';
-import { Flexbox } from '../elements/Box';
+import ContactSidebar from '@/components/ContactSidebar';
+import { Flexbox } from '@/components/elements/Box';
+
 import { Container, ContentContainer } from './styles';
 
 const FeedLayout: FC = ({ children }) => (

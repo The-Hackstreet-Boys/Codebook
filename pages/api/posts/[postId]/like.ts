@@ -1,11 +1,11 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import authentication from '../../../../middleware/authentication';
-import connectToDatabase from '../../../../middleware/connectToDatabase';
-import PostModel from '../../../../models/post';
+import authentication from '@/middleware/authentication';
+import connectToDatabase from '@/middleware/connectToDatabase';
+import PostModel from '@/models/post';
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { postId } = req.query;
 
   switch (req.method) {
@@ -44,6 +44,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.setHeader('Allow', ['POST']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-}
+};
 
 export default withApiAuthRequired(connectToDatabase(authentication(handler)));

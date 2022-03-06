@@ -2,16 +2,7 @@ import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
 
-import { Post } from '../../models/post';
-import { Tag } from '../../models/tag';
-import { ExtendedUser } from './useUser';
-
-export interface ExtendedPost extends Omit<Post, 'author' | 'tags'> {
-  author: ExtendedUser;
-  tags: Tag[];
-  hasLiked: boolean;
-  hasSaved: boolean;
-}
+import { ExtendedPost } from '@/models/post';
 
 interface Data {
   data: ExtendedPost[];

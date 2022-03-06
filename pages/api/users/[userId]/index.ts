@@ -1,12 +1,12 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import authentication from '../../../../middleware/authentication';
-import connectToDatabase from '../../../../middleware/connectToDatabase';
-import TagModel from '../../../../models/tag';
-import UserModel from '../../../../models/user';
+import authentication from '@/middleware/authentication';
+import connectToDatabase from '@/middleware/connectToDatabase';
+import TagModel from '@/models/tag';
+import UserModel from '@/models/user';
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { userId } = req.query;
 
   switch (req.method) {
@@ -24,6 +24,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
 
         const isFollowing = req.user.following.includes(user._id);
         const isFollowingYou = req.user.followers.includes(user._id);
+
         res.json({ ...user.toObject(), isFollowing, isFollowingYou });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
@@ -33,6 +34,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.setHeader('Allow', ['GET']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-}
+};
 
 export default withApiAuthRequired(connectToDatabase(authentication(handler)));

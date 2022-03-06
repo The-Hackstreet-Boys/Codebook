@@ -1,12 +1,13 @@
 import Link from 'next/link';
-import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
 
-import useSearchResults from '../../hooks/queries/useSearch';
-import useDebounce from '../../hooks/useDebounce';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
-import Card from '../elements/Card';
-import { Dropdown, DropdownItem, DropdownMenu } from '../elements/Dropdown';
+import Card from '@/components/elements/Card';
+import { Dropdown, DropdownItem, DropdownMenu } from '@/components/elements/Dropdown';
+import useSearchResults from '@/hooks/queries/useSearch';
+import useDebounce from '@/hooks/useDebounce';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
+
 import { SearchContainer, SearchInput } from './styles';
 
 const SearchBar: FC = () => {
@@ -14,9 +15,7 @@ const SearchBar: FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const debouncedQuery = useDebounce(query);
   const { data: searchResults } = useSearchResults(debouncedQuery);
-
-  const ref = useRef<HTMLDivElement>(null);
-  useOnClickOutside(ref, () => setIsVisible(false));
+  const ref = useOnClickOutside<HTMLDivElement>(() => setIsVisible(false));
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);

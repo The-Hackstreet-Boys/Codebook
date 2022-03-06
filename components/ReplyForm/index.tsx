@@ -1,11 +1,11 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { MdSend } from 'react-icons/md';
 
-import useCreateReply from '../../hooks/mutations/useCreateReply';
-import { ExtendedComment } from '../../hooks/queries/useComments';
-import { Flexbox } from '../elements/Box';
-import Card from '../elements/Card';
-import './styles';
+import { Flexbox } from '@/components/elements/Box';
+import Card from '@/components/elements/Card';
+import useCreateReply from '@/hooks/mutations/useCreateReply';
+import { ExtendedComment } from '@/hooks/queries/useComments';
+
 import { Input, SubmitButton } from './styles';
 
 interface Props {

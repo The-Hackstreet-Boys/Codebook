@@ -2,11 +2,12 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 
-import FeedLayout from '../../components/FeedLayout';
-import Layout from '../../components/Layout';
+import usePost from '@/hooks/queries/usePost';
+
+import FeedLayout from '../../components/layout/FeedLayout';
+import MainLayout from '../../components/layout/MainLayout';
 import PostCard from '../../components/PostCard';
 import PostCardSkeleton from '../../components/PostCard/skeleton';
-import usePost from '../../hooks/queries/usePost';
 
 const PostScreen: FC = () => {
   const router = useRouter();
@@ -16,14 +17,14 @@ const PostScreen: FC = () => {
   if (!post) return <></>;
 
   return (
-    <Layout>
+    <MainLayout>
       <FeedLayout>
         <Head>
           <title>Home | Codebook</title>
         </Head>
         {post ? <PostCard post={post} /> : <PostCardSkeleton />}
       </FeedLayout>
-    </Layout>
+    </MainLayout>
   );
 };
 

@@ -2,7 +2,7 @@ import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 import { useQuery } from 'react-query';
 
-import { User } from '../../models/user';
+import { User } from '@/models/user';
 
 const getCurrentUser = async () => {
   const { origin } = window.location;

@@ -2,18 +2,19 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { MdComment, MdFavorite } from 'react-icons/md';
 
-import useLikeComment from '../../hooks/mutations/useLikeComment';
-import { ExtendedComment } from '../../hooks/queries/useComments';
-import { ExtendedReply } from '../../hooks/queries/useReplies';
-import useBoolean from '../../hooks/useBoolean';
-import CommentDropdown from '../CommentDropdown';
-import RepliesList from '../RepliesList';
-import Avatar from '../elements/Avatar';
-import Box, { Flexbox } from '../elements/Box';
-import Card from '../elements/Card';
-import IconButton from '../elements/IconButton';
-import Timestamp from '../elements/Timestamp';
-import Typography from '../elements/Typography';
+import CommentDropdown from '@/components/CommentDropdown';
+import RepliesList from '@/components/RepliesList';
+import Avatar from '@/components/elements/Avatar';
+import Box, { Flexbox } from '@/components/elements/Box';
+import Card from '@/components/elements/Card';
+import IconButton from '@/components/elements/IconButton';
+import Timestamp from '@/components/elements/Timestamp';
+import Typography from '@/components/elements/Typography';
+import useLikeComment from '@/hooks/mutations/useLikeComment';
+import { ExtendedComment } from '@/hooks/queries/useComments';
+import { ExtendedReply } from '@/hooks/queries/useReplies';
+import useBoolean from '@/hooks/useBoolean';
+
 import { Container, IconButtonContainer } from './styles';
 
 interface Props {
@@ -22,9 +23,9 @@ interface Props {
 
 const CommentCard: FC<Props> = ({ comment }) => {
   const { _id, type, author, text, createdAt, likeCount, hasLiked } = comment;
+  
   const { mutate: likeReply } = useLikeComment(comment);
   const [repliesVisibility, toggleRepliesVisibility] = useBoolean();
-  const isComment = type === 'comment';
 
   return (
     <>
@@ -53,7 +54,7 @@ const CommentCard: FC<Props> = ({ comment }) => {
                   >
                     <MdFavorite /> {likeCount}
                   </IconButton>
-                  {isComment && (
+                  {type === 'comment' && (
                     <IconButton size="sm" grow={false} onClick={toggleRepliesVisibility}>
                       <MdComment /> {comment.replyCount}
                     </IconButton>
@@ -69,7 +70,7 @@ const CommentCard: FC<Props> = ({ comment }) => {
         </Flexbox>
       </Container>
 
-      {isComment && repliesVisibility && (
+      {type === 'comment' && repliesVisibility && (
         <Box marginLeft="3.25rem">
           <RepliesList comment={comment} />
         </Box>

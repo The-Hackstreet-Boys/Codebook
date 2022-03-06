@@ -1,12 +1,12 @@
 import { FC, useEffect } from 'react';
 import { useInView } from 'react-intersection-observer';
 
-import usePosts from '../../hooks/queries/usePosts';
-import PostCard from '../PostCard';
-import PostCardSkeleton from '../PostCard/skeleton';
-import { Flexbox } from '../elements/Box';
-import Color from '../elements/Color';
-import Typography from '../elements/Typography';
+import PostCard from '@/components/PostCard';
+import PostCardSkeleton from '@/components/PostCard/skeleton';
+import { Flexbox } from '@/components/elements/Box';
+import Color from '@/components/elements/Color';
+import Typography from '@/components/elements/Typography';
+import usePosts from '@/hooks/queries/usePosts';
 
 interface Props {
   author?: string;
@@ -15,14 +15,14 @@ interface Props {
 }
 
 const Feed: FC<Props> = ({ author, onlySavedPosts, tag }) => {
-  const limit = 10;
+  const pagePostCount = 10;
+  const { ref, inView } = useInView();
   const { data, fetchNextPage, hasNextPage, isLoading, isError } = usePosts(
     author,
     tag,
     onlySavedPosts,
-    limit,
+    pagePostCount,
   );
-  const { ref, inView } = useInView();
 
   useEffect(() => {
     if (inView) fetchNextPage();
@@ -41,7 +41,7 @@ const Feed: FC<Props> = ({ author, onlySavedPosts, tag }) => {
   if (isLoading) {
     return (
       <Flexbox direction="column" gap="1rem" ref={ref}>
-        {[...Array(limit)].map((_, index) => (
+        {[...Array(pagePostCount)].map((_, index) => (
           <PostCardSkeleton key={index} />
         ))}
       </Flexbox>
@@ -58,7 +58,8 @@ const Feed: FC<Props> = ({ author, onlySavedPosts, tag }) => {
         </>
       ))}
       <Flexbox direction="column" gap="1rem" ref={ref}>
-        {hasNextPage && [...Array(limit)].map((_, index) => <PostCardSkeleton key={index} />)}
+        {hasNextPage &&
+          [...Array(pagePostCount)].map((_, index) => <PostCardSkeleton key={index} />)}
       </Flexbox>
     </Flexbox>
   );

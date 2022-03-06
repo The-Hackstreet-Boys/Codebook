@@ -1,11 +1,11 @@
 import { FC } from 'react';
 
-import { ExtendedComment } from '../../hooks/queries/useComments';
-import useReplies from '../../hooks/queries/useReplies';
-import CommentCard from '../CommentCard';
-import ReplyForm from '../ReplyForm';
-import Box, { Flexbox } from '../elements/Box';
-import Typography from '../elements/Typography';
+import CommentCard from '@/components/CommentCard';
+import ReplyForm from '@/components/ReplyForm';
+import Box, { Flexbox } from '@/components/elements/Box';
+import Typography from '@/components/elements/Typography';
+import { ExtendedComment } from '@/hooks/queries/useComments';
+import useReplies from '@/hooks/queries/useReplies';
 
 interface Props {
   comment: ExtendedComment;
@@ -13,11 +13,12 @@ interface Props {
 
 const RepliesList: FC<Props> = ({ comment }) => {
   const { data, fetchNextPage, hasNextPage } = useReplies(comment);
+  const hasReplies = !!data?.pages[0]?.data.length;
 
   return (
     <Flexbox direction="column" gap="1rem" marginBottom="1rem">
       <ReplyForm comment={comment} />
-      {!!data?.pages[0]?.data.length && (
+      {hasReplies && (
         <>
           <Flexbox direction="column" gap="1rem">
             {data?.pages.map((page) => (

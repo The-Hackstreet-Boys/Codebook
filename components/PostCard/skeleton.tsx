@@ -1,9 +1,10 @@
 import { FC } from 'react';
 
+import { Flexbox } from '@/components/elements/Box';
+import Card from '@/components/elements/Card';
+import Skeleton from '@/components/elements/Skeleton';
+
 import { Container } from '../CommentCard/styles';
-import { Flexbox } from '../elements/Box';
-import Card from '../elements/Card';
-import Skeleton from '../elements/Skeleton';
 
 const PostCardSkeleton: FC = () => (
   <Card>

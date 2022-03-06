@@ -1,22 +1,21 @@
-import { FC, useRef } from 'react';
+import { FC } from 'react';
 import { MdTag } from 'react-icons/md';
 
-import useTags from '../../hooks/queries/useTags';
-import useBoolean from '../../hooks/useBoolean';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
-import { Tag } from '../../models/tag';
-import { Button } from '../PostForm/styles';
-import { Dropdown, DropdownItem, DropdownMenu } from '../elements/Dropdown';
+import { Button } from '@/components/PostForm/styles';
+import { Dropdown, DropdownItem, DropdownMenu } from '@/components/elements/Dropdown';
+import useTags from '@/hooks/queries/useTags';
+import useBoolean from '@/hooks/useBoolean';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
+import { Tag } from '@/models/tag';
 
 interface Props {
-  addTag: (tag: Tag) => void;
+  onSelect: (tag: Tag) => void;
 }
 
-const TagDropdown: FC<Props> = ({ addTag }) => {
+const TagDropdown: FC<Props> = ({ onSelect }) => {
   const [isOpen, toggleIsOpen, setIsOpen] = useBoolean(false);
-  const ref = useRef<HTMLDivElement>(null);
-  useOnClickOutside(ref, () => setIsOpen(false));
   const { data: tags } = useTags();
+  const ref = useOnClickOutside<HTMLDivElement>(() => setIsOpen(false));
 
   return (
     <Dropdown ref={ref} isOpen={isOpen} position="right">
@@ -28,7 +27,7 @@ const TagDropdown: FC<Props> = ({ addTag }) => {
           <DropdownItem
             key={tag._id}
             onClick={() => {
-              addTag(tag);
+              onSelect(tag);
               setIsOpen(false);
             }}
           >

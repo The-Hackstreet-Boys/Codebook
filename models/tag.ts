@@ -27,4 +27,6 @@ const tagSchema = new Schema<Tag>(
   { timestamps: true },
 );
 
-export default (mongoose.models.Tag || model<Tag>('Tag', tagSchema, 'tags')) as Model<Tag>;
+const TagModel = (mongoose.models.Tag ?? model<Tag>('Tag', tagSchema, 'tags')) as Model<Tag>;
+
+export default TagModel;

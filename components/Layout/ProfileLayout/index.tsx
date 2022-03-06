@@ -1,11 +1,12 @@
 import { FC } from 'react';
 
-import { ExtendedUser } from '../../hooks/queries/useUser';
-import ContactSidebar from '../ContactSidebar';
-import ProfileCard from '../ProfileCard';
-import Box, { Flexbox } from '../elements/Box';
-import Card from '../elements/Card';
-import Typography from '../elements/Typography';
+import ContactSidebar from '@/components/ContactSidebar';
+import ProfileCard from '@/components/ProfileCard';
+import Box, { Flexbox } from '@/components/elements/Box';
+import Card from '@/components/elements/Card';
+import Typography from '@/components/elements/Typography';
+import { ExtendedUser } from '@/hooks/queries/useUser';
+
 import { Container, Content, ContentContainer } from './styles';
 
 interface Props {

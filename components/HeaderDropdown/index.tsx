@@ -1,21 +1,20 @@
-import { FC, useRef } from 'react';
+import { FC } from 'react';
 import { MdArrowDropDown, MdDarkMode, MdLightMode, MdLogout, MdSettings } from 'react-icons/md';
 
-import { useTheme } from '../../contexts/ThemeContext';
-import useBoolean from '../../hooks/useBoolean';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
 import {
   Dropdown,
   DropdownDivider,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
-} from '../elements/Dropdown';
+} from '@/components/elements/Dropdown';
+import useTheme from '@/contexts/ThemeContext';
+import useBoolean from '@/hooks/useBoolean';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 const HeaderDropdown: FC = () => {
   const [isVisible, toggleIsVisible, setIsVisible] = useBoolean(false);
-  const ref = useRef<HTMLDivElement>(null);
-  useOnClickOutside(ref, () => setIsVisible(false));
+  const ref = useOnClickOutside<HTMLDivElement>(() => setIsVisible(false));
   const { isDarkTheme, toggleTheme } = useTheme();
 
   return (
@@ -25,21 +24,12 @@ const HeaderDropdown: FC = () => {
       </DropdownToggle>
       <DropdownMenu>
         <DropdownItem onClick={toggleTheme}>
-          {isDarkTheme ? (
-            <>
-              <MdDarkMode />
-              Theme: Dark
-            </>
-          ) : (
-            <>
-              <MdLightMode /> Theme: Light
-            </>
-          )}
+          {isDarkTheme ? <MdDarkMode /> : <MdLightMode />}Theme: {isDarkTheme ? 'Dark' : 'Light'}
         </DropdownItem>
-        <DropdownItem>
+        {/* <DropdownItem>
           <MdSettings />
           Settings
-        </DropdownItem>
+        </DropdownItem> */}
         <DropdownDivider />
         {
           // eslint-disable-next-line

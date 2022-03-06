@@ -1,5 +1,8 @@
 import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
+import { Post } from '@/models/post';
+import { Tag } from '@/models/tag';
+
 export interface User extends Document {
   name: string;
   picture: string;
@@ -13,6 +16,13 @@ export interface User extends Document {
   lastActiveAt: Date;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface ExtendedUser extends Omit<User, 'savedPosts' | 'tags'> {
+  savedPosts: Post[];
+  tags: Tag[];
+  isFollowing: boolean;
+  isFollowingYou: boolean;
 }
 
 const userSchema = new Schema<User>(
@@ -69,4 +79,6 @@ const userSchema = new Schema<User>(
   { timestamps: true },
 );
 
-export default (mongoose.models.User || model<User>('User', userSchema, 'users')) as Model<User>;
+const UserModel = (mongoose.models.User ?? model<User>('User', userSchema, 'users')) as Model<User>;
+
+export default UserModel;

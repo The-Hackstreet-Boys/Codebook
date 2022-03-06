@@ -1,8 +1,9 @@
 import dayjs from 'dayjs';
 import { FC } from 'react';
 
-import { ExtendedUser } from '../../../hooks/queries/useUser';
-import { User } from '../../../models/user';
+import { User } from '@/models/user';
+
+import { ExtendedUser } from '../@/hooks/queries/useUser';
 import { Container, Image } from './styles';
 
 export type AvatarSize = 'sm' | 'md' | 'lg';

@@ -1,12 +1,13 @@
 import Link from 'next/link';
 import { FC } from 'react';
 
-import useCurrentUser from '../../hooks/queries/useCurrentUser';
-import HeaderDropdown from '../HeaderDropdown';
-import Profile, { ProfileSkeleton } from '../Profile';
-import SearchBar from '../SearchBar';
-import { Flexbox } from '../elements/Box';
-import Logo from '../elements/Logo';
+import HeaderDropdown from '@/components/HeaderDropdown';
+import Profile, { ProfileSkeleton } from '@/components/Profile';
+import SearchBar from '@/components/SearchBar';
+import { Flexbox } from '@/components/elements/Box';
+import Logo from '@/components/elements/Logo';
+import useCurrentUser from '@/hooks/queries/useCurrentUser';
+
 import { Container } from './styles';
 
 const Header: FC = () => {

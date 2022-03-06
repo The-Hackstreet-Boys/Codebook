@@ -1,24 +1,24 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, useRef } from 'react';
+import { FC } from 'react';
 import { MdBookmarkAdd, MdBookmarkRemove, MdComment, MdFavorite, MdShare } from 'react-icons/md';
 
-import useLikePost from '../../hooks/mutations/useLikePost';
-import useSavePost from '../../hooks/mutations/useSavePost';
-import { ExtendedPost } from '../../hooks/queries/usePosts';
-import useBoolean from '../../hooks/useBoolean';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
-import CodeBlock from '../CodeBlock';
-import CommentList from '../CommentList';
-import PostDropdown from '../PostDropdown';
-import Avatar from '../elements/Avatar';
-import Box, { Flexbox } from '../elements/Box';
-import Card from '../elements/Card';
-import IconButton from '../elements/IconButton';
-import RSSUsage from '../elements/ShareButton';
-import Timestamp from '../elements/Timestamp';
-import Typography from '../elements/Typography';
-import './styles';
+import CodeBlock from '@/components/CodeBlock';
+import CommentList from '@/components/CommentList';
+import PostDropdown from '@/components/PostDropdown';
+import Avatar from '@/components/elements/Avatar';
+import { Flexbox } from '@/components/elements/Box';
+import Card from '@/components/elements/Card';
+import IconButton from '@/components/elements/IconButton';
+import RSSUsage from '@/components/elements/ShareButton';
+import Timestamp from '@/components/elements/Timestamp';
+import Typography from '@/components/elements/Typography';
+import useLikePost from '@/hooks/mutations/useLikePost';
+import useSavePost from '@/hooks/mutations/useSavePost';
+import { ExtendedPost } from '@/hooks/queries/usePosts';
+import useBoolean from '@/hooks/useBoolean';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
+
 import { Container, IconButtonContainer, ImageContainer, RSSContainer, ToggleRSS } from './styles';
 
 interface Props {
@@ -29,13 +29,11 @@ const PostCard: FC<Props> = ({ post }) => {
   const { author, text, likeCount, commentCount, createdAt, hasLiked, hasSaved, code, image } =
     post;
   const [commentsVisibility, toggleCommentsVisibility] = useBoolean(false);
-
   const [shareVisibility, toggleShareVisibility, setShareVisability] = useBoolean(false);
-  const ref = useRef<HTMLDivElement>(null);
-  useOnClickOutside(ref, () => setShareVisability(false));
-
   const { mutate: likePost } = useLikePost(post._id);
   const { mutate: savePost } = useSavePost(post._id);
+  const ref = useOnClickOutside<HTMLDivElement>(() => setShareVisability(false));
+
   return (
     <Card>
       <Container>
@@ -59,7 +57,9 @@ const PostCard: FC<Props> = ({ post }) => {
           <Typography>{text}</Typography>
         </Flexbox>
       </Container>
+
       {code && <CodeBlock code={code.text} language={code.language} />}
+
       {image && (
         <ImageContainer>
           <Image
@@ -71,6 +71,7 @@ const PostCard: FC<Props> = ({ post }) => {
           />
         </ImageContainer>
       )}
+
       <Flexbox gap="0.5rem" margin="0.5rem 0">
         {post?.tags.map((tag) => (
           <div key={tag._id}>
@@ -92,15 +93,14 @@ const PostCard: FC<Props> = ({ post }) => {
         </IconButton>
         <IconButton onClick={toggleShareVisibility}>
           <MdShare />
-          <>
-            <ToggleRSS ref={ref} isOpen={shareVisibility}>
-              <RSSContainer>
-                <RSSUsage postId={post._id} />
-              </RSSContainer>
-            </ToggleRSS>
-          </>
+          <ToggleRSS ref={ref} isOpen={shareVisibility}>
+            <RSSContainer>
+              <RSSUsage postId={post._id} />
+            </RSSContainer>
+          </ToggleRSS>
         </IconButton>
       </IconButtonContainer>
+
       {commentsVisibility && <CommentList postId={post._id} />}
     </Card>
   );

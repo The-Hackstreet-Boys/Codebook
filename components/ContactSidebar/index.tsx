@@ -1,12 +1,13 @@
 import { FC } from 'react';
 
-import useContacts from '../../hooks/queries/useContacts';
-import Profile, { ProfileSkeleton } from '../Profile';
-import { Flexbox } from '../elements/Box';
-import Card from '../elements/Card';
-import Color from '../elements/Color';
-import Skeleton from '../elements/Skeleton';
-import Typography from '../elements/Typography';
+import Profile, { ProfileSkeleton } from '@/components/Profile';
+import { Flexbox } from '@/components/elements/Box';
+import Card from '@/components/elements/Card';
+import Color from '@/components/elements/Color';
+import Skeleton from '@/components/elements/Skeleton';
+import Typography from '@/components/elements/Typography';
+import useContacts from '@/hooks/queries/useContacts';
+
 import { Container } from './styles';
 
 const ContactSidebar: FC = () => {

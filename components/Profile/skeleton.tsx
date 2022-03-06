@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
-import { Flexbox } from '../elements/Box';
-import Skeleton from '../elements/Skeleton';
+import { Flexbox } from '@/components/elements/Box';
+import Skeleton from '@/components/elements/Skeleton';
 
 export const ProfileSkeleton: FC = (props) => (
   <Flexbox gap="0.75rem">

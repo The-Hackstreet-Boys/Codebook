@@ -1,10 +1,11 @@
 import hljs from 'highlight.js';
 import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useRef } from 'react';
 
-import useBoolean from '../../hooks/useBoolean';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
-import Card from '../elements/Card';
-import { Dropdown, DropdownItem, DropdownMenu } from '../elements/Dropdown';
+import Card from '@/components/elements/Card';
+import { Dropdown, DropdownItem, DropdownMenu } from '@/components/elements/Dropdown';
+import useBoolean from '@/hooks/useBoolean';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
+
 import { Code, Container, Content, LanguageToggle, Pre, TextArea, TopBar } from './styles';
 
 const LANGUAGES = [
@@ -37,9 +38,8 @@ interface Props {
 
 const CodeBlock: FC<Props> = ({ language, setLanguage, code, setCode }) => {
   const ref = useRef<HTMLElement>(null);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  useOnClickOutside(dropdownRef, () => setIsOpen(false));
   const [isOpen, toggleIsOpen, setIsOpen] = useBoolean(false);
+  const dropdownRef = useOnClickOutside<HTMLDivElement>(() => setIsOpen(false));
 
   useEffect(() => {
     if (ref.current) hljs.highlightElement(ref.current);
@@ -55,14 +55,11 @@ const CodeBlock: FC<Props> = ({ language, setLanguage, code, setCode }) => {
       {setLanguage && (
         <TopBar>
           <Dropdown ref={dropdownRef} isOpen={isOpen} position="right">
-            <LanguageToggle onClick={toggleIsOpen} type="button">
-              {language}
-            </LanguageToggle>
+            <LanguageToggle onClick={toggleIsOpen}>{language}</LanguageToggle>
             <DropdownMenu>
               {LANGUAGES.map((l, index) => (
                 <DropdownItem
-                  type="button"
-                  key="index"
+                  key={index}
                   onClick={() => {
                     setLanguage(l);
                     setIsOpen(false);
