@@ -15,6 +15,7 @@ import Timestamp from '@/components/elements/Timestamp';
 import Typography from '@/components/elements/Typography';
 import useLikePost from '@/hooks/mutations/useLikePost';
 import useSavePost from '@/hooks/mutations/useSavePost';
+import usePost from '@/hooks/queries/usePost';
 import useBoolean from '@/hooks/useBoolean';
 import { ExtendedPost } from '@/models/post';
 
@@ -24,12 +25,16 @@ interface Props {
   post: ExtendedPost;
 }
 
-const PostCard: FC<Props> = ({ post }) => {
+const PostCard: FC<Props> = ({ post: initialPost }) => {
+  const { data: post, isError } = usePost(initialPost._id, initialPost);
+  const { mutate: likePost } = useLikePost(initialPost._id);
+  const { mutate: savePost } = useSavePost(initialPost._id);
+  const [commentsVisibility, toggleCommentsVisibility] = useBoolean(false);
+
+  if (!post || isError) return <></>;
+
   const { author, text, likeCount, commentCount, createdAt, hasLiked, hasSaved, code, image } =
     post;
-  const [commentsVisibility, toggleCommentsVisibility] = useBoolean(false);
-  const { mutate: likePost } = useLikePost(post._id);
-  const { mutate: savePost } = useSavePost(post._id);
 
   return (
     <Card>

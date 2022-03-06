@@ -5,6 +5,7 @@ import authentication from '@/middleware/authentication';
 import connectToDatabase from '@/middleware/connectToDatabase';
 import CommentModel from '@/models/comment';
 import PostModel from '@/models/post';
+import TagModel from '@/models/tag';
 import UserModel from '@/models/user';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -13,10 +14,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'GET':
       try {
-        const post = await PostModel.findById(postId).populate({
-          path: 'author',
-          model: UserModel,
-        });
+        const post = await PostModel.findById(postId)
+          .populate({
+            path: 'author',
+            model: UserModel,
+          })
+          .populate({
+            path: 'tags',
+            model: TagModel,
+          });
 
         if (!post) {
           res.status(404).send(`No post found with id ${postId}!`);
