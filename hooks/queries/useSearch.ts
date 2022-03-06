@@ -29,6 +29,7 @@ const useSearchResults = (query: string) => {
     },
     {
       enabled: !!user,
+      keepPreviousData: true,
     },
   );
 };

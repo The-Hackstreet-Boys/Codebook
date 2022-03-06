@@ -30,7 +30,7 @@ export const DropdownMenu = styled.div`
   top: 100%;
   transition: ${({ theme }) => theme.transition};
   width: 15rem;
-  max-height: 15rem;
+  max-height: 20rem;
   overflow-x: auto;
   background: ${({ theme }) => theme.dropdown};
   background: ${({ theme }) => theme.dropdownGradient};
