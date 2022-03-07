@@ -31,33 +31,33 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           .populate({
             path: 'author',
             model: UserModel,
-          })
+          });
 
-          const documentCount = await MessageModel.countDocuments(query);
+        const documentCount = await MessageModel.countDocuments(query);
         const pageCount = Math.ceil(documentCount / limit);
 
-        res.json({ messages,limit, page, pageCount });
+        res.json({ messages, limit, page, pageCount });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }
       break;
 
-      case 'POST':
-        try {
-          const message = new MessageModel({
-            ...req.body,
-            author: req.user._id,
-            text: filter.clean(req.body.text),
-          });
-  
-          await message.save();
-          res.json(message);
-        } catch (err) {
-          res.status(500).json({ error: (err as Error).message || err });
-        }
-        break;
+    case 'POST':
+      try {
+        const message = new MessageModel({
+          ...req.body,
+          author: req.user._id,
+          text: filter.clean(req.body.text),
+        });
 
-           case 'DELETE':
+        await message.save();
+        res.json(message);
+      } catch (err) {
+        res.status(500).json({ error: (err as Error).message || err });
+      }
+      break;
+
+    case 'DELETE':
       try {
         const message = await MessageModel.findById(messageId);
         if (!message) {
@@ -78,7 +78,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
       break;
     default:
-      res.setHeader('Allow', ['DELETE', 'GET','POST']);
+      res.setHeader('Allow', ['DELETE', 'GET', 'POST']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
