@@ -2,11 +2,11 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { FC } from 'react';
 
-import Box, { Flexbox } from '../components/elements/Box';
-import Button from '../components/elements/Button';
-import Card from '../components/elements/Card';
-import Typography from '../components/elements/Typography';
-import MainLayout from '../components/layout/MainLayout';
+import Box, { Flexbox } from '@/components/elements/Box';
+import Button from '@/components/elements/Button';
+import Card from '@/components/elements/Card';
+import Typography from '@/components/elements/Typography';
+import MainLayout from '@/components/layout/MainLayout';
 
 const NotFoundPage: FC = () => (
   <MainLayout>
