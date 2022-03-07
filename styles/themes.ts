@@ -60,11 +60,11 @@ export const darkTheme: DefaultTheme = {
 
 export const lightTheme: DefaultTheme = {
   background: '#F2F2F2',
-  foreground: 'hsla(0, 0%, 50%, 0.075)',
+  foreground: 'hsla(0, 0%, 0%, 0.075)',
   foregroundGradient: `linear-gradient(
     112.5deg,
-    hsla(0, 0%, 40%, 0.09),
-    hsla(0, 0%, 40%, 0.075)
+    hsla(0, 0%, 0%, 0.05),
+    hsla(0, 0%, 0%, 0.1)
   )`,
   foregroundBlur: 'backdrop-filter: blur(1.5rem);',
   overlay: 'hsla(0, 0%, 0%, 0.075)',
@@ -72,8 +72,8 @@ export const lightTheme: DefaultTheme = {
   overlay3: 'hsla(0, 0%, 0%, 0.25)',
   shadow: 'box-shadow: 0 0 0.25rem 0.05rem hsla(0, 0%, 0%, 0.15);',
   borderRadius: '0.5rem',
-  text: '#3C3C3C',
-  textSecondary: 'hsla(0, 0%, 10%, 0.6)',
+  text: 'hsla(0, 0%,0%, 1)',
+  textSecondary: 'hsla(0, 0%,0%, 0.75)',
   buttonText: '#FAFAFA',
   primary: '#1ab4a4',
   secondary: '#E35789',
@@ -95,7 +95,7 @@ export const lightTheme: DefaultTheme = {
   fontSizeXxl: '2rem',
   fontSizeXxxl: '4rem',
   fontWeightLight: '300',
-  fontWeightRegular: '400',
+  fontWeightRegular: '500',
   fontWeightMedium: '500',
   fontWeightSemiBold: '600',
   fontWeightBold: '700',
@@ -104,8 +104,8 @@ export const lightTheme: DefaultTheme = {
   transition: 'all 150ms ease-in-out',
   dropdown: '',
   dropdownGradient: '',
-  code: 'hsla(0, 0%, 100%, 0.9)',
-  codeComments: 'hsla(0, 0%, 100%, 0.75)',
+  code: 'hsla(0, 0%, 0%,0.8)',
+  codeComments: 'hsla(0, 0%, 0%, 0.5)',
   codePrimary: '#1ab4a4',
   codeSecondary: '#E35789',
   codeTertiary: '#FF7F11',

@@ -61,6 +61,7 @@ export const Code = styled.code`
   padding: 0;
   border: 0;
   display: block;
+  color: ${({ theme }) => theme.code};
   font-size: ${({ theme }) => theme.fontSizeSm};
   font-weight: ${({ theme }) => theme.fontWeightRegular};
   font-family: ${({ theme }) => theme.fontFamilySecondary};
