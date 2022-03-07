@@ -37,7 +37,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         }
 
         await CommentModel.deleteMany({ type: 'reply', comment: commentId });
-        
+
         const deletedComment = await comment.deleteOne();
 
         res.json(deletedComment);

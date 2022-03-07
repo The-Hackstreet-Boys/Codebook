@@ -12,7 +12,7 @@ interface Props {
 
 const CommentsList: FC<Props> = ({ postId }) => {
   const { data, fetchNextPage, hasNextPage } = useComments(postId);
-  const hasComments = !!data?.pages[0]?.data.length
+  const hasComments = !!data?.pages[0]?.data.length;
 
   return (
     <Flexbox direction="column" gap="1rem">
