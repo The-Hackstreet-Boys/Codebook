@@ -11,29 +11,25 @@ interface BaseChatRoom extends Document {
 
 export interface PrivateChatRoom extends BaseChatRoom {
   type: 'private';
-  
 }
 
 export interface GroupChatRoom extends BaseChatRoom {
   type: 'group';
   name?: string;
   image?: { url: string; width: number; height: number };
-  
 }
 
 export type ChatRoom = PrivateChatRoom | GroupChatRoom;
 
-
-
 const chatRoomSchema = new Schema<ChatRoom>(
   {
     type: { required: true, type: String, enum: ['private', 'group'] },
-    participants: { required: true, type:[String], ref: 'User' },
-   lastActiveAt: {required: true, type: Date},
-   name: String,
-   image: { url: String, width: Number, height: Number },
-    },
-    
+    participants: { required: true, type: [String], ref: 'User' },
+    lastActiveAt: { required: true, type: Date },
+    name: String,
+    image: { url: String, width: Number, height: Number },
+  },
+
   { timestamps: true },
 );
 
