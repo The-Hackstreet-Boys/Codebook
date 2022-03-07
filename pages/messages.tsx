@@ -1,32 +1,26 @@
 import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Head from 'next/head';
-import { FC, useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
+import { FC, useState } from 'react';
 
+import MessageForm from '@/components/MessageForm';
 import MainLayout from '@/components/layout/MainLayout';
+import { SocketProvider } from '@/contexts/SocketContext';
 
 const MessagePage: FC = () => {
-  const [connected, setConnected] = useState(false);
+  const [messages, setMessages] = useState<string[]>([]);
 
-  useEffect(() => {
-    socketInitialiser();
-  }, []);
-
-  const socketInitialiser = async () => {
-    await fetch('/api/chat-server');
-    const socket = io();
-    socket.on('connect', () => {
-      setConnected(true);
-      console.log('Connected');
-    });
-    console.log(socket);
-  };
   return (
-    <MainLayout>
-      <Head>
-        <title>Messages | Codebook</title>
-      </Head>
-    </MainLayout>
+    <SocketProvider setMessages={setMessages}>
+      <MainLayout>
+        <Head>
+          <title>Messages | Codebook</title>
+        </Head>
+        <MessageForm />
+        {messages.map((m, index) => (
+          <p key={index}>{m}</p>
+        ))}
+      </MainLayout>
+    </SocketProvider>
   );
 };
 
