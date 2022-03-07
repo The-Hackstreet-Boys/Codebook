@@ -25,7 +25,10 @@ const chatRoomSchema = new Schema<ChatRoom>(
   {
     type: { required: true, type: String, enum: ['private', 'group'] },
     participants: { required: true, type: [String], ref: 'User' },
-    lastActiveAt: { required: true, type: Date },
+    lastActiveAt: {
+      type: Date,
+      default: Date.now,
+    },
     name: String,
     image: { url: String, width: Number, height: Number },
   },
