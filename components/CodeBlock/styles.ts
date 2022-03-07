@@ -34,7 +34,6 @@ export const Content = styled.div`
 export const Pre = styled.pre`
   grid-column: 1;
   grid-row: 1;
-
   margin: 0;
 `;
 
@@ -49,6 +48,7 @@ export const TextArea = styled.textarea`
   font-family: ${({ theme }) => theme.fontFamilySecondary};
   line-height: 1.5rem;
   overflow: hidden;
+  white-space: nowrap;
   outline: none;
   color: transparent;
   background: transparent;

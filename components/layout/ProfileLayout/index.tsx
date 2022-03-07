@@ -5,7 +5,7 @@ import RightSidebar from '@/components/RightSidebar';
 import Box, { Flexbox } from '@/components/elements/Box';
 import Card from '@/components/elements/Card';
 import Typography from '@/components/elements/Typography';
-import { ExtendedUser } from '@/hooks/queries/useUser';
+import { ExtendedUser } from '@/models/user';
 
 import { Container, Content, ContentContainer } from './styles';
 

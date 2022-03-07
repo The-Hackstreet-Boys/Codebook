@@ -8,7 +8,7 @@ import Button from '@/components/elements/Button';
 import Card from '@/components/elements/Card';
 import Typography from '@/components/elements/Typography';
 import useFollowUser from '@/hooks/mutations/useFollowUser';
-import { ExtendedUser } from '@/hooks/queries/useUser';
+import { ExtendedUser } from '@/models/user';
 
 interface Props {
   user: ExtendedUser;

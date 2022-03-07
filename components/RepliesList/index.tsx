@@ -4,8 +4,8 @@ import CommentCard from '@/components/CommentCard';
 import ReplyForm from '@/components/ReplyForm';
 import Box, { Flexbox } from '@/components/elements/Box';
 import Typography from '@/components/elements/Typography';
-import { ExtendedComment } from '@/hooks/queries/useComments';
 import useReplies from '@/hooks/queries/useReplies';
+import { ExtendedComment } from '@/models/comment';
 
 interface Props {
   comment: ExtendedComment;

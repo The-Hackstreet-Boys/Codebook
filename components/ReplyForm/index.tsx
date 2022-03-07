@@ -4,9 +4,9 @@ import { MdSend } from 'react-icons/md';
 import { Flexbox } from '@/components/elements/Box';
 import Card from '@/components/elements/Card';
 import useCreateReply from '@/hooks/mutations/useCreateReply';
-import { ExtendedComment } from '@/hooks/queries/useComments';
 
 import { Input, SubmitButton } from './styles';
+import { ExtendedComment } from '@/models/comment';
 
 interface Props {
   comment: ExtendedComment;

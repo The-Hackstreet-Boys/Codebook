@@ -3,9 +3,9 @@ import Head from 'next/head';
 import { FC } from 'react';
 
 import Feed from '../components/Feed';
+import PostForm from '../components/PostForm';
 import FeedLayout from '../components/layout/FeedLayout';
 import MainLayout from '../components/layout/MainLayout';
-import PostForm from '../components/PostForm';
 
 const IndexPage: FC = () => (
   <MainLayout>

@@ -5,10 +5,10 @@ import { FC } from 'react';
 import useUser from '@/hooks/queries/useUser';
 
 import Feed from '../../components/Feed';
-import MainLayout from '../../components/layout/MainLayout';
-import ProfileLayout from '../../components/layout/ProfileLayout';
 import Card from '../../components/elements/Card';
 import Typography from '../../components/elements/Typography';
+import MainLayout from '../../components/layout/MainLayout';
+import ProfileLayout from '../../components/layout/ProfileLayout';
 
 const Profile: FC = () => {
   const router = useRouter();

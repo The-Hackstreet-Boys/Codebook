@@ -40,14 +40,15 @@ const CodeBlock: FC<Props> = ({ language, setLanguage, code, setCode }) => {
   const ref = useRef<HTMLElement>(null);
   const [isOpen, toggleIsOpen, setIsOpen] = useBoolean(false);
   const dropdownRef = useOnClickOutside<HTMLDivElement>(() => setIsOpen(false));
+  const isLastCharacterNewline = code[code.length - 1] == '\n';
 
   useEffect(() => {
     if (ref.current) hljs.highlightElement(ref.current);
   }, [code, language]);
 
   const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    if (setCode) setCode(e.target.value.replace(/\n*$/, ''));
-    // Remove the trailing newline(s)
+    if (!setCode) return;
+    setCode(e.target.value);
   };
 
   return (
@@ -76,7 +77,7 @@ const CodeBlock: FC<Props> = ({ language, setLanguage, code, setCode }) => {
         <Content>
           <Pre>
             <Code ref={ref} className={language}>
-              {code}
+              {isLastCharacterNewline ? code + ' ' : code}
             </Code>
           </Pre>
           {setCode && (
