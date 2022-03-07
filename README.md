@@ -4,7 +4,7 @@
   Codebook
 </h1>
 <p align="center">
- This is a social media site for developers built using NextJS and hosted on Netlify. It features posts with comments, replies, images, code snippets, tags and the ability to like, save and share posts. It also features a live chat feature with supports for groups, you can visit it at <a href="https://codebook.space" target="_blank">codebook.space</a>
+ A social media site for developers built using NextJS and hosted on Netlify. It features posts with comments, replies, images, code snippets, tags and the ability to like, save and share posts. It also features an instant messaging feature with support for groups, you can visit it at <a href="https://codebook.space" target="_blank">codebook.space</a>
 </p>
 
 <p align="center">
