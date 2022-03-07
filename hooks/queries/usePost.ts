@@ -1,8 +1,8 @@
 import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import axios from 'axios';
-import { useQuery } from 'react-query';
+import { QueryClient, useQuery, useQueryClient } from 'react-query';
 
-import { ExtendedPost } from './usePosts';
+import { ExtendedPost } from '@/models/post';
 
 const getPost = async (postId: string) => {
   const { origin } = window.location;
@@ -13,8 +13,13 @@ const getPost = async (postId: string) => {
   return data;
 };
 
-const usePost = (postId: string) => {
+const onError = (queryClient: QueryClient) => {
+  queryClient.invalidateQueries(['posts']);
+};
+
+const usePost = (postId: string, initialData?: ExtendedPost) => {
   const { user } = useAuth0User();
+  const queryClient = useQueryClient();
 
   return useQuery<ExtendedPost>(
     ['post', postId],
@@ -24,6 +29,8 @@ const usePost = (postId: string) => {
     {
       enabled: !!user,
       refetchInterval: 15000,
+      onError: () => onError(queryClient),
+      initialData,
     },
   );
 };

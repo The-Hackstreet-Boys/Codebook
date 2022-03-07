@@ -1,5 +1,7 @@
 import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
+import { User } from '@/models/user';
+
 interface BaseComment extends Document {
   author: string;
   text: string;
@@ -23,6 +25,20 @@ export interface Reply extends BaseComment {
 
 export type CommentOrReply = Comment | Reply;
 
+export interface ExtendedComment extends Omit<Comment, 'author' | 'post'> {
+  author: User;
+  hasLiked: boolean;
+  post: string;
+}
+
+export interface ExtendedReply extends Omit<Reply, 'author' | 'comment'> {
+  author: User;
+  hasLiked: boolean;
+  comment: string;
+}
+
+export type ExtendedCommentOrReply = ExtendedComment | ExtendedReply;
+
 const commentSchema = new Schema<CommentOrReply>(
   {
     type: { required: true, type: String, enum: ['comment', 'reply'] },
@@ -37,5 +53,7 @@ const commentSchema = new Schema<CommentOrReply>(
   { timestamps: true },
 );
 
-export default (mongoose.models.Comment ||
+const CommentModel = (mongoose.models.Comment ??
   model<CommentOrReply>('Comment', commentSchema, 'comments')) as Model<CommentOrReply>;
+
+export default CommentModel;

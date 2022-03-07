@@ -1,16 +1,20 @@
 import { FC } from 'react';
 
-import useContacts from '../../hooks/queries/useContacts';
-import Profile, { ProfileSkeleton } from '../Profile';
-import { Flexbox } from '../elements/Box';
-import Card from '../elements/Card';
-import Color from '../elements/Color';
-import Skeleton from '../elements/Skeleton';
-import Typography from '../elements/Typography';
+import Profile, { ProfileSkeleton } from '@/components/Profile';
+import { Flexbox } from '@/components/elements/Box';
+import Card from '@/components/elements/Card';
+import Color from '@/components/elements/Color';
+import Skeleton from '@/components/elements/Skeleton';
+import Typography from '@/components/elements/Typography';
+import useContacts from '@/hooks/queries/useContacts';
+import useTags from '@/hooks/queries/useTags';
+
+import TagList from '../TagList';
 import { Container } from './styles';
 
-const ContactSidebar: FC = () => {
-  const { data, isLoading, isError } = useContacts();
+const RightSidebar: FC = () => {
+  const { data: contacts, isLoading, isError } = useContacts();
+  const { data: tags } = useTags();
 
   if (isError) {
     return (
@@ -52,10 +56,18 @@ const ContactSidebar: FC = () => {
   return (
     <Container>
       <Flexbox direction="column" padding="1rem" gap="1rem">
+        {tags && (
+          <Card>
+            <Flexbox direction="column" gap="1rem">
+              <Typography variant="h5">Suggested tags</Typography>
+              <TagList tags={tags.slice(0, 10)} />
+            </Flexbox>
+          </Card>
+        )}
         <Card>
           <Flexbox direction="column" gap="1rem">
             <Typography variant="h5">Suggested contacts</Typography>
-            {data?.suggestedContacts.map((user) => (
+            {contacts?.suggestedContacts.map((user) => (
               <Profile key={user._id} user={user} />
             ))}
           </Flexbox>
@@ -63,7 +75,7 @@ const ContactSidebar: FC = () => {
         <Card>
           <Flexbox direction="column" gap="1rem">
             <Typography variant="h5">Contacts</Typography>
-            {data?.contacts.map((user) => (
+            {contacts?.contacts.map((user) => (
               <Profile key={user._id} user={user} />
             ))}
           </Flexbox>
@@ -73,4 +85,4 @@ const ContactSidebar: FC = () => {
   );
 };
 
-export default ContactSidebar;
+export default RightSidebar;

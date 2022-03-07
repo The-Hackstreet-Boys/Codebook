@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-import { DropdownToggle } from '../elements/Dropdown';
+import { DropdownToggle } from '@/components/elements/Dropdown';
 
 export const Container = styled.div`
   display: grid;

@@ -6,7 +6,8 @@ const savePost = async (postId: string) => {
   await axios.post(`${origin}/api/posts/${postId}/save`);
 };
 
-const updateQueryCache = (queryClient: QueryClient) => {
+const updateQueryCache = (queryClient: QueryClient, postId: string) => {
+  queryClient.invalidateQueries(['post', postId]);
   queryClient.invalidateQueries(['posts']);
 };
 
@@ -14,7 +15,7 @@ const useSavePost = (postId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation(() => savePost(postId), {
-    onSuccess: () => updateQueryCache(queryClient),
+    onSuccess: () => updateQueryCache(queryClient, postId),
   });
 };
 

@@ -2,7 +2,7 @@ import axios from 'axios';
 import { Types } from 'mongoose';
 import { useMutation } from 'react-query';
 
-import { Post } from '../../models/post';
+import { Post } from '@/models/post';
 
 export interface NewPost {
   text: string;

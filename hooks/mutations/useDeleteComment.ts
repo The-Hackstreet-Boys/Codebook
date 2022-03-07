@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
-import { CommentOrReply } from '../../models/comment';
+import { CommentOrReply } from '@/models/comment';
 
 const deleteComment = async (commentId: string) => {
   const { origin } = window.location;

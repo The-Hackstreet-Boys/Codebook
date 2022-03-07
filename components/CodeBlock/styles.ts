@@ -6,7 +6,7 @@ export const TopBar = styled.div`
   margin-bottom: 0.5rem;
 `;
 
-export const LanguageToggle = styled.button`
+export const LanguageToggle = styled.button.attrs({type: 'button'})`
   border: none;
   outline: none;
   background: none;

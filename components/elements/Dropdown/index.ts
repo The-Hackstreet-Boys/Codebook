@@ -30,7 +30,7 @@ export const DropdownMenu = styled.div`
   top: 100%;
   transition: ${({ theme }) => theme.transition};
   width: 15rem;
-  max-height: 15rem;
+  max-height: 20rem;
   overflow-x: auto;
   background: ${({ theme }) => theme.dropdown};
   background: ${({ theme }) => theme.dropdownGradient};
@@ -40,9 +40,14 @@ export const DropdownMenu = styled.div`
   padding: 0.5rem;
 `;
 
-export const Dropdown = styled.div<{ isOpen: boolean; position?: 'left' | 'right' }>`
+export const Dropdown = styled.div<{
+  isOpen: boolean;
+  position?: 'left' | 'right';
+  grow?: boolean;
+}>`
   position: relative;
   width: fit-content;
+  ${({ grow }) => grow && `display: flex; flex: 1;`}
   & ${DropdownToggle} {
     ${({ isOpen: isVisible }) => !isVisible && 'box-shadow: none;'}
     background: ${({ theme, isOpen: isVisible }) => isVisible && theme.overlay2};

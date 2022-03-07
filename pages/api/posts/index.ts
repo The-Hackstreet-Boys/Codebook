@@ -2,15 +2,15 @@ import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import Filter from 'bad-words';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import authentication from '../../../middleware/authentication';
-import connectToDatabase from '../../../middleware/connectToDatabase';
-import PostModel from '../../../models/post';
-import TagModel from '../../../models/tag';
-import UserModel from '../../../models/user';
+import authentication from '@/middleware/authentication';
+import connectToDatabase from '@/middleware/connectToDatabase';
+import PostModel from '@/models/post';
+import TagModel from '@/models/tag';
+import UserModel from '@/models/user';
 
 const filter = new Filter();
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'GET':
       try {
@@ -72,6 +72,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.setHeader('Allow', ['GET', 'POST']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-}
+};
 
 export default withApiAuthRequired(connectToDatabase(authentication(handler)));

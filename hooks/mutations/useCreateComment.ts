@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
-import { Comment } from '../../models/comment';
+import { Comment } from '@/models/comment';
 
 export interface NewComment {
   text: string;

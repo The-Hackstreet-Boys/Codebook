@@ -1,15 +1,15 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
+import Filter from 'bad-words';
 import { NextApiRequest, NextApiResponse } from 'next';
 
-import authentication from '../../../../../../middleware/authentication';
-import connectToDatabase from '../../../../../../middleware/connectToDatabase';
-import CommentModel from '../../../../../../models/comment';
-import UserModel from '../../../../../../models/user';
-import Filter from 'bad-words';
+import authentication from '@/middleware/authentication';
+import connectToDatabase from '@/middleware/connectToDatabase';
+import CommentModel from '@/models/comment';
+import UserModel from '@/models/user';
 
 const filter = new Filter();
 
-async function handler(req: NextApiRequest, res: NextApiResponse) {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { postId, commentId } = req.query;
 
   const comment = await CommentModel.findById(commentId);
@@ -77,6 +77,6 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       res.setHeader('Allow', ['GET', 'POST']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
-}
+};
 
 export default withApiAuthRequired(connectToDatabase(authentication(handler)));

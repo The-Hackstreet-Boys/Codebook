@@ -1,16 +1,16 @@
 import axios from 'axios';
 import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
-import { MdClose, MdCode, MdImage, MdSend, MdTag } from 'react-icons/md';
+import { MdClose, MdCode, MdImage, MdSend } from 'react-icons/md';
 
-import useCreatePost, { NewPost } from '../../hooks/mutations/useCreatePost';
-import useBoolean from '../../hooks/useBoolean';
-import { Tag } from '../../models/tag';
-import CodeBlock from '../CodeBlock';
-import TagDropdown from '../TagDropdown';
-import Box, { Flexbox } from '../elements/Box';
-import Card from '../elements/Card';
-import Typography from '../elements/Typography';
-import './styles';
+import CodeBlock from '@/components/CodeBlock';
+import TagDropdown from '@/components/TagDropdown';
+import Box from '@/components/elements/Box';
+import Card from '@/components/elements/Card';
+import useCreatePost, { NewPost } from '@/hooks/mutations/useCreatePost';
+import useBoolean from '@/hooks/useBoolean';
+import { Tag } from '@/models/tag';
+
+import TagList from '../TagList';
 import {
   Button,
   FileButton,
@@ -39,6 +39,8 @@ const PostForm: FC = () => {
     setCodeVisibility(false);
     handleRemoveImage();
   };
+
+  const { mutate: createPost } = useCreatePost(onSuccess);
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
@@ -105,7 +107,6 @@ const PostForm: FC = () => {
     setTags((oldValue) => oldValue.filter((tag) => tag._id !== tagId));
   };
 
-  const { mutate: createPost } = useCreatePost(onSuccess);
   return (
     <Card>
       <form onSubmit={handleSubmit}>
@@ -116,6 +117,7 @@ const PostForm: FC = () => {
           maxLength={10000}
           onChange={handleChangeText}
         />
+
         {imageSrc && (
           <Box width="fit-content" marginBottom="1rem">
             <Card padding="sm">
@@ -128,24 +130,19 @@ const PostForm: FC = () => {
             </Card>
           </Box>
         )}
-        <Flexbox gap="0.5rem" margin="0.5rem 0" flexWrap="wrap">
-          {tags?.map((tag) => (
-            <div key={tag._id}>
-              <Card padding="xs" onClick={() => removeTag(tag._id)}>
-                <Typography>{tag.name}</Typography>
-              </Card>
-            </div>
-          ))}
-        </Flexbox>
+
         {codeVisibility && (
           <CodeBlock language={language} setLanguage={setLanguage} code={code} setCode={setCode} />
         )}
+
+        <TagList tags={tags} onClick={(tag: Tag) => removeTag(tag._id)} />
+
         <IconContainer>
           <FileButton active={!!image}>
             <MdImage />
             <input type="file" name="file" onChange={handleChange} id="fileInput" />
           </FileButton>
-          <TagDropdown addTag={addTag} />
+          <TagDropdown onSelect={addTag} />
           <Button active={codeVisibility} onClick={toggleCodeVisibility}>
             <MdCode />
           </Button>

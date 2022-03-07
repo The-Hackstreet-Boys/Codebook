@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
-import { ExtendedComment } from '../queries/useComments';
-import { ExtendedReply } from '../queries/useReplies';
+import { ExtendedComment, ExtendedReply } from '@/models/comment';
 
 const likeComment = async (comment: ExtendedComment | ExtendedReply) => {
   const { origin } = window.location;

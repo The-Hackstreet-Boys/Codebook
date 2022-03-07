@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
-import { Post } from '../../models/post';
+import { Post } from '@/models/post';
 
 const deletePost = async (postId: string) => {
   const { origin } = window.location;

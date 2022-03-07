@@ -1,10 +1,11 @@
 import { FC } from 'react';
 
-import Header from '../Header';
-import Sidebar from '../Sidebar';
+import Header from '@/components/Header';
+import Sidebar from '@/components/Sidebar';
+
 import { Container, Content } from './styles';
 
-const Layout: FC = ({ children }) => (
+const MainLayout: FC = ({ children }) => (
   <Container>
     <Header />
     <Sidebar />
@@ -12,4 +13,4 @@ const Layout: FC = ({ children }) => (
   </Container>
 );
 
-export default Layout;
+export default MainLayout;

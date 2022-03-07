@@ -1,15 +1,7 @@
-import { useUser } from '@auth0/nextjs-auth0';
+import { ExtendedComment } from '@/models/comment';
+import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
-
-import { Comment } from '../../models/comment';
-import { User } from '../../models/user';
-
-export interface ExtendedComment extends Omit<Comment, 'author' | 'post'> {
-  author: User;
-  hasLiked: boolean;
-  post: string;
-}
 
 interface Data {
   data: ExtendedComment[];
@@ -30,7 +22,7 @@ const getComments = async (limit: number, page: number, postId: string) => {
 };
 
 const useComments = (postId: string, limit = 5) => {
-  const { user } = useUser();
+  const { user } = useAuth0User();
 
   return useInfiniteQuery<Data>(
     ['comments', postId, limit],

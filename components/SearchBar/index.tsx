@@ -1,22 +1,26 @@
 import Link from 'next/link';
-import { ChangeEvent, FC, useEffect, useRef, useState } from 'react';
+import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
 
-import useSearchResults from '../../hooks/queries/useSearch';
-import useDebounce from '../../hooks/useDebounce';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
-import Card from '../elements/Card';
-import { Dropdown, DropdownItem, DropdownMenu } from '../elements/Dropdown';
+import Card from '@/components/elements/Card';
+import { Dropdown, DropdownItem, DropdownMenu } from '@/components/elements/Dropdown';
+import useSearchResults from '@/hooks/queries/useSearch';
+import useDebounce from '@/hooks/useDebounce';
+import useOnClickOutside from '@/hooks/useOnClickOutside';
+
+import Profile from '../Profile';
+import Box from '../elements/Box';
+import Typography from '../elements/Typography';
 import { SearchContainer, SearchInput } from './styles';
 
 const SearchBar: FC = () => {
   const [query, setQuery] = useState('');
   const [isVisible, setIsVisible] = useState(false);
   const debouncedQuery = useDebounce(query);
-  const { data: searchResults } = useSearchResults(debouncedQuery);
-
-  const ref = useRef<HTMLDivElement>(null);
-  useOnClickOutside(ref, () => setIsVisible(false));
+  const ref = useOnClickOutside<HTMLDivElement>(() => setIsVisible(false));
+  const { data: searchResults, isLoading } = useSearchResults(debouncedQuery);
+  const hasUserResults = !!searchResults?.users.length;
+  const hasTagResults = !!searchResults?.tags.length;
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -25,7 +29,7 @@ const SearchBar: FC = () => {
   useEffect(() => setIsVisible(!!query.length), [query]);
 
   return (
-    <Dropdown ref={ref} isOpen={isVisible} position="right">
+    <Dropdown ref={ref} isOpen={isVisible && !isLoading} position="right">
       <Card padding="sm">
         <SearchContainer>
           <MdOutlineSearch />
@@ -37,16 +41,36 @@ const SearchBar: FC = () => {
         </SearchContainer>
       </Card>
       <DropdownMenu>
-        {searchResults?.tags.map((tag) => (
-          <Link passHref href={`/tags/${tag._id}`} key={tag._id}>
-            <DropdownItem>{tag.name}</DropdownItem>
-          </Link>
-        ))}
-        {searchResults?.users.map((user) => (
-          <Link passHref href={`/users/${user._id}`} key={user._id}>
-            <DropdownItem>{user.name}</DropdownItem>
-          </Link>
-        ))}
+        {hasTagResults || hasUserResults ? (
+          <>
+            {hasUserResults && (
+              <Box margin="0.5rem 0.75rem">
+                <Typography variant="h5">Users</Typography>
+              </Box>
+            )}
+            {searchResults.users.map((user) => (
+              <Link passHref href={`/users/${user._id}`} key={user._id}>
+                <DropdownItem>
+                  <Profile user={user} />
+                </DropdownItem>
+              </Link>
+            ))}
+            {hasTagResults && (
+              <Box margin="0.5rem 0.75rem">
+                <Typography variant="h5">Tags</Typography>
+              </Box>
+            )}
+            {searchResults.tags.map((tag) => (
+              <Link passHref href={`/tags/${tag._id}`} key={tag._id}>
+                <DropdownItem>{tag.name}</DropdownItem>
+              </Link>
+            ))}
+          </>
+        ) : (
+          <Box margin="0.75rem">
+            <Typography>No results</Typography>
+          </Box>
+        )}
       </DropdownMenu>
     </Dropdown>
   );

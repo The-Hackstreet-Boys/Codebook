@@ -1,8 +1,9 @@
 import { FC } from 'react';
 import { MdBookmark, MdDashboard, MdMessage, MdPeopleAlt } from 'react-icons/md';
 
-import { Flexbox } from '../elements/Box';
-import NavLink from '../elements/NavLink';
+import { Flexbox } from '@/components/elements/Box';
+import NavLink from '@/components/elements/NavLink';
+
 import { Container, NavItem } from './styles';
 
 const Sidebar: FC = () => (
@@ -13,11 +14,11 @@ const Sidebar: FC = () => (
           <MdDashboard />
         </NavItem>
       </NavLink>
-      <NavLink href="/groups" passHref>
+      {/* <NavLink href="/groups" passHref>
         <NavItem>
           <MdPeopleAlt />
         </NavItem>
-      </NavLink>
+      </NavLink> */}
       <NavLink href="/messages" passHref>
         <NavItem>
           <MdMessage />

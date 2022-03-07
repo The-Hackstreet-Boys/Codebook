@@ -1,7 +1,8 @@
 import React, { FC, createContext, useContext } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
-import useLocalStorage from '../hooks/useLocalStorage';
+import useLocalStorage from '@/hooks/useLocalStorage';
+
 import { darkTheme, lightTheme } from '../styles/themes';
 
 interface Props {
@@ -36,4 +37,6 @@ export const ThemeProvider: FC = ({ children }) => {
   );
 };
 
-export const useTheme = () => useContext(ThemeContext);
+const useTheme = () => useContext(ThemeContext);
+
+export default useTheme;

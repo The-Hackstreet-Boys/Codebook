@@ -2,13 +2,13 @@ import Link from 'next/link';
 import { FC } from 'react';
 import { MdChat, MdPersonAddAlt1, MdPersonRemoveAlt1 } from 'react-icons/md';
 
-import useFollowUser from '../../hooks/mutations/useFollowUser';
-import { ExtendedUser } from '../../hooks/queries/useUser';
-import Avatar from '../elements/Avatar';
-import { Flexbox } from '../elements/Box';
-import Button from '../elements/Button';
-import Card from '../elements/Card';
-import Typography from '../elements/Typography';
+import Avatar from '@/components/elements/Avatar';
+import { Flexbox } from '@/components/elements/Box';
+import Button from '@/components/elements/Button';
+import Card from '@/components/elements/Card';
+import Typography from '@/components/elements/Typography';
+import useFollowUser from '@/hooks/mutations/useFollowUser';
+import { ExtendedUser } from '@/hooks/queries/useUser';
 
 interface Props {
   user: ExtendedUser;

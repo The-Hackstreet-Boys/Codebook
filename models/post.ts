@@ -1,5 +1,8 @@
 import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
+import { Tag } from '@/models/tag';
+import { ExtendedUser } from '@/models/user';
+
 export interface Post extends Document {
   author: string;
   text: string;
@@ -11,6 +14,13 @@ export interface Post extends Document {
   code?: { text: string; language: string };
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface ExtendedPost extends Omit<Post, 'author' | 'tags'> {
+  author: ExtendedUser;
+  tags: Tag[];
+  hasLiked: boolean;
+  hasSaved: boolean;
 }
 
 const postSchema = new Schema<Post>(
@@ -27,4 +37,6 @@ const postSchema = new Schema<Post>(
   { timestamps: true },
 );
 
-export default (mongoose.models.Post || model<Post>('Post', postSchema, 'posts')) as Model<Post>;
+const PostModel = (mongoose.models.Post ?? model<Post>('Post', postSchema, 'posts')) as Model<Post>;
+
+export default PostModel;

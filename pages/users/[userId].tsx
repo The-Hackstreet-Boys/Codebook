@@ -2,12 +2,13 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 
+import useUser from '@/hooks/queries/useUser';
+
 import Feed from '../../components/Feed';
-import Layout from '../../components/Layout';
-import ProfileLayout from '../../components/ProfileLayout';
+import MainLayout from '../../components/layout/MainLayout';
+import ProfileLayout from '../../components/layout/ProfileLayout';
 import Card from '../../components/elements/Card';
 import Typography from '../../components/elements/Typography';
-import useUser from '../../hooks/queries/useUser';
 
 const Profile: FC = () => {
   const router = useRouter();
@@ -17,7 +18,7 @@ const Profile: FC = () => {
   if (!user) return <></>;
 
   return (
-    <Layout>
+    <MainLayout>
       <Head>
         <title>{user.name} | Codebook</title>
       </Head>
@@ -27,7 +28,7 @@ const Profile: FC = () => {
         </Card>
         <Feed author={userId as string} />
       </ProfileLayout>
-    </Layout>
+    </MainLayout>
   );
 };
 

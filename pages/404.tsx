@@ -2,14 +2,14 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { FC } from 'react';
 
-import Layout from '../components/Layout';
+import MainLayout from '../components/layout/MainLayout';
 import Box, { Flexbox } from '../components/elements/Box';
 import Button from '../components/elements/Button';
 import Card from '../components/elements/Card';
 import Typography from '../components/elements/Typography';
 
 const NotFoundPage: FC = () => (
-  <Layout>
+  <MainLayout>
     <Head>
       <title>404 | Codebook</title>
     </Head>
@@ -28,7 +28,7 @@ const NotFoundPage: FC = () => (
         </Card>
       </Box>
     </Flexbox>
-  </Layout>
+  </MainLayout>
 );
 
 export default NotFoundPage;

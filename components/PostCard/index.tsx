@@ -1,41 +1,52 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { FC, useRef } from 'react';
-import { MdBookmarkAdd, MdBookmarkRemove, MdComment, MdFavorite, MdShare } from 'react-icons/md';
+import { FC } from 'react';
+import { MdBookmarkAdd, MdBookmarkRemove, MdComment, MdFavorite } from 'react-icons/md';
 
-import useLikePost from '../../hooks/mutations/useLikePost';
-import useSavePost from '../../hooks/mutations/useSavePost';
-import { ExtendedPost } from '../../hooks/queries/usePosts';
-import useBoolean from '../../hooks/useBoolean';
-import useOnClickOutside from '../../hooks/useOnClickOutside';
-import CodeBlock from '../CodeBlock';
-import CommentList from '../CommentList';
-import PostDropdown from '../PostDropdown';
-import Avatar from '../elements/Avatar';
-import Box, { Flexbox } from '../elements/Box';
-import Card from '../elements/Card';
-import IconButton from '../elements/IconButton';
-import RSSUsage from '../elements/ShareButton';
-import Timestamp from '../elements/Timestamp';
-import Typography from '../elements/Typography';
-import './styles';
-import { Container, IconButtonContainer, ImageContainer, RSSContainer, ToggleRSS } from './styles';
+import CodeBlock from '@/components/CodeBlock';
+import CommentList from '@/components/CommentList';
+import PostDropdown from '@/components/PostDropdown';
+import ShareDropdown from '@/components/ShareDropdown';
+import TagList from '@/components/TagList';
+import Avatar from '@/components/elements/Avatar';
+import { Flexbox } from '@/components/elements/Box';
+import Card from '@/components/elements/Card';
+import IconButton from '@/components/elements/IconButton';
+import Timestamp from '@/components/elements/Timestamp';
+import Typography from '@/components/elements/Typography';
+import useLikePost from '@/hooks/mutations/useLikePost';
+import useSavePost from '@/hooks/mutations/useSavePost';
+import usePost from '@/hooks/queries/usePost';
+import useBoolean from '@/hooks/useBoolean';
+import { ExtendedPost } from '@/models/post';
+
+import { Container, IconButtonContainer, ImageContainer } from './styles';
 
 interface Props {
   post: ExtendedPost;
 }
 
-const PostCard: FC<Props> = ({ post }) => {
-  const { author, text, likeCount, commentCount, createdAt, hasLiked, hasSaved, code, image } =
-    post;
+const PostCard: FC<Props> = ({ post: initialPost }) => {
+  const { data: post, isError } = usePost(initialPost._id, initialPost);
+  const { mutate: likePost } = useLikePost(initialPost._id);
+  const { mutate: savePost } = useSavePost(initialPost._id);
   const [commentsVisibility, toggleCommentsVisibility] = useBoolean(false);
 
-  const [shareVisibility, toggleShareVisibility, setShareVisability] = useBoolean(false);
-  const ref = useRef<HTMLDivElement>(null);
-  useOnClickOutside(ref, () => setShareVisability(false));
+  if (!post || isError) return <></>;
 
-  const { mutate: likePost } = useLikePost(post._id);
-  const { mutate: savePost } = useSavePost(post._id);
+  const {
+    author,
+    text,
+    likeCount,
+    commentCount,
+    createdAt,
+    hasLiked,
+    hasSaved,
+    code,
+    image,
+    tags,
+  } = post;
+
   return (
     <Card>
       <Container>
@@ -59,7 +70,9 @@ const PostCard: FC<Props> = ({ post }) => {
           <Typography>{text}</Typography>
         </Flexbox>
       </Container>
+
       {code && <CodeBlock code={code.text} language={code.language} />}
+
       {image && (
         <ImageContainer>
           <Image
@@ -71,15 +84,9 @@ const PostCard: FC<Props> = ({ post }) => {
           />
         </ImageContainer>
       )}
-      <Flexbox gap="0.5rem" margin="0.5rem 0">
-        {post?.tags.map((tag) => (
-          <div key={tag._id}>
-            <Card padding="xs">
-              <Typography>{tag.name}</Typography>
-            </Card>
-          </div>
-        ))}
-      </Flexbox>
+
+      <TagList tags={tags} />
+
       <IconButtonContainer>
         <IconButton onClick={() => likePost()} secondary={hasLiked}>
           <MdFavorite /> {likeCount}
@@ -90,17 +97,9 @@ const PostCard: FC<Props> = ({ post }) => {
         <IconButton onClick={() => savePost()} secondary={hasSaved}>
           {hasSaved ? <MdBookmarkRemove /> : <MdBookmarkAdd />}
         </IconButton>
-        <IconButton onClick={toggleShareVisibility}>
-          <MdShare />
-          <>
-            <ToggleRSS ref={ref} isOpen={shareVisibility}>
-              <RSSContainer>
-                <RSSUsage postId={post._id} />
-              </RSSContainer>
-            </ToggleRSS>
-          </>
-        </IconButton>
+        <ShareDropdown postId={post._id} />
       </IconButtonContainer>
+
       {commentsVisibility && <CommentList postId={post._id} />}
     </Card>
   );

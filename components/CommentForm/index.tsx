@@ -1,10 +1,10 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 import { MdSend } from 'react-icons/md';
 
-import useCreateComment from '../../hooks/mutations/useCreateComment';
-import { Flexbox } from '../elements/Box';
-import Card from '../elements/Card';
-import './styles';
+import { Flexbox } from '@/components/elements/Box';
+import Card from '@/components/elements/Card';
+import useCreateComment from '@/hooks/mutations/useCreateComment';
+
 import { Input, SubmitButton } from './styles';
 
 interface Props {
