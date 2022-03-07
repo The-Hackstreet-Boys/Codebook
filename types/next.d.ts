@@ -7,3 +7,11 @@ declare module 'next' {
     user: User;
   }
 }
+
+export type NextApiResponseServerIO = NextApiResponse & {
+  socket: Socket & {
+    server: NetServer & {
+      io: SocketIOServer;
+    };
+  };
+};
