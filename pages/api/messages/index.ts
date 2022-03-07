@@ -3,65 +3,82 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 import authentication from '@/middleware/authentication';
 import connectToDatabase from '@/middleware/connectToDatabase';
-import CommentModel from '@/models/comment';
-import PostModel from '@/models/post';
-import TagModel from '@/models/tag';
+import MessageModel from '@/models/message';
 import UserModel from '@/models/user';
+import Filter from 'bad-words';
+
+const filter = new Filter();
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
-  const { postId } = req.query;
+  const { messageId } = req.query;
 
   switch (req.method) {
     case 'GET':
       try {
-        const post = await PostModel.findById(postId)
+        const page = parseInt(req.query.page as string) || 1;
+        const limit = parseInt(req.query.limit as string) || 20;
+        const skipAmount = (page - 1) * limit;
+
+        const author = req.query.author as string;
+
+        const query: any = {};
+        if (author) query.author = author;
+
+        const messages = await MessageModel.find(query)
+          .sort({ createdAt: -1 })
+          .limit(limit)
+          .skip(skipAmount)
           .populate({
             path: 'author',
             model: UserModel,
           })
-          .populate({
-            path: 'tags',
-            model: TagModel,
-          });
 
-        if (!post) {
-          res.status(404).send(`No post found with id ${postId}!`);
-          return;
-        }
+          const documentCount = await MessageModel.countDocuments(query);
+        const pageCount = Math.ceil(documentCount / limit);
 
-        const extendedPost = {
-          ...post.toObject(),
-          hasLiked: post.likes.includes(req.user.id),
-          hasSaved: req.user.savedPosts.includes(post._id),
-        };
-
-        res.json(extendedPost);
+        res.json({ messages,limit, page, pageCount });
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }
       break;
-    case 'DELETE':
+
+      case 'POST':
+        try {
+          const message = new MessageModel({
+            ...req.body,
+            author: req.user._id,
+            text: filter.clean(req.body.text),
+          });
+  
+          await message.save();
+          res.json(message);
+        } catch (err) {
+          res.status(500).json({ error: (err as Error).message || err });
+        }
+        break;
+
+           case 'DELETE':
       try {
-        const post = await PostModel.findById(postId);
-        if (!post) {
-          res.status(404).send(`No post found with id ${postId}!`);
+        const message = await MessageModel.findById(messageId);
+        if (!message) {
+          res.status(404).send(`No message found with id ${messageId}!`);
           return;
         }
-        if (post.author !== req.user._id) {
+        if (message.author !== req.user._id) {
           res.status(403).send('Not authorised to delete');
           return;
         }
 
-        await CommentModel.deleteMany({ post: postId });
-        const deletedPost = await post.deleteOne();
+        await MessageModel.deleteMany({ message: messageId });
+        const deletedMessage = await message.deleteOne();
 
-        res.json(deletedPost);
+        res.json(deletedMessage);
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }
       break;
     default:
-      res.setHeader('Allow', ['DELETE', 'GET']);
+      res.setHeader('Allow', ['DELETE', 'GET','POST']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
   }
 };
