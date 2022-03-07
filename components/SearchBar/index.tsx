@@ -2,15 +2,15 @@ import Link from 'next/link';
 import { ChangeEvent, FC, useEffect, useState } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
 
+import Profile from '@/components/Profile';
+import Box from '@/components/elements/Box';
 import Card from '@/components/elements/Card';
 import { Dropdown, DropdownItem, DropdownMenu } from '@/components/elements/Dropdown';
+import Typography from '@/components/elements/Typography';
 import useSearchResults from '@/hooks/queries/useSearch';
 import useDebounce from '@/hooks/useDebounce';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 
-import Profile from '../Profile';
-import Box from '../elements/Box';
-import Typography from '../elements/Typography';
 import { SearchContainer, SearchInput } from './styles';
 
 const SearchBar: FC = () => {
