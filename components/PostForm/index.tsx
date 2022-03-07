@@ -4,13 +4,13 @@ import { MdClose, MdCode, MdImage, MdSend } from 'react-icons/md';
 
 import CodeBlock from '@/components/CodeBlock';
 import TagDropdown from '@/components/TagDropdown';
-import Box, { Flexbox } from '@/components/elements/Box';
+import Box from '@/components/elements/Box';
 import Card from '@/components/elements/Card';
-import Typography from '@/components/elements/Typography';
 import useCreatePost, { NewPost } from '@/hooks/mutations/useCreatePost';
 import useBoolean from '@/hooks/useBoolean';
 import { Tag } from '@/models/tag';
 
+import TagList from '../TagList';
 import {
   Button,
   FileButton,
@@ -135,15 +135,7 @@ const PostForm: FC = () => {
           <CodeBlock language={language} setLanguage={setLanguage} code={code} setCode={setCode} />
         )}
 
-        <Flexbox gap="0.5rem" margin="0.5rem 0" flexWrap="wrap">
-          {tags?.map((tag) => (
-            <div key={tag._id}>
-              <Card padding="xs" onClick={() => removeTag(tag._id)}>
-                <Typography>{tag.name}</Typography>
-              </Card>
-            </div>
-          ))}
-        </Flexbox>
+        <TagList tags={tags} onClick={(tag: Tag) => removeTag(tag._id)} />
 
         <IconContainer>
           <FileButton active={!!image}>

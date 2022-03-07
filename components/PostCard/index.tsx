@@ -7,6 +7,7 @@ import CodeBlock from '@/components/CodeBlock';
 import CommentList from '@/components/CommentList';
 import PostDropdown from '@/components/PostDropdown';
 import ShareDropdown from '@/components/ShareDropdown';
+import TagList from '@/components/TagList';
 import Avatar from '@/components/elements/Avatar';
 import { Flexbox } from '@/components/elements/Box';
 import Card from '@/components/elements/Card';
@@ -33,8 +34,18 @@ const PostCard: FC<Props> = ({ post: initialPost }) => {
 
   if (!post || isError) return <></>;
 
-  const { author, text, likeCount, commentCount, createdAt, hasLiked, hasSaved, code, image } =
-    post;
+  const {
+    author,
+    text,
+    likeCount,
+    commentCount,
+    createdAt,
+    hasLiked,
+    hasSaved,
+    code,
+    image,
+    tags,
+  } = post;
 
   return (
     <Card>
@@ -74,15 +85,7 @@ const PostCard: FC<Props> = ({ post: initialPost }) => {
         </ImageContainer>
       )}
 
-      <Flexbox gap="0.5rem" margin="0.5rem 0">
-        {post?.tags.map((tag) => (
-          <div key={tag._id}>
-            <Card padding="xs">
-              <Typography>{tag.name}</Typography>
-            </Card>
-          </div>
-        ))}
-      </Flexbox>
+      <TagList tags={tags} />
 
       <IconButtonContainer>
         <IconButton onClick={() => likePost()} secondary={hasLiked}>
