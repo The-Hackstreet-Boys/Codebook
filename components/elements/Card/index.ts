@@ -23,6 +23,20 @@ const Card = styled.div<Props>`
         return 'padding: 2rem;';
     }
   }}
+  @media (max-width: 992px) {
+    ${({ padding = 'lg' }) => {
+      switch (padding) {
+        case 'xs':
+          return 'padding: 0.45rem 0.75rem;';
+        case 'sm':
+          return 'padding: 0.5rem;';
+        case 'md':
+          return 'padding: 0.75rem;';
+        case 'lg':
+          return 'padding: 1.5rem;';
+      }
+    }}
+  }
 `;
 
 export default Card;

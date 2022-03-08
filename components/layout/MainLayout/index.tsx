@@ -1,14 +1,14 @@
 import { FC } from 'react';
 
 import Header from '@/components/Header';
-import Sidebar from '@/components/Sidebar';
+import Navbar from '@/components/Navbar';
 
 import { Container, Content } from './styles';
 
 const MainLayout: FC = ({ children }) => (
   <Container>
     <Header />
-    <Sidebar />
+    <Navbar />
     <Content>{children}</Content>
   </Container>
 );

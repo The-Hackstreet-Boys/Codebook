@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const DropdownToggle = styled.button`
+export const DropdownToggle = styled.button<{ hideBackground?: boolean }>`
   border: none;
   outline: none;
   cursor: pointer;
-  background: none;
+  background: ${({ hideBackground, theme }) => (hideBackground ? 'none' : theme.overlay)};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,8 +15,8 @@ export const DropdownToggle = styled.button`
   transition: ${({ theme }) => theme.transition};
   ${({ theme }) => theme.shadow}
   & > svg {
-    width: 1.5rem;
-    height: 1.5rem;
+    width: 1.25rem;
+    height: 1.25rem;
   }
   &:hover {
     background: ${({ theme }) => theme.overlay3} !important ;
@@ -31,10 +31,14 @@ export const DropdownMenu = styled.div`
   transition: ${({ theme }) => theme.transition};
   width: 15rem;
   max-height: 20rem;
-  overflow-x: auto;
-  background: ${({ theme }) => theme.dropdown};
-  background: ${({ theme }) => theme.dropdownGradient};
-  ${({ theme }) => theme.foregroundBlur}
+  overflow-y: auto;
+  overflow-x: hidden;
+  background: ${({ theme }) => theme.background};
+  @supports (backdrop-filter: blur()) {
+    background: ${({ theme }) => theme.dropdown};
+    background: ${({ theme }) => theme.dropdownGradient};
+    ${({ theme }) => theme.foregroundBlur}
+  }
   ${({ theme }) => theme.shadow}
   border-radius: ${({ theme }) => theme.borderRadius};
   padding: 0.5rem;
@@ -76,6 +80,7 @@ export const DropdownItem = styled.button.attrs({ type: 'button' })`
   background: none;
   border: none;
   outline: none;
+  overflow: hidden;
   &:hover {
     background: ${({ theme }) => theme.overlay};
     color: ${({ theme }) => theme.text};
