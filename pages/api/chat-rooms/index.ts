@@ -21,17 +21,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       }
       break;
 
-      case 'GET':
-        try {
-          const chatRooms = await ChatRoomModel.find({ participants: req.user._id }).sort({lastActiveAt:-1});
-          
-             res.json(chatRooms);
+    case 'GET':
+      try {
+        const chatRooms = await ChatRoomModel.find({ participants: req.user._id }).sort({
+          lastActiveAt: -1,
+        });
 
-        } catch (err) {
-          res.status(500).json({ error: (err as Error).message || err });
-        }
-        break;
-  
+        res.json(chatRooms);
+      } catch (err) {
+        res.status(500).json({ error: (err as Error).message || err });
+      }
+      break;
+
     default:
       res.setHeader('Allow', ['POST', 'GET']);
       res.status(405).end(`Method ${req.method} Not Allowed`);
