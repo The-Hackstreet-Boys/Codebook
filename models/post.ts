@@ -17,7 +17,7 @@ export interface Post extends Document {
   updatedAt: Date;
 }
 
-export interface ExtendedPost extends Omit<Post, 'author' | 'tags' | 'image'| 'code'> {
+export interface ExtendedPost extends Omit<Post, 'author' | 'tags' | 'image' | 'code'> {
   author: ExtendedUser;
   tags: Tag[];
   hasLiked: boolean;
