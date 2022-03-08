@@ -7,6 +7,7 @@ import connectToDatabase from '@/middleware/connectToDatabase';
 import PostModel from '@/models/post';
 import TagModel from '@/models/tag';
 import UserModel from '@/models/user';
+import MediaModel from '@/models/media';
 
 const filter = new Filter();
 
@@ -38,6 +39,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           .populate({
             path: 'tags',
             model: TagModel,
+          })
+          .populate({
+            path: 'image',
+            model: MediaModel,
+          })
+          .populate({
+            path: 'code',
+            model: MediaModel,
           });
 
         const data = posts.map((post) => ({
