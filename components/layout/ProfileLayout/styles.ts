@@ -5,6 +5,9 @@ export const Container = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 20rem;
+  @media (max-width: 992px) {
+    display: block;
+  }
 `;
 
 export const ContentContainer = styled.div`
@@ -22,4 +25,7 @@ export const Content = styled.div`
   padding: 1rem;
   gap: 1rem;
   grid-template-columns: 20rem 1fr;
+  @media (max-width: 992px) {
+    grid-template-columns: auto;
+  }
 `;
