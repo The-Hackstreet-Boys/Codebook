@@ -1,16 +1,15 @@
 import { ChangeEvent, FC, FormEvent, useState } from 'react';
 
-import useSocket from '@/contexts/SocketContext';
+import useChat from '@/contexts/ChatContext';
 
 const MessageForm: FC = () => {
   const [text, setText] = useState('');
-  const { socket } = useSocket();
+  const { sendMessage } = useChat();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!socket) return;
 
-    socket.emit('message', text);
+    sendMessage({ text });
 
     setText('');
   };
