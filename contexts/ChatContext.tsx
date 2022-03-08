@@ -11,7 +11,7 @@ interface State {
   messages: Message[];
 }
 
-interface NewMessage {
+export interface NewMessage {
   text: string;
 }
 
@@ -20,7 +20,7 @@ const ChatContext = createContext<State>({} as State);
 export const SocketProvider: FC = ({ children }) => {
   const [connected, setConnected] = useState(false);
   const [socket, setSocket] = useState<Socket>();
-  const [roomId, setRoomId] = useState<string>();
+  const [roomId, setRoomId] = useState<string>('62274de89f32ca7ab60260a9');
   const [messages, setMessages] = useState<Message[]>([]);
 
   useEffect(() => {

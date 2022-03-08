@@ -1,6 +1,11 @@
+import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import { NextApiRequest } from 'next';
 import { Server } from 'socket.io';
 
+import { NewMessage } from '@/contexts/ChatContext';
+import authentication from '@/middleware/authentication';
+import connectToDatabase from '@/middleware/connectToDatabase';
+import MessageModel from '@/models/message';
 import { NextApiResponseServerIO } from '@/types/next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
@@ -13,15 +18,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
 
     io.on('connection', (socket) => {
       console.log('client connected');
-
-      socket.on('message', (message) => {
-        console.log('message', message);
-        // save message to db
-        io.emit('message', message);
-      });
+      const roomId = socket.handshake.query.roomId as string;
+      socket.join(roomId);
     });
   }
   res.end();
 };
 
-export default handler;
+export default withApiAuthRequired(connectToDatabase(authentication(handler)));

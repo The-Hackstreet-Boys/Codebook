@@ -4,13 +4,12 @@ import useChat from '@/contexts/ChatContext';
 
 const MessageForm: FC = () => {
   const [text, setText] = useState('');
-  const { socket } = useChat();
+  const { sendMessage } = useChat();
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!socket) return;
 
-    socket.emit('message', text);
+    sendMessage({ text });
 
     setText('');
   };
