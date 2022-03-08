@@ -2,6 +2,7 @@ import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
 import { Tag } from '@/models/tag';
 import { ExtendedUser } from '@/models/user';
+import { Code, Image } from './media';
 
 export interface Post extends Document {
   author: string;
@@ -10,17 +11,19 @@ export interface Post extends Document {
   likes: string[];
   commentCount: number;
   tags: Types.ObjectId[];
-  image?: { url: string; width: number; height: number };
-  code?: { text: string; language: string };
+  image?: Types.ObjectId;
+  code?: Types.ObjectId;
   createdAt: Date;
   updatedAt: Date;
 }
 
-export interface ExtendedPost extends Omit<Post, 'author' | 'tags'> {
+export interface ExtendedPost extends Omit<Post, 'author' | 'tags' | 'image'| 'code'> {
   author: ExtendedUser;
   tags: Tag[];
   hasLiked: boolean;
   hasSaved: boolean;
+  image?: Image;
+  code?: Code;
 }
 
 const postSchema = new Schema<Post>(
@@ -31,8 +34,8 @@ const postSchema = new Schema<Post>(
     likes: { type: [String], ref: 'User' },
     commentCount: { type: Number, default: 0, min: 0 },
     tags: { type: [Schema.Types.ObjectId], ref: 'Tag' },
-    image: { url: String, width: Number, height: Number },
-    code: { text: String, language: String },
+    image: { type: Schema.Types.ObjectId, ref: 'Media' },
+    code: { type: Schema.Types.ObjectId, ref: 'Media' },
   },
   { timestamps: true },
 );
