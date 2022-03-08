@@ -53,7 +53,7 @@ const PostCard: FC<Props> = ({ post: initialPost }) => {
         <Link href={`/users/${author._id}`}>
           <a>{author.picture && <Avatar user={author} />}</a>
         </Link>
-        <Flexbox justifyContent="space-between">
+        <Flexbox justifyContent="space-between" flexGrow="1">
           <div>
             <Link href={`/users/${author._id}`}>
               <a>
