@@ -25,6 +25,9 @@ export const TextContainer = styled.div`
 
 export const ImageContainer = styled.div`
   margin: 1rem -2rem;
+  @media (max-width: 992px) {
+    margin: 1rem -1.5rem;
+  }
 `;
 
 export const IconButtonContainer = styled.div`

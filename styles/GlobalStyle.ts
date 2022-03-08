@@ -20,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
         line-height: 1.3;
         
         @media (max-width: 992px) {
-            font-size: 15px;
+            font-size: 17px;
         }
     }
 
