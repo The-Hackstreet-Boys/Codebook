@@ -8,14 +8,20 @@ import { Flexbox } from '@/components/elements/Box';
 import Logo from '@/components/elements/Logo';
 import useCurrentUser from '@/hooks/queries/useCurrentUser';
 
-import { Container } from './styles';
+import { Container, ProfileContainer } from './styles';
 
 const Header: FC = () => {
   const { data: user, isLoading } = useCurrentUser();
 
   return (
     <Container>
-      <Flexbox alignItems="center" justifyContent="space-between" height="100%" padding="0 2rem">
+      <Flexbox
+        alignItems="center"
+        justifyContent="space-between"
+        height="100%"
+        padding="0 2rem"
+        gap="1rem"
+      >
         <Flexbox alignItems="center" gap="1rem">
           <Link href="/" passHref>
             <a>
@@ -25,7 +31,9 @@ const Header: FC = () => {
           <SearchDropdown />
         </Flexbox>
         <Flexbox alignItems="center" gap="1rem">
-          {isLoading || !user ? <ProfileSkeleton /> : <Profile user={user} />}
+          <ProfileContainer>
+            {isLoading || !user ? <ProfileSkeleton /> : <Profile user={user} />}
+          </ProfileContainer>
           <HeaderDropdown />
         </Flexbox>
       </Flexbox>
