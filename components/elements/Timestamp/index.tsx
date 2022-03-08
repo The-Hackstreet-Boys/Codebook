@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
 import { FC } from 'react';
 
-import Typography from '../Typography';
+import Typography from '@/components/elements/Typography';
 
 interface Props {
   date: Date;

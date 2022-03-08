@@ -8,10 +8,8 @@ import {
   TwitterShareButton,
 } from 'react-share';
 
-import { Dropdown, DropdownMenu } from '@/components/elements/Dropdown';
+import Dropdown, { DropdownMenu, DropdownToggle } from '@/components/elements/Dropdown';
 import IconButton from '@/components/elements/IconButton';
-import useBoolean from '@/hooks/useBoolean';
-import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 import { Container } from './styles';
 
@@ -20,15 +18,15 @@ interface Props {
 }
 
 const ShareDropdown: FC<Props> = ({ postId }) => {
-  const [isOpen, toggleIsOpen, setIsOpen] = useBoolean(false);
-  const ref = useOnClickOutside<HTMLDivElement>(() => setIsOpen(false));
   const shareUrl = `www.codebook.space/posts/${postId}`;
 
   return (
-    <Dropdown ref={ref} isOpen={isOpen} grow>
-      <IconButton onClick={toggleIsOpen}>
-        <MdShare />
-      </IconButton>
+    <Dropdown>
+      <DropdownToggle>
+        <IconButton>
+          <MdShare />
+        </IconButton>
+      </DropdownToggle>
       <DropdownMenu>
         <Container>
           <FacebookShareButton url={shareUrl}>

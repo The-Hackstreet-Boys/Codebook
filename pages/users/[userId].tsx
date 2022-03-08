@@ -2,13 +2,12 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 
+import Feed from '@/components/Feed';
+import Card from '@/components/elements/Card';
+import Typography from '@/components/elements/Typography';
+import MainLayout from '@/components/layout/MainLayout';
+import ProfileLayout from '@/components/layout/ProfileLayout';
 import useUser from '@/hooks/queries/useUser';
-
-import Feed from '../../components/Feed';
-import Card from '../../components/elements/Card';
-import Typography from '../../components/elements/Typography';
-import MainLayout from '../../components/layout/MainLayout';
-import ProfileLayout from '../../components/layout/ProfileLayout';
 
 const Profile: FC = () => {
   const router = useRouter();

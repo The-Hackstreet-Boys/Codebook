@@ -2,9 +2,10 @@ import Link from 'next/link';
 import { FC } from 'react';
 
 import Avatar from '@/components/elements/Avatar';
-import { Flexbox } from '@/components/elements/Box';
 import Typography from '@/components/elements/Typography';
 import { User } from '@/models/user';
+
+import { Flexbox } from '../elements/Box';
 
 interface Props {
   user: User;

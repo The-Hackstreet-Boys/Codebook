@@ -20,7 +20,12 @@ const Card = styled.div<Props>`
       case 'md':
         return 'padding: 1rem;';
       case 'lg':
-        return 'padding: 2rem;';
+        return `
+          padding: 2rem;
+          @media (max-width: 992px) {
+            padding: 1.5rem;
+          }
+        `;
     }
   }}
 `;

@@ -7,6 +7,7 @@ import CommentModel from '@/models/comment';
 import PostModel from '@/models/post';
 import TagModel from '@/models/tag';
 import UserModel from '@/models/user';
+import MediaModel from '@/models/media';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { postId } = req.query;
@@ -22,6 +23,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
           .populate({
             path: 'tags',
             model: TagModel,
+          })
+          .populate({
+            path: 'image',
+            model: MediaModel,
+          })
+          .populate({
+            path: 'code',
+            model: MediaModel,
           });
 
         if (!post) {

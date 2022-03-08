@@ -2,10 +2,9 @@ import React, { FC, createContext, useContext } from 'react';
 import { ThemeProvider as StyledThemeProvider } from 'styled-components';
 
 import useLocalStorage from '@/hooks/useLocalStorage';
+import { darkTheme, lightTheme } from '@/styles/themes';
 
-import { darkTheme, lightTheme } from '../styles/themes';
-
-interface Props {
+interface State {
   isDarkTheme: boolean;
   toggleTheme?: () => void;
 }
@@ -14,7 +13,7 @@ const defaultState = {
   isDarkTheme: true,
 };
 
-const ThemeContext = createContext<Props>(defaultState);
+const ThemeContext = createContext<State>(defaultState);
 
 export const ThemeProvider: FC = ({ children }) => {
   const [isDarkTheme, setIsDarkTheme] = useLocalStorage('isDarkTheme', true);

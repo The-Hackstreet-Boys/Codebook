@@ -1,12 +1,13 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
-import { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest } from 'next';
 
 import authentication from '@/middleware/authentication';
 import connectToDatabase from '@/middleware/connectToDatabase';
 import MessageModel from '@/models/message';
 import UserModel from '@/models/user';
+import { NextApiResponseServerIO } from '@/types/next';
 
-const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
   const { roomId } = req.query;
 
   switch (req.method) {
@@ -27,10 +28,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       try {
         const message = new MessageModel({
           ...req.body,
+          room: roomId,
           author: req.user._id,
         });
 
         await message.save();
+        res.socket.server.io.to(roomId).emit('message', message);
         res.json(message);
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });

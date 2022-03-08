@@ -3,9 +3,9 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { FC } from 'react';
 
-import Feed from '../../components/Feed';
-import FeedLayout from '../../components/layout/FeedLayout';
-import MainLayout from '../../components/layout/MainLayout';
+import Feed from '@/components/Feed';
+import FeedLayout from '@/components/layout/FeedLayout';
+import MainLayout from '@/components/layout/MainLayout';
 
 const TagPage: FC = () => {
   const router = useRouter();

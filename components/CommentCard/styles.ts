@@ -1,16 +1,16 @@
 import styled from 'styled-components';
 
-import { DropdownToggle } from '@/components/elements/Dropdown';
+import { ToggleButton } from '@/components/elements/Dropdown/styles';
 
 export const Container = styled.div`
   display: grid;
   grid-template-columns: auto 1fr;
   gap: 0.75rem;
-  ${DropdownToggle} {
+  ${ToggleButton} {
     opacity: 0;
   }
   &:hover {
-    ${DropdownToggle} {
+    ${ToggleButton} {
       opacity: 1;
     }
   }

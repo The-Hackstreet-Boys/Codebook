@@ -1,14 +1,32 @@
 import styled from 'styled-components';
 
+import { ToggleButton } from '@/components/elements/Dropdown/styles';
+
+export const DropdownContainer = styled.div``;
+
 export const Container = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1.5rem;
-  padding-bottom: 1rem;
+  ${DropdownContainer} ${ToggleButton} {
+    opacity: 0;
+  }
+  &:hover {
+    ${DropdownContainer} ${ToggleButton} {
+      opacity: 1;
+    }
+  }
+`;
+
+export const TextContainer = styled.div`
+  margin: 1.6rem 0 1.5rem 3.5rem;
+  @media (max-width: 992px) {
+    margin-left: 0;
+  }
 `;
 
 export const ImageContainer = styled.div`
   margin: 1rem -2rem;
+  @media (max-width: 992px) {
+    margin: 1rem -1.5rem;
+  }
 `;
 
 export const IconButtonContainer = styled.div`
@@ -26,13 +44,13 @@ export const IconButtonContainer = styled.div`
   }
 `;
 
-export const MenuToggle = styled.button<{ isVisible: boolean }>`
+export const MenuToggle = styled.button<{ isOpen: boolean }>`
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${({ theme, isVisible }) => (isVisible ? theme.overlay2 : 'none')};
+  background: ${({ theme, isOpen }) => (isOpen ? theme.overlay2 : 'none')};
 
   width: 2.5rem;
   height: 2.5rem;
