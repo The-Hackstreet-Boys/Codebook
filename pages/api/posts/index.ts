@@ -1,14 +1,14 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
 import Filter from 'bad-words';
+import { Types } from 'mongoose';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 import authentication from '@/middleware/authentication';
 import connectToDatabase from '@/middleware/connectToDatabase';
+import MediaModel from '@/models/media';
 import PostModel from '@/models/post';
 import TagModel from '@/models/tag';
 import UserModel from '@/models/user';
-import MediaModel from '@/models/media';
-import {Types} from 'mongoose';
 
 const filter = new Filter();
 
@@ -66,38 +66,41 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       break;
     case 'POST':
       try {
-        const { image,code,...rest} = req.body;
+        const { image, code, ...rest } = req.body;
+
         let imageId: Types.ObjectId | undefined = undefined;
         let codeId: Types.ObjectId | undefined = undefined;
 
-        if(image){
+        if (image) {
           const newImage = new MediaModel({
             author: req.user._id,
             type: 'image',
-            ... image
-          })
+            ...image,
+          });
           await newImage.save();
           imageId = newImage._id;
         }
-        if(code){
+
+        if (code) {
           const newCode = new MediaModel({
             author: req.user._id,
             type: 'code',
-            ...code
-          })
+            ...code,
+          });
           await newCode.save();
           codeId = newCode._id;
         }
+
         const post = new PostModel({
           ...rest,
           author: req.user._id,
           text: filter.clean(req.body.text),
           code: codeId,
-          image: imageId
+          image: imageId,
         });
 
-       await post.save();
-       
+        await post.save();
+
         res.json(post);
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
