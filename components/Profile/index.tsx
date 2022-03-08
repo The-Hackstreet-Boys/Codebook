@@ -5,7 +5,7 @@ import Avatar from '@/components/elements/Avatar';
 import Typography from '@/components/elements/Typography';
 import { User } from '@/models/user';
 
-import { Container, NameContainer } from './styles';
+import { Flexbox } from '../elements/Box';
 
 interface Props {
   user: User;
@@ -14,14 +14,12 @@ interface Props {
 const Profile: FC<Props> = ({ user }) => (
   <Link href={`/users/${user._id}`}>
     <a>
-      <Container>
+      <Flexbox gap="0.75rem" alignItems="center">
         {user && <Avatar user={user} showStatus />}
-        <NameContainer>
-          <Typography variant="h6" isClickable>
-            {user.name}
-          </Typography>
-        </NameContainer>
-      </Container>
+        <Typography variant="h6" isClickable>
+          {user.name}
+        </Typography>
+      </Flexbox>
     </a>
   </Link>
 );

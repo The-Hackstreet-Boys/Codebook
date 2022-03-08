@@ -1,16 +1,15 @@
 import styled from 'styled-components';
 
-import { DropdownToggle } from '@/components/elements/Dropdown';
+import { ToggleButton } from '@/components/elements/Dropdown/styles';
+
+export const DropdownContainer = styled.div``;
 
 export const Container = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  ${DropdownToggle} {
+  ${DropdownContainer} ${ToggleButton} {
     opacity: 0;
   }
   &:hover {
-    ${DropdownToggle} {
+    ${DropdownContainer} ${ToggleButton} {
       opacity: 1;
     }
   }
@@ -45,13 +44,13 @@ export const IconButtonContainer = styled.div`
   }
 `;
 
-export const MenuToggle = styled.button<{ isVisible: boolean }>`
+export const MenuToggle = styled.button<{ isOpen: boolean }>`
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: ${({ theme, isVisible }) => (isVisible ? theme.overlay2 : 'none')};
+  background: ${({ theme, isOpen }) => (isOpen ? theme.overlay2 : 'none')};
 
   width: 2.5rem;
   height: 2.5rem;

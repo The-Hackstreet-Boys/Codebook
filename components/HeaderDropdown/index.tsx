@@ -1,26 +1,24 @@
 import { FC } from 'react';
 import { MdArrowDropDown, MdDarkMode, MdLightMode, MdLogout, MdSettings } from 'react-icons/md';
 
-import {
-  Dropdown,
+import Dropdown, {
   DropdownDivider,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  DropdownToggleButton,
 } from '@/components/elements/Dropdown';
 import useTheme from '@/contexts/ThemeContext';
-import useBoolean from '@/hooks/useBoolean';
-import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 const HeaderDropdown: FC = () => {
-  const [isVisible, toggleIsVisible, setIsVisible] = useBoolean(false);
-  const ref = useOnClickOutside<HTMLDivElement>(() => setIsVisible(false));
   const { isDarkTheme, toggleTheme } = useTheme();
 
   return (
-    <Dropdown ref={ref} isOpen={isVisible}>
-      <DropdownToggle onClick={toggleIsVisible}>
-        <MdArrowDropDown />
+    <Dropdown>
+      <DropdownToggle>
+        <DropdownToggleButton>
+          <MdArrowDropDown />
+        </DropdownToggleButton>
       </DropdownToggle>
       <DropdownMenu>
         <DropdownItem onClick={toggleTheme}>

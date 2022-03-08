@@ -7,6 +7,7 @@ export const Container = styled.div`
   grid-template-columns: auto 1fr;
   grid-template-rows: auto 1fr;
   grid-template-areas: 'header header' 'navbar content';
+  overflow: hidden;
   @media (max-width: 992px) {
     grid-template-columns: auto;
     grid-template-rows: auto 1fr auto;

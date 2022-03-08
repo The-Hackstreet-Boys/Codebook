@@ -17,9 +17,9 @@ export const TagForm = styled.div`
 export const ToggleTag = styled.div<{ isOpen: boolean }>`
   position: relative;
   & ${TagForm} {
-    margin-top: ${({ isOpen: isVisible }) => (isVisible ? '1rem' : '0')};
-    visibility: ${({ isOpen: isVisible }) => (isVisible ? 'visible' : 'hidden')};
-    opacity: ${({ isOpen: isVisible }) => (isVisible ? '1' : '0')};
+    margin-top: ${({ isOpen }) => (isOpen ? '1rem' : '0')};
+    visibility: ${({ isOpen }) => (isOpen ? 'visible' : 'hidden')};
+    opacity: ${({ isOpen }) => (isOpen ? '1' : '0')};
     color: ${({ theme }) => theme.textSecondary};
     font-size: ${({ theme }) => theme.fontSizeXs};
     font-weight: ${({ theme }) => theme.fontWeightMedium};

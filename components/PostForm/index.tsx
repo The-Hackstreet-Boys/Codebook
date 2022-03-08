@@ -4,13 +4,13 @@ import { MdClose, MdCode, MdImage, MdSend } from 'react-icons/md';
 
 import CodeBlock from '@/components/CodeBlock';
 import TagDropdown from '@/components/TagDropdown';
+import TagList from '@/components/TagList';
 import Box from '@/components/elements/Box';
 import Card from '@/components/elements/Card';
 import useCreatePost, { NewPost } from '@/hooks/mutations/useCreatePost';
 import useBoolean from '@/hooks/useBoolean';
 import { Tag } from '@/models/tag';
 
-import TagList from '../TagList';
 import {
   Button,
   FileButton,

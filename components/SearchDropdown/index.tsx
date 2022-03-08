@@ -4,26 +4,22 @@ import { MdOutlineSearch } from 'react-icons/md';
 
 import Profile from '@/components/Profile';
 import Box from '@/components/elements/Box';
-import {
-  Dropdown,
+import Dropdown, {
   DropdownDivider,
   DropdownItem,
   DropdownMenu,
   DropdownToggle,
+  DropdownToggleButton,
 } from '@/components/elements/Dropdown';
 import Typography from '@/components/elements/Typography';
 import useSearchResults from '@/hooks/queries/useSearch';
-import useBoolean from '@/hooks/useBoolean';
 import useDebounce from '@/hooks/useDebounce';
-import useOnClickOutside from '@/hooks/useOnClickOutside';
 
 import { SearchInput } from './styles';
 
-const SearchBar: FC = () => {
+const SearchDropdown: FC = () => {
   const [query, setQuery] = useState('');
-  const [isVisible, toggleIsVisible, setIsVisible] = useBoolean(false);
   const debouncedQuery = useDebounce(query);
-  const ref = useOnClickOutside<HTMLDivElement>(() => setIsVisible(false));
   const { data: searchResults } = useSearchResults(debouncedQuery);
   const hasUserResults = !!searchResults?.users.length;
   const hasTagResults = !!searchResults?.tags.length;
@@ -33,9 +29,11 @@ const SearchBar: FC = () => {
   };
 
   return (
-    <Dropdown ref={ref} isOpen={isVisible} position="right">
-      <DropdownToggle onClick={toggleIsVisible}>
-        <MdOutlineSearch />
+    <Dropdown>
+      <DropdownToggle>
+        <DropdownToggleButton>
+          <MdOutlineSearch />
+        </DropdownToggleButton>
       </DropdownToggle>
       <DropdownMenu>
         <SearchInput
@@ -79,4 +77,4 @@ const SearchBar: FC = () => {
   );
 };
 
-export default SearchBar;
+export default SearchDropdown;

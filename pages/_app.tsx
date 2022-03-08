@@ -14,19 +14,18 @@ dayjs.extend(relativeTime);
 
 const queryClient = new QueryClient();
 
-const App = ({ Component, pageProps }: AppProps) => {
-  return (
-    <UserProvider>
-      <QueryClientProvider client={queryClient}>
-        <ThemeProvider>
-          <Normalize />
-          <GlobalStyle />
-          <Component {...pageProps} />
-        </ThemeProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-    </UserProvider>
-  );
-};
+const App = ({ Component, pageProps }: AppProps) => (
+  <UserProvider>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider>
+        <Normalize />
+        <GlobalStyle />
+        <Component {...pageProps} />
+        <div id="menus" />
+      </ThemeProvider>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  </UserProvider>
+);
 
 export default App;
