@@ -7,8 +7,8 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import { Normalize } from 'styled-normalize';
 
-import { ThemeProvider } from '../contexts/ThemeContext';
-import GlobalStyle from '../styles/GlobalStyle';
+import { ThemeProvider } from '@/contexts/ThemeContext';
+import GlobalStyle from '@/styles/GlobalStyle';
 
 dayjs.extend(relativeTime);
 

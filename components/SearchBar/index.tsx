@@ -1,24 +1,30 @@
 import Link from 'next/link';
-import { ChangeEvent, FC, useEffect, useState } from 'react';
+import { ChangeEvent, FC, useState } from 'react';
 import { MdOutlineSearch } from 'react-icons/md';
 
 import Profile from '@/components/Profile';
 import Box from '@/components/elements/Box';
-import Card from '@/components/elements/Card';
-import { Dropdown, DropdownItem, DropdownMenu } from '@/components/elements/Dropdown';
+import {
+  Dropdown,
+  DropdownDivider,
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from '@/components/elements/Dropdown';
 import Typography from '@/components/elements/Typography';
 import useSearchResults from '@/hooks/queries/useSearch';
+import useBoolean from '@/hooks/useBoolean';
 import useDebounce from '@/hooks/useDebounce';
 import useOnClickOutside from '@/hooks/useOnClickOutside';
 
-import { SearchContainer, SearchInput } from './styles';
+import { SearchInput } from './styles';
 
 const SearchBar: FC = () => {
   const [query, setQuery] = useState('');
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, toggleIsVisible, setIsVisible] = useBoolean(false);
   const debouncedQuery = useDebounce(query);
   const ref = useOnClickOutside<HTMLDivElement>(() => setIsVisible(false));
-  const { data: searchResults, isLoading } = useSearchResults(debouncedQuery);
+  const { data: searchResults } = useSearchResults(debouncedQuery);
   const hasUserResults = !!searchResults?.users.length;
   const hasTagResults = !!searchResults?.tags.length;
 
@@ -26,21 +32,18 @@ const SearchBar: FC = () => {
     setQuery(e.target.value);
   };
 
-  useEffect(() => setIsVisible(!!query.length), [query]);
-
   return (
-    <Dropdown ref={ref} isOpen={isVisible && !isLoading} position="right">
-      <Card padding="sm">
-        <SearchContainer>
-          <MdOutlineSearch />
-          <SearchInput
-            placeholder="Search for tags or people"
-            value={query}
-            onChange={handleChange}
-          />
-        </SearchContainer>
-      </Card>
+    <Dropdown ref={ref} isOpen={isVisible} position="right">
+      <DropdownToggle onClick={toggleIsVisible}>
+        <MdOutlineSearch />
+      </DropdownToggle>
       <DropdownMenu>
+        <SearchInput
+          placeholder="Search for tags or people"
+          value={query}
+          onChange={handleChange}
+        />
+        <DropdownDivider />
         {hasTagResults || hasUserResults ? (
           <>
             {hasUserResults && (

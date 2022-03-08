@@ -22,7 +22,7 @@ const Header: FC = () => {
         height="100%"
         padding="0 2rem"
       >
-        <Flexbox alignItems="center" gap="2rem">
+        <Flexbox alignItems="center" gap="1rem">
           <Link href="/" passHref>
             <a>
               <Logo />

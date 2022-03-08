@@ -6,6 +6,9 @@ export const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 20rem;
   overflow: hidden;
+  @media (max-width: 992px) {
+    grid-template-columns: auto;
+  }
 `;
 
 export const ContentContainer = styled.div`

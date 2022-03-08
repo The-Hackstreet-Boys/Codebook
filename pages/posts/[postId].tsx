@@ -4,10 +4,10 @@ import { FC } from 'react';
 
 import usePost from '@/hooks/queries/usePost';
 
-import PostCard from '../../components/PostCard';
-import PostCardSkeleton from '../../components/PostCard/skeleton';
-import FeedLayout from '../../components/layout/FeedLayout';
-import MainLayout from '../../components/layout/MainLayout';
+import PostCard from '@/components/PostCard';
+import PostCardSkeleton from '@/components/PostCard/skeleton';
+import FeedLayout from '@/components/layout/FeedLayout';
+import MainLayout from '@/components/layout/MainLayout';
 
 const PostScreen: FC = () => {
   const router = useRouter();

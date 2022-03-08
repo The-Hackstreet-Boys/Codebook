@@ -2,9 +2,9 @@ import { withPageAuthRequired } from '@auth0/nextjs-auth0';
 import Head from 'next/head';
 import { FC } from 'react';
 
-import Feed from '../components/Feed';
-import FeedLayout from '../components/layout/FeedLayout';
-import MainLayout from '../components/layout/MainLayout';
+import Feed from '@/components/Feed';
+import FeedLayout from '@/components/layout/FeedLayout';
+import MainLayout from '@/components/layout/MainLayout';
 
 const IndexPage: FC = () => (
   <MainLayout>

@@ -1,10 +1,26 @@
 import styled from 'styled-components';
 
+import { DropdownToggle } from '@/components/elements/Dropdown';
+
 export const Container = styled.div`
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 1.5rem;
-  padding-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  ${DropdownToggle} {
+    opacity: 0;
+  }
+  &:hover {
+    ${DropdownToggle} {
+      opacity: 1;
+    }
+  }
+`;
+
+export const TextContainer = styled.div`
+  margin: 1.6rem 0 1.5rem 3.5rem;
+  @media (max-width: 992px) {
+    margin-left: 0;
+  }
 `;
 
 export const ImageContainer = styled.div`

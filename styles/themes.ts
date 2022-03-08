@@ -60,11 +60,17 @@ export const darkTheme: DefaultTheme = {
 
 export const lightTheme: DefaultTheme = {
   background: '#F2F2F2',
-  foreground: 'hsla(0, 0%, 0%, 0.075)',
+  foreground: 'hsla(0, 0%, 0%, 0.1)',
   foregroundGradient: `linear-gradient(
     112.5deg,
-    hsla(0, 0%, 0%, 0.05),
-    hsla(0, 0%, 0%, 0.1)
+    hsla(0, 0%, 0%, 0.1),
+    hsla(0, 0%, 0%, 0.05)
+  )`,
+  dropdown: 'hsla(0, 0%, 0%, 0.025)',
+  dropdownGradient: `linear-gradient(
+    112.5deg,
+    hsla(0, 0%, 0%, 0.025),
+    hsla(0, 0%, 0%, 0.05)
   )`,
   foregroundBlur: 'backdrop-filter: blur(1.5rem);',
   overlay: 'hsla(0, 0%, 0%, 0.075)',
@@ -102,8 +108,6 @@ export const lightTheme: DefaultTheme = {
   fontWeightExtraBold: '800',
   fontWeightBlack: '900',
   transition: 'all 150ms ease-in-out',
-  dropdown: '',
-  dropdownGradient: '',
   code: 'hsla(0, 0%, 0%,0.8)',
   codeComments: 'hsla(0, 0%, 0%, 0.5)',
   codePrimary: '#1ab4a4',

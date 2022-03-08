@@ -28,7 +28,7 @@ const useSearchResults = (query: string) => {
       return getSearchResults(query);
     },
     {
-      enabled: !!user,
+      enabled: !!user && !!query,
       keepPreviousData: true,
     },
   );

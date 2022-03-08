@@ -41,7 +41,7 @@ export type ExtendedCommentOrReply = ExtendedComment | ExtendedReply;
 
 const commentSchema = new Schema<CommentOrReply>(
   {
-    type: { required: true, type: String, enum: ['comment', 'reply'] },
+    type: { required: true, type: String, enum: ['comment', 'reply'], index: true },
     post: { required: true, type: Schema.Types.ObjectId, ref: 'Post' },
     comment: { type: Schema.Types.ObjectId, ref: 'Comment' },
     author: { required: true, type: String, ref: 'User' },
