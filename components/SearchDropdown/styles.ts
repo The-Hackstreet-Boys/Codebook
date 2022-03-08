@@ -8,6 +8,7 @@ export const SearchInput = styled.input`
   font-size: ${({ theme }) => theme.fontSizeSm};
   font-weight: ${({ theme }) => theme.fontWeightMedium};
   padding: 0.75rem;
+  width: 100%;
   &::placeholder {
     font-weight: ${({ theme }) => theme.fontWeightRegular};
     color: ${({ theme }) => theme.textSecondary};

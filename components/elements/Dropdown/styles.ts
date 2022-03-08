@@ -1,6 +1,14 @@
+import { Strategy } from '@floating-ui/react-dom';
 import styled from 'styled-components';
 
-export const DropdownToggle = styled.button<{ hideBackground?: boolean }>`
+export const Container = styled.div`
+  position: relative;
+`;
+
+export const ToggleButton = styled.button<{
+  hideBackground?: boolean;
+  isOpen: boolean;
+}>`
   border: none;
   outline: none;
   cursor: pointer;
@@ -22,15 +30,23 @@ export const DropdownToggle = styled.button<{ hideBackground?: boolean }>`
     background: ${({ theme }) => theme.overlay3} !important ;
     ${({ theme }) => theme.shadow}
   }
+  ${({ isOpen }) => !isOpen && 'box-shadow: none;'}
+  background: ${({ theme, isOpen }) => isOpen && theme.overlay2};
+  ${({ isOpen }) => isOpen && 'opacity: 1 !important;'}
 `;
 
-export const DropdownMenu = styled.div`
+export const Menu = styled.div<{
+  position: Strategy;
+  x: number;
+  y: number;
+}>`
   z-index: 99;
-  position: absolute;
-  top: 100%;
-  transition: ${({ theme }) => theme.transition};
-  width: 15rem;
-  max-height: 20rem;
+  position: ${({ position }) => position};
+  top: ${({ y }) => y}px;
+  left: ${({ x }) => x}px;
+  min-width: 15rem;
+  max-width: 20rem;
+  max-height: 25rem;
   overflow-y: auto;
   overflow-x: hidden;
   background: ${({ theme }) => theme.background};
@@ -44,28 +60,7 @@ export const DropdownMenu = styled.div`
   padding: 0.5rem;
 `;
 
-export const Dropdown = styled.div<{
-  isOpen: boolean;
-  position?: 'left' | 'right';
-  grow?: boolean;
-}>`
-  position: relative;
-  width: fit-content;
-  ${({ grow }) => grow && `display: flex; flex: 1;`}
-  & ${DropdownToggle} {
-    ${({ isOpen: isVisible }) => !isVisible && 'box-shadow: none;'}
-    background: ${({ theme, isOpen: isVisible }) => isVisible && theme.overlay2};
-    ${({ isOpen: isVisible }) => isVisible && 'opacity: 1 !important;'}
-  }
-  & ${DropdownMenu} {
-    margin-top: ${({ isOpen: isVisible }) => (isVisible ? '1rem' : '0')};
-    visibility: ${({ isOpen: isVisible }) => (isVisible ? 'visible' : 'hidden')};
-    opacity: ${({ isOpen: isVisible }) => (isVisible ? '1' : '0')};
-    ${({ position }) => (position === 'right' ? 'left: 0;' : 'right: 0;')}
-  }
-`;
-
-export const DropdownItem = styled.button.attrs({ type: 'button' })`
+export const Item = styled.button.attrs({ type: 'button' })`
   width: 100%;
   padding: 0.75rem;
   display: flex;
@@ -95,7 +90,7 @@ export const DropdownItem = styled.button.attrs({ type: 'button' })`
   }
 `;
 
-export const DropdownDivider = styled.hr`
+export const Divider = styled.hr`
   margin: 0.5rem;
   background-color: ${({ theme }) => theme.overlay};
   border: none;

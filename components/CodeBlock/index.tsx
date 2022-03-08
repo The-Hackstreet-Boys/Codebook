@@ -2,9 +2,11 @@ import hljs from 'highlight.js';
 import { ChangeEvent, Dispatch, FC, SetStateAction, useEffect, useRef } from 'react';
 
 import Card from '@/components/elements/Card';
-import { Dropdown, DropdownItem, DropdownMenu } from '@/components/elements/Dropdown';
-import useBoolean from '@/hooks/useBoolean';
-import useOnClickOutside from '@/hooks/useOnClickOutside';
+import Dropdown, {
+  DropdownItem,
+  DropdownMenu,
+  DropdownToggle,
+} from '@/components/elements/Dropdown';
 
 import { Code, Container, Content, LanguageToggle, Pre, TextArea, TopBar } from './styles';
 
@@ -38,8 +40,6 @@ interface Props {
 
 const CodeBlock: FC<Props> = ({ language, setLanguage, code, setCode }) => {
   const ref = useRef<HTMLElement>(null);
-  const [isOpen, toggleIsOpen, setIsOpen] = useBoolean(false);
-  const dropdownRef = useOnClickOutside<HTMLDivElement>(() => setIsOpen(false));
   const isLastCharacterNewline = code[code.length - 1] == '\n';
 
   useEffect(() => {
@@ -55,15 +55,16 @@ const CodeBlock: FC<Props> = ({ language, setLanguage, code, setCode }) => {
     <Card padding="sm">
       {setLanguage && (
         <TopBar>
-          <Dropdown ref={dropdownRef} isOpen={isOpen} position="right">
-            <LanguageToggle onClick={toggleIsOpen}>{language}</LanguageToggle>
+          <Dropdown>
+            <DropdownToggle>
+              <LanguageToggle>{language}</LanguageToggle>
+            </DropdownToggle>
             <DropdownMenu>
               {LANGUAGES.map((l, index) => (
                 <DropdownItem
                   key={index}
                   onClick={() => {
                     setLanguage(l);
-                    setIsOpen(false);
                   }}
                 >
                   {l}

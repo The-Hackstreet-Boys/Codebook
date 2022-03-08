@@ -20,7 +20,13 @@ import usePost from '@/hooks/queries/usePost';
 import useBoolean from '@/hooks/useBoolean';
 import { ExtendedPost } from '@/models/post';
 
-import { Container, IconButtonContainer, ImageContainer, TextContainer } from './styles';
+import {
+  Container,
+  DropdownContainer,
+  IconButtonContainer,
+  ImageContainer,
+  TextContainer,
+} from './styles';
 
 interface Props {
   post: ExtendedPost;
@@ -50,56 +56,68 @@ const PostCard: FC<Props> = ({ post: initialPost }) => {
   return (
     <Card>
       <Container>
-        <Link href={`/users/${author._id}`}>
-          <a>{author.picture && <Avatar user={author} />}</a>
-        </Link>
-        <Flexbox justifyContent="space-between" flexGrow={1}>
-          <div>
-            <Link href={`/users/${author._id}`}>
-              <a>
-                <Typography variant="h5" transform="capitalize" isClickable>
-                  {author.name}
-                </Typography>
-              </a>
-            </Link>
-            <Timestamp date={createdAt} />
-          </div>
-          <PostDropdown postId={post._id} />
+        <Flexbox alignItems="center" gap="1rem">
+          <Link href={`/users/${author._id}`}>
+            <a>{author.picture && <Avatar user={author} />}</a>
+          </Link>
+          <Flexbox justifyContent="space-between" flexGrow={1}>
+            <div>
+              <Link href={`/users/${author._id}`}>
+                <a>
+                  <Typography variant="h5" transform="capitalize" isClickable>
+                    {author.name}
+                  </Typography>
+                </a>
+              </Link>
+              <Timestamp date={createdAt} />
+            </div>
+            <DropdownContainer>
+              <PostDropdown postId={post._id} />
+            </DropdownContainer>
+          </Flexbox>
         </Flexbox>
+        <TextContainer>
+          <Typography>{text}</Typography>
+        </TextContainer>
+        {code && <CodeBlock code={code.text} language={code.language} />}
+
+        {image && (
+          <ImageContainer>
+            <Image
+              src={image.url}
+              alt="post image"
+              height={image.height}
+              width={image.width}
+              layout="responsive"
+            />
+          </ImageContainer>
+        )}
+
+        <TagList tags={tags} />
+
+        <IconButtonContainer>
+          <Box flexBasis="0%" flexGrow={1}>
+            <IconButton onClick={() => likePost()} secondary={hasLiked}>
+              <MdFavorite /> {likeCount}
+            </IconButton>
+          </Box>
+          <Box flexBasis="0%" flexGrow={1}>
+            <IconButton onClick={toggleCommentsVisibility}>
+              <MdComment /> {commentCount}
+            </IconButton>
+          </Box>
+          <Box flexBasis="0%" flexGrow={1}>
+            <IconButton onClick={() => savePost()} secondary={hasSaved}>
+              {hasSaved ? <MdBookmarkRemove /> : <MdBookmarkAdd />}
+            </IconButton>
+          </Box>
+          <Box flexBasis="0%" flexGrow={1}>
+            <ShareDropdown postId={post._id} />
+          </Box>
+        </IconButtonContainer>
+
+        {commentsVisibility && <CommentList postId={post._id} />}
       </Container>
-      <TextContainer>
-        <Typography>{text}</Typography>
-      </TextContainer>
-      {code && <CodeBlock code={code.text} language={code.language} />}
-
-      {image && (
-        <ImageContainer>
-          <Image
-            src={image.url}
-            alt="post image"
-            height={image.height}
-            width={image.width}
-            layout="responsive"
-          />
-        </ImageContainer>
-      )}
-
-      <TagList tags={tags} />
-
-      <IconButtonContainer>
-        <IconButton onClick={() => likePost()} secondary={hasLiked}>
-          <MdFavorite /> {likeCount}
-        </IconButton>
-        <IconButton onClick={toggleCommentsVisibility}>
-          <MdComment /> {commentCount}
-        </IconButton>
-        <IconButton onClick={() => savePost()} secondary={hasSaved}>
-          {hasSaved ? <MdBookmarkRemove /> : <MdBookmarkAdd />}
-        </IconButton>
-        <ShareDropdown postId={post._id} />
-      </IconButtonContainer>
-
-      {commentsVisibility && <CommentList postId={post._id} />}
     </Card>
   );
 };

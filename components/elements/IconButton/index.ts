@@ -11,10 +11,7 @@ interface Props {
 const IconButton = styled.button<Props>`
   background: none;
   border: none;
-  ${({ grow = true }) =>
-    grow &&
-    `flex-basis: 0;
-  flex-grow: 1;`}
+  ${({ grow = true }) => grow && `width: 100%;`}
   display: flex;
   align-items: center;
   justify-content: center;

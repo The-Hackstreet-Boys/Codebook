@@ -1,6 +1,7 @@
 import { FC } from 'react';
 
 import Profile, { ProfileSkeleton } from '@/components/Profile';
+import TagList from '@/components/TagList';
 import { Flexbox } from '@/components/elements/Box';
 import Card from '@/components/elements/Card';
 import Color from '@/components/elements/Color';
@@ -9,7 +10,6 @@ import Typography from '@/components/elements/Typography';
 import useContacts from '@/hooks/queries/useContacts';
 import useTags from '@/hooks/queries/useTags';
 
-import TagList from '../TagList';
 import { Container } from './styles';
 
 const RightSidebar: FC = () => {
