@@ -38,6 +38,8 @@ export const NavItem = styled.a`
     background: linear-gradient(90deg, ${({ theme }) => theme.primary} -500%, transparent);
   }
   @media (max-width: 992px) {
+    width: 3.5rem;
+    height: 3.5rem;
     &.active {
       border: 1px solid ${({ theme }) => theme.border};
       border-top: none;
