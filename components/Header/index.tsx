@@ -22,18 +22,16 @@ const Header: FC = () => {
         padding="0 2rem"
         gap="1rem"
       >
-        <Flexbox alignItems="center" gap="1rem">
-          <Link href="/" passHref>
-            <a>
-              <Logo />
-            </a>
-          </Link>
-          <SearchDropdown />
-        </Flexbox>
+        <Link href="/" passHref>
+          <a>
+            <Logo />
+          </a>
+        </Link>
         <Flexbox alignItems="center" gap="1rem">
           <ProfileContainer>
             {isLoading || !user ? <ProfileSkeleton /> : <Profile user={user} />}
           </ProfileContainer>
+          <SearchDropdown />
           <HeaderDropdown />
         </Flexbox>
       </Flexbox>

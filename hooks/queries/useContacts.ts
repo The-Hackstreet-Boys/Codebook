@@ -10,9 +10,7 @@ interface Data {
 }
 
 const getContacts = async () => {
-  const { origin } = window.location;
-
-  const response = await axios.get(`${origin}/api/users/me/contacts`);
+  const response = await axios.get('/api/users/me/contacts');
 
   const data = response.data;
   return data;

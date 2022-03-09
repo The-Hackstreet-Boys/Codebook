@@ -4,8 +4,7 @@ import { QueryClient, useMutation, useQueryClient } from 'react-query';
 import { Post } from '@/models/post';
 
 const deletePost = async (postId: string) => {
-  const { origin } = window.location;
-  const response = await axios.delete<Post>(`${origin}/api/posts/${postId}`);
+  const response = await axios.delete<Post>(`/api/posts/${postId}`);
 
   const deletedPost = response.data;
   return deletedPost;

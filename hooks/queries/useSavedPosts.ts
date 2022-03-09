@@ -19,9 +19,7 @@ interface Data {
 }
 
 const getSavedPosts = async (limit: number, page: number, author?: string) => {
-  const { origin } = window.location;
-
-  const response = await axios.get(`${origin}/api/users/me/saved-posts`);
+  const response = await axios.get('/api/users/me/saved-posts');
 
   const data = response.data;
   return data;

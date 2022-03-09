@@ -8,8 +8,7 @@ export interface NewComment {
 }
 
 const createComment = async (newComment: NewComment, postId: string) => {
-  const { origin } = window.location;
-  const response = await axios.post<Comment>(`${origin}/api/posts/${postId}/comments`, newComment);
+  const response = await axios.post<Comment>(`/api/posts/${postId}/comments`, newComment);
 
   const createdComment = response.data;
   return createdComment;

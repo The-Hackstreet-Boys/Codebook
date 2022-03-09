@@ -5,9 +5,7 @@ import { QueryClient, useQuery, useQueryClient } from 'react-query';
 import { ExtendedPost } from '@/models/post';
 
 const getPost = async (postId: string) => {
-  const { origin } = window.location;
-
-  const response = await axios.get(`${origin}/api/posts/${postId}`);
+  const response = await axios.get(`/api/posts/${postId}`);
 
   const data = response.data;
   return data;

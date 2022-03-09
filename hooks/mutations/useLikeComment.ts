@@ -4,8 +4,7 @@ import { QueryClient, useMutation, useQueryClient } from 'react-query';
 import { ExtendedComment, ExtendedReply } from '@/models/comment';
 
 const likeComment = async (comment: ExtendedComment | ExtendedReply) => {
-  const { origin } = window.location;
-  await axios.post(`${origin}/api/comments/${comment._id}/like`);
+  await axios.post(`/api/comments/${comment._id}/like`);
 };
 
 const updateQueryCache = (queryClient: QueryClient, comment: ExtendedComment | ExtendedReply) => {

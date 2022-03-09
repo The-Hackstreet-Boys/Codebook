@@ -1,6 +1,6 @@
 import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
-import { User } from '@/models/user';
+import { User } from './user';
 
 interface BaseChatRoom extends Document {
   participants: string[];
@@ -20,6 +20,17 @@ export interface GroupChatRoom extends BaseChatRoom {
 }
 
 export type ChatRoom = PrivateChatRoom | GroupChatRoom;
+
+export interface ExtendedPrivateChatRoom extends Omit<PrivateChatRoom, 'participants'> {
+  participants: User[];
+  otherUser: User;
+}
+
+export interface ExtendedGroupChatRoom extends Omit<GroupChatRoom, 'participants'> {
+  participants: User[];
+}
+
+export type ExtendedChatRoom = ExtendedPrivateChatRoom | ExtendedGroupChatRoom;
 
 const chatRoomSchema = new Schema<ChatRoom>(
   {

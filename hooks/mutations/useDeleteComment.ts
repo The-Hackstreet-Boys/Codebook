@@ -4,8 +4,7 @@ import { QueryClient, useMutation, useQueryClient } from 'react-query';
 import { CommentOrReply } from '@/models/comment';
 
 const deleteComment = async (commentId: string) => {
-  const { origin } = window.location;
-  const response = await axios.delete<CommentOrReply>(`${origin}/api/comments/${commentId}`);
+  const response = await axios.delete<CommentOrReply>(`/api/comments/${commentId}`);
 
   const deletedComment = response.data;
   return deletedComment;

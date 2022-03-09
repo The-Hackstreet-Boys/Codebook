@@ -8,9 +8,8 @@ export interface NewReply {
 }
 
 const createReply = async (newReply: NewReply, comment: ExtendedComment) => {
-  const { origin } = window.location;
   const response = await axios.post<Reply>(
-    `${origin}/api/posts/${comment.post}/comments/${comment._id}/replies`,
+    `/api/posts/${comment.post}/comments/${comment._id}/replies`,
     newReply,
   );
 
