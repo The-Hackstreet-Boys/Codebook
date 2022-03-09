@@ -1,7 +1,7 @@
 import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
 import { User } from '@/models/user';
-import {Code, Image} from './media';
+import { Code, Image } from './media';
 
 export interface Message extends Document {
   author: string;
@@ -13,7 +13,7 @@ export interface Message extends Document {
   updatedAt: Date;
 }
 
-export interface ExtendedMessage extends Omit<Message, 'author' | 'image'|'code'> {
+export interface ExtendedMessage extends Omit<Message, 'author' | 'image' | 'code'> {
   author: User;
   image?: Image;
   code?: Code;

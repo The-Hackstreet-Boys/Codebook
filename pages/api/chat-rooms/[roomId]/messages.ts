@@ -8,7 +8,7 @@ import MessageModel from '@/models/message';
 import UserModel from '@/models/user';
 import { NextApiResponseServerIO } from '@/types/next';
 import MediaModel from '@/models/media';
-import { Types} from 'mongoose';
+import { Types } from 'mongoose';
 
 const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
   const { roomId } = req.query;
@@ -28,18 +28,19 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
   switch (req.method) {
     case 'GET':
       try {
-        const messages = await MessageModel.find({ room: roomId }).populate({
-          path: 'author',
-          model: UserModel,
-        })
-        .populate({
-          path: 'image',
-          model: MediaModel,
-        })
-        .populate({
-          path: 'code',
-          model: MediaModel,
-        });
+        const messages = await MessageModel.find({ room: roomId })
+          .populate({
+            path: 'author',
+            model: UserModel,
+          })
+          .populate({
+            path: 'image',
+            model: MediaModel,
+          })
+          .populate({
+            path: 'code',
+            model: MediaModel,
+          });
 
         res.json(messages);
       } catch (err) {
@@ -49,26 +50,26 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
 
     case 'POST':
       try {
-        const {image, code, ...rest} = req.body;
+        const { image, code, ...rest } = req.body;
 
         let imageId: Types.ObjectId | undefined = undefined;
         let codeId: Types.ObjectId | undefined = undefined;
 
-        if(image){
+        if (image) {
           const newImage = new MediaModel({
             author: req.user._id,
             type: 'image',
-            ... image,
+            ...image,
           });
           await newImage.save();
           imageId = newImage._id;
         }
 
-        if(code){
+        if (code) {
           const newCode = new MediaModel({
             author: req.user._id,
             type: 'code',
-            ... code,
+            ...code,
           });
           await newCode.save();
           codeId = newCode._id;
@@ -84,21 +85,23 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
 
         await message.save();
 
-        const populatedMessage = await message.populate([{
-         path: 'author',
-          model: UserModel,
-        },{
-          path: 'image',
-          model: MediaModel,
-        },{
-          path: 'code',
-          model: MediaModel,
-        }
-      ]);
-        
+        const populatedMessage = await message.populate([
+          {
+            path: 'author',
+            model: UserModel,
+          },
+          {
+            path: 'image',
+            model: MediaModel,
+          },
+          {
+            path: 'code',
+            model: MediaModel,
+          },
+        ]);
 
         res.socket.server.io.to(roomId).emit('message', populatedMessage);
-        
+
         res.json(populatedMessage);
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
