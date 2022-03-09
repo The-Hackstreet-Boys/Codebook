@@ -16,6 +16,8 @@ interface State {
 
 export interface NewMessage {
   text: string;
+  image?: { url: string; width: number; height: number };
+  code?: { text: string; language: string };
 }
 
 export interface GroupedMessages {
