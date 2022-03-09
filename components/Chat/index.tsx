@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useRef } from 'react';
 
+import CodeBlock from '@/components/CodeBlock';
 import MessageForm from '@/components/MessageForm';
 import useChat from '@/contexts/ChatContext';
 import useCurrentUser from '@/hooks/queries/useCurrentUser';
@@ -21,7 +22,7 @@ const Chat: FC = () => {
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const { data: user } = useCurrentUser();
 
-  const { groupedMessages, sendMessage } = useChat();
+  const { groupedMessages, sendMessage, code, image } = useChat();
 
   // Scrolls to the bottom on rerender
   useEffect(() => scrollToBottom());
@@ -46,6 +47,7 @@ const Chat: FC = () => {
                     {userMessageGroup.messages.map((message) => (
                       <UserMessageRight key={message._id}>{message.text}</UserMessageRight>
                     ))}
+                    {code && <CodeBlock code={code.text} language={code.language} />}
                   </UserMessageContainerRight>
                 </UserContainer>
               ) : (
@@ -57,6 +59,7 @@ const Chat: FC = () => {
                       {userMessageGroup.messages.map((message) => (
                         <UserMessageLeft key={message._id}>{message.text}</UserMessageLeft>
                       ))}
+                      {code && <CodeBlock code={code.text} language={code.language} />}
                     </UserMessageContainerLeft>
                   </UserMessageAndNameContainer>
                 </UserContainer>

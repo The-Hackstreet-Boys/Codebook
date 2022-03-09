@@ -10,22 +10,13 @@ import { BottomBar, Button, Input, InputContainer, Send } from './styles';
 
 const MessageForm: FC = () => {
   const [text, setText] = useState('');
-  const [image, setImage] = useState<File>();
-  const [imageSrc, setImageSrc] = useState<string>();
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState('javascript');
   const [codeVisibility, toggleCodeVisibility, setCodeVisibility] = useBoolean(false);
 
   const [inputMessage, setInputMessage] = useState('');
 
-  const onSuccess = () => {
-    setText('');
-    setCode('');
-    setLanguage('typescript');
-    setCodeVisibility(false);
-    handleRemoveImage();
-  };
-  const { sendMessage } = useChat(onSuccess);
+  const { sendMessage } = useChat();
 
   const handleChangeInputMessage = (e: { target: HTMLInputElement }) => {
     setInputMessage(e.target.value);
@@ -43,46 +34,9 @@ const MessageForm: FC = () => {
       };
     }
 
-    if (image) {
-      const data = new FormData();
-      data.append('file', image);
-      data.append('upload_preset', 'svryaukj');
-      data.append('cloud_name', 'codebookspace');
-
-      const response = await axios.post(
-        'https://api.cloudinary.com/v1_1/codebookspace/image/upload',
-        data,
-      );
-
-      const { secure_url, width, height } = response.data;
-
-      newMessage.image = { url: secure_url, width, height };
-    }
-
     sendMessage(newMessage);
     setInputMessage('');
   };
-
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-
-    if (!file) return;
-    setImage(file);
-  };
-
-  const handleRemoveImage = () => {
-    setImage(undefined);
-    setImageSrc(undefined);
-
-    const fileInput = document.getElementById('fileInput');
-    if (!fileInput) return;
-    (fileInput as HTMLInputElement).value = '';
-  };
-
-  useEffect(() => {
-    if (!image) return;
-    setImageSrc(URL.createObjectURL(image));
-  }, [image]);
 
   return (
     <BottomBar
