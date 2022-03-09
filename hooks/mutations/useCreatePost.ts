@@ -12,8 +12,7 @@ export interface NewPost {
 }
 
 const createPost = async (newPost: NewPost) => {
-  const { origin } = window.location;
-  const response = await axios.post<Post>(`${origin}/api/posts`, newPost);
+  const response = await axios.post<Post>('/api/posts', newPost);
 
   const createdPost = response.data;
   return createdPost;

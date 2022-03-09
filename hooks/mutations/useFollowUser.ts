@@ -2,8 +2,7 @@ import axios from 'axios';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
 const followUser = async (userId: string) => {
-  const { origin } = window.location;
-  await axios.post(`${origin}/api/users/${userId}/follow`);
+  await axios.post(`/api/users/${userId}/follow`);
 };
 
 const updateQueryCache = (queryClient: QueryClient, userId: string) => {

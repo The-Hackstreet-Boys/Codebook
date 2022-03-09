@@ -38,7 +38,7 @@ const ProfileCard: FC<Props> = ({ user }) => {
           </Typography>
         </Flexbox>
         <Flexbox direction="row" gap="0.5rem" width="100%">
-          <Link href={`/messages/${user._id}`} passHref>
+          <Link href={`/messages/users/${user._id}`} passHref>
             <Button color="secondary" isFullWidth>
               <MdChat />
             </Button>

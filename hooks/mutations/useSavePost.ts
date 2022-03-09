@@ -2,8 +2,7 @@ import axios from 'axios';
 import { QueryClient, useMutation, useQueryClient } from 'react-query';
 
 const savePost = async (postId: string) => {
-  const { origin } = window.location;
-  await axios.post(`${origin}/api/posts/${postId}/save`);
+  await axios.post(`/api/posts/${postId}/save`);
 };
 
 const updateQueryCache = (queryClient: QueryClient, postId: string) => {

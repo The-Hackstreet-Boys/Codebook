@@ -11,9 +11,7 @@ interface Data {
 }
 
 const getSearchResults = async (query: string) => {
-  const { origin } = window.location;
-
-  const response = await axios.get(`${origin}/api/search/${query}`);
+  const response = await axios.get(`/api/search/${query}`);
 
   const data = response.data;
   return data;

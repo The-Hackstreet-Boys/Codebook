@@ -1,7 +1,8 @@
-import { ExtendedComment } from '@/models/comment';
 import { useUser as useAuth0User } from '@auth0/nextjs-auth0';
 import axios from 'axios';
 import { useInfiniteQuery } from 'react-query';
+
+import { ExtendedComment } from '@/models/comment';
 
 interface Data {
   data: ExtendedComment[];
@@ -11,9 +12,7 @@ interface Data {
 }
 
 const getComments = async (limit: number, page: number, postId: string) => {
-  const { origin } = window.location;
-
-  const response = await axios.get(`${origin}/api/posts/${postId}/comments`, {
+  const response = await axios.get(`/api/posts/${postId}/comments`, {
     params: { limit, page },
   });
 

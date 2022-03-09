@@ -18,9 +18,7 @@ const getPosts = async (
   tag?: string,
   onlySavedPosts?: boolean,
 ) => {
-  const { origin } = window.location;
-
-  const response = await axios.get(`${origin}/api/posts`, {
+  const response = await axios.get('/api/posts', {
     params: { limit, page, author, tag, onlySavedPosts },
   });
 

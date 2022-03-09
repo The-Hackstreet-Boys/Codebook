@@ -1,6 +1,6 @@
 import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
-import { ExtendedUser } from '@/models/user';
+import { User } from '@/models/user';
 
 export interface Message extends Document {
   author: string;
@@ -13,7 +13,7 @@ export interface Message extends Document {
 }
 
 export interface ExtendedMessage extends Omit<Message, 'author'> {
-  author: ExtendedUser;
+  author: User;
 }
 
 const postSchema = new Schema<Message>(

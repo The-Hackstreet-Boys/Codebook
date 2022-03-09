@@ -12,14 +12,9 @@ interface Data {
 }
 
 const getReplies = async (limit: number, page: number, comment: ExtendedComment) => {
-  const { origin } = window.location;
-
-  const response = await axios.get(
-    `${origin}/api/posts/${comment.post}/comments/${comment._id}/replies`,
-    {
-      params: { limit, page },
-    },
-  );
+  const response = await axios.get(`/api/posts/${comment.post}/comments/${comment._id}/replies`, {
+    params: { limit, page },
+  });
 
   const data = response.data;
   return data;

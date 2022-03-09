@@ -5,9 +5,7 @@ import { useQuery } from 'react-query';
 import { Tag } from '@/models/tag';
 
 const getTags = async () => {
-  const { origin } = window.location;
-
-  const response = await axios.get(`${origin}/api/tags`);
+  const response = await axios.get('/api/tags');
 
   const data = response.data;
   return data;

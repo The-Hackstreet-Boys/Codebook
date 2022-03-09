@@ -9,10 +9,11 @@ import { Flexbox } from '../elements/Box';
 
 interface Props {
   user: User;
+  href?: string;
 }
 
-const Profile: FC<Props> = ({ user }) => (
-  <Link href={`/users/${user._id}`}>
+const Profile: FC<Props> = ({ user, href }) => (
+  <Link href={href ?? `/users/${user._id}`}>
     <a>
       <Flexbox gap="0.75rem" alignItems="center">
         {user && <Avatar user={user} showStatus />}

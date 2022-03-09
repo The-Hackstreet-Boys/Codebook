@@ -5,9 +5,7 @@ import { useQuery } from 'react-query';
 import { ExtendedUser } from '@/models/user';
 
 const getUser = async (userId: string) => {
-  const { origin } = window.location;
-
-  const response = await axios.get(`${origin}/api/users/${userId}`);
+  const response = await axios.get(`/api/users/${userId}`);
 
   const data = response.data;
   return data;

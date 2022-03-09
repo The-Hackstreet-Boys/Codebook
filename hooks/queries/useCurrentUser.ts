@@ -5,9 +5,7 @@ import { useQuery } from 'react-query';
 import { User } from '@/models/user';
 
 const getCurrentUser = async () => {
-  const { origin } = window.location;
-
-  const response = await axios.get(`${origin}/api/users/me`);
+  const response = await axios.get('/api/users/me');
 
   const data = response.data;
   return data;
