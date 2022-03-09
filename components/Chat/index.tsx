@@ -1,17 +1,13 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import React, { FC, useEffect, useRef } from 'react';
 
+import MessageForm from '@/components/MessageForm';
 import useChat from '@/contexts/ChatContext';
 import useCurrentUser from '@/hooks/queries/useCurrentUser';
 
 import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
 import {
-  BottomBar,
-  Button,
   ChatContainer,
-  Input,
-  InputContainer,
-  Send,
   UserContainer,
   UserImage,
   UserMessageAndNameContainer,
@@ -25,8 +21,6 @@ const Chat: FC = () => {
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const { data: user } = useCurrentUser();
 
-  const [inputMessage, setInputMessage] = useState(''); // Message to be sent
-
   const { groupedMessages, sendMessage } = useChat();
 
   // Scrolls to the bottom on rerender
@@ -35,11 +29,6 @@ const Chat: FC = () => {
   // Scrolls to the bottom of the messages
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView();
-  };
-
-  // Changes stored the value of the input message
-  const handleChangeInputMessage = (e: { target: HTMLInputElement }) => {
-    setInputMessage(e.target.value);
   };
 
   return (
@@ -77,25 +66,7 @@ const Chat: FC = () => {
         ))}
         <div ref={messagesEndRef} />
       </ChatContainer>
-      <BottomBar
-        onSubmit={(e) => {
-          e.preventDefault();
-          sendMessage({ text: inputMessage });
-          setInputMessage('');
-        }}
-      >
-        <InputContainer>
-          <Input
-            placeholder="Message"
-            type="text"
-            onChange={handleChangeInputMessage}
-            value={inputMessage}
-          />
-          <Button disabled={inputMessage.length === 0}>
-            <Send />
-          </Button>
-        </InputContainer>
-      </BottomBar>
+      <MessageForm />
     </>
   );
 };
