@@ -7,6 +7,8 @@ import ChatRoomModel from '@/models/chatRoom';
 import MessageModel from '@/models/message';
 import UserModel from '@/models/user';
 import { NextApiResponseServerIO } from '@/types/next';
+import MediaModel from '@/models/media';
+import { Types} from 'mongoose';
 
 const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
   const { roomId } = req.query;
@@ -29,6 +31,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
         const messages = await MessageModel.find({ room: roomId }).populate({
           path: 'author',
           model: UserModel,
+        })
+        .populate({
+          path: 'image',
+          model: MediaModel,
+        })
+        .populate({
+          path: 'code',
+          model: MediaModel,
         });
 
         res.json(messages);
@@ -39,19 +49,56 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
 
     case 'POST':
       try {
+        const {image, code, ...rest} = req.body;
+
+        let imageId: Types.ObjectId | undefined = undefined;
+        let codeId: Types.ObjectId | undefined = undefined;
+
+        if(image){
+          const newImage = new MediaModel({
+            author: req.user._id,
+            type: 'image',
+            ... image,
+          });
+          await newImage.save();
+          imageId = newImage._id;
+        }
+
+        if(code){
+          const newCode = new MediaModel({
+            author: req.user._id,
+            type: 'code',
+            ... code,
+          });
+          await newCode.save();
+          codeId = newCode._id;
+        }
+
         const message = new MessageModel({
           ...req.body,
           room: roomId,
           author: req.user._id,
+          code: codeId,
+          image: imageId,
         });
 
         await message.save();
 
-        const populatedMessage = await message.populate('author');
+        const populatedMessage = await message.populate([{
+         path: 'author',
+          model: UserModel,
+        },{
+          path: 'image',
+          model: MediaModel,
+        },{
+          path: 'code',
+          model: MediaModel,
+        }
+      ]);
+        
 
         res.socket.server.io.to(roomId).emit('message', populatedMessage);
-        console.log(populatedMessage);
-
+        
         res.json(populatedMessage);
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
