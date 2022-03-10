@@ -1,4 +1,5 @@
 import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
+import { Message } from './message';
 
 import { User } from './user';
 
@@ -24,10 +25,13 @@ export type ChatRoom = PrivateChatRoom | GroupChatRoom;
 export interface ExtendedPrivateChatRoom extends Omit<PrivateChatRoom, 'participants'> {
   participants: User[];
   otherUser: User;
+  lastMessage: Message | null;
 }
 
 export interface ExtendedGroupChatRoom extends Omit<GroupChatRoom, 'participants'> {
   participants: User[];
+  lastMessage: Message | null;
+
 }
 
 export type ExtendedChatRoom = ExtendedPrivateChatRoom | ExtendedGroupChatRoom;

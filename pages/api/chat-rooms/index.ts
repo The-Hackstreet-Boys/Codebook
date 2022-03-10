@@ -5,6 +5,8 @@ import authentication from '@/middleware/authentication';
 import connectToDatabase from '@/middleware/connectToDatabase';
 import ChatRoomModel from '@/models/chatRoom';
 import UserModel, { User } from '@/models/user';
+import MessageModel from '@/models/message';
+import { query } from 'express';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
@@ -28,20 +30,21 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             lastActiveAt: -1,
           })
           .populate({ path: 'participants', model: UserModel });
-
-        res.json(
-          chatRooms.map((chatRoom) => {
+          const extendedChatRooms = await Promise.all(chatRooms.map(async(chatRoom) => {
+            const lastMessage = await MessageModel.findOne({room: chatRoom._id}).sort({createdAt: -1});
             switch (chatRoom.type) {
               case 'private':
                 const otherUser = (chatRoom.participants as unknown as User[]).find(
                   (participant) => participant._id !== req.user._id,
                 );
-                return { ...chatRoom.toObject(), otherUser };
+                return { ...chatRoom.toObject(), otherUser, lastMessage };
 
               default:
-                return chatRoom;
+                return { ...chatRoom.toObject(), lastMessage };
             }
-          }),
+          }))
+        res.json(
+          extendedChatRooms
         );
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
