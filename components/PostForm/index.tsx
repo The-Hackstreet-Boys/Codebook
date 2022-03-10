@@ -40,7 +40,7 @@ const PostForm: FC = () => {
     handleRemoveImage();
   };
 
-  const { mutate: createPost } = useCreatePost(onSuccess);
+  const { mutate: createPost, isLoading } = useCreatePost(onSuccess);
 
   const handleChangeText = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setText(e.target.value);
@@ -146,7 +146,7 @@ const PostForm: FC = () => {
           <Button active={codeVisibility} onClick={toggleCodeVisibility}>
             <MdCode />
           </Button>
-          <SubmitButton>
+          <SubmitButton disabled={isLoading}>
             <MdSend />
           </SubmitButton>
         </IconContainer>

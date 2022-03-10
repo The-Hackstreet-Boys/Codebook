@@ -27,7 +27,7 @@ const CommentForm: FC<Props> = ({ postId }) => {
     createComment({ text });
   };
 
-  const { mutate: createComment } = useCreateComment(onSuccess, postId);
+  const { mutate: createComment, isLoading } = useCreateComment(onSuccess, postId);
 
   return (
     <Card padding="sm">
@@ -40,7 +40,7 @@ const CommentForm: FC<Props> = ({ postId }) => {
             maxLength={2500}
             onChange={handleChangeText}
           />
-          <SubmitButton>
+          <SubmitButton disabled={isLoading}>
             <MdSend />
           </SubmitButton>
         </Flexbox>

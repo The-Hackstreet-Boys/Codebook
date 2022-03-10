@@ -3,10 +3,8 @@ import { Server } from 'http';
 import { NextApiRequest } from 'next';
 import { Server as IO } from 'socket.io';
 
-import { NewMessage } from '@/contexts/ChatContext';
 import authentication from '@/middleware/authentication';
 import connectToDatabase from '@/middleware/connectToDatabase';
-import MessageModel from '@/models/message';
 import { NextApiResponseServerIO } from '@/types/next';
 
 const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
@@ -14,10 +12,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
     console.log('Socket is already running');
   } else {
     console.log('Socket is initializing');
+
     const httpServer = res.socket.server as unknown as Server;
     const io = new IO(httpServer, {
       path: '/api/socket',
     });
+
     res.socket.server.io = io;
 
     io.on('connection', (socket) => {
