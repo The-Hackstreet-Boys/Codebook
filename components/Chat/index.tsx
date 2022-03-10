@@ -22,7 +22,7 @@ const Chat: FC = () => {
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const { data: user } = useCurrentUser();
 
-  const { groupedMessages, sendMessage, code, image } = useChat();
+  const { groupedMessages, sendMessage } = useChat();
 
   // Scrolls to the bottom on rerender
   useEffect(() => scrollToBottom());
@@ -44,10 +44,12 @@ const Chat: FC = () => {
               user?._id === userMessageGroup.user._id ? (
                 <UserContainer>
                   <UserMessageContainerRight>
-                    {userMessageGroup.messages.map((message) => (
-                      <UserMessageRight key={message._id}>{message.text}</UserMessageRight>
+                    {userMessageGroup.messages.map(({ _id, text, code, image }) => (
+                      <UserMessageRight key={_id}>
+                        {text}
+                        {code && <CodeBlock code={code.text} language={code.language} />}
+                      </UserMessageRight>
                     ))}
-                    {code && <CodeBlock code={code.text} language={code.language} />}
                   </UserMessageContainerRight>
                 </UserContainer>
               ) : (
@@ -56,10 +58,12 @@ const Chat: FC = () => {
                   <UserMessageAndNameContainer>
                     <Typography>{userMessageGroup.user.name}</Typography>
                     <UserMessageContainerLeft>
-                      {userMessageGroup.messages.map((message) => (
-                        <UserMessageLeft key={message._id}>{message.text}</UserMessageLeft>
+                      {userMessageGroup.messages.map(({ _id, text, code, image }) => (
+                        <UserMessageLeft key={_id}>
+                          {text}
+                          <>{code && <CodeBlock code={code.text} language={code.language} />}</>
+                        </UserMessageLeft>
                       ))}
-                      {code && <CodeBlock code={code.text} language={code.language} />}
                     </UserMessageContainerLeft>
                   </UserMessageAndNameContainer>
                 </UserContainer>

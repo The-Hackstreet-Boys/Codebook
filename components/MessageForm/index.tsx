@@ -6,7 +6,7 @@ import CodeBlock from '@/components/CodeBlock';
 import useChat, { NewMessage } from '@/contexts/ChatContext';
 import useBoolean from '@/hooks/useBoolean';
 
-import { BottomBar, Button, Input, InputContainer, Send } from './styles';
+import { BottomBar, Button, IconContainer, Input, InputContainer, Send } from './styles';
 
 const MessageForm: FC = () => {
   const [text, setText] = useState('');
@@ -47,10 +47,6 @@ const MessageForm: FC = () => {
       // }}
       onSubmit={handleSubmit}
     >
-      {codeVisibility && (
-        <CodeBlock language={language} setLanguage={setLanguage} code={code} setCode={setCode} />
-      )}
-
       <InputContainer>
         <Input
           placeholder="Message"
@@ -62,9 +58,14 @@ const MessageForm: FC = () => {
           <Send />
         </Button>
       </InputContainer>
-      <Button active={codeVisibility} onClick={toggleCodeVisibility}>
-        <MdCode />
-      </Button>
+      {codeVisibility && (
+        <CodeBlock language={language} setLanguage={setLanguage} code={code} setCode={setCode} />
+      )}
+      <IconContainer>
+        <Button active={codeVisibility} onClick={toggleCodeVisibility}>
+          <MdCode />
+        </Button>
+      </IconContainer>
     </BottomBar>
   );
 };

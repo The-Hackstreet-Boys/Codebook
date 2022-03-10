@@ -34,6 +34,14 @@ export const Input = styled.input`
   outline: none;
 `;
 
+export const IconContainer = styled.div`
+  display: flex;
+  gap: 1rem;
+  border-top: 1px solid ${({ theme }) => theme.overlay};
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+`;
+
 export const Button = styled.button<{ disabled: boolean }>`
   outline: 0;
   border: 0;
@@ -42,6 +50,7 @@ export const Button = styled.button<{ disabled: boolean }>`
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  color: ${({ theme }) => theme.text};
   ${(props) => props.disabled && 'display: none;'}
 `;
 
