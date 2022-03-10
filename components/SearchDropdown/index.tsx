@@ -17,7 +17,10 @@ import useDebounce from '@/hooks/useDebounce';
 
 import { SearchInput } from './styles';
 
-const SearchDropdown: FC = () => {
+interface Props {
+  variant?: 'default' | 'chat';
+}
+const SearchDropdown: FC<Props> = ({ variant = 'default' }) => {
   const [query, setQuery] = useState('');
   const debouncedQuery = useDebounce(query);
   const { data: searchResults } = useSearchResults(debouncedQuery);
@@ -37,7 +40,7 @@ const SearchDropdown: FC = () => {
       </DropdownToggle>
       <DropdownMenu>
         <SearchInput
-          placeholder="Search for tags or people"
+          placeholder={variant === 'default' ? 'Search for tags or people' : 'Search for contacts'}
           value={query}
           onChange={handleChange}
         />
@@ -52,20 +55,27 @@ const SearchDropdown: FC = () => {
             {searchResults.users.map((user) => (
               <Link passHref href={`/users/${user._id}`} key={user._id}>
                 <DropdownItem>
-                  <Profile user={user} />
+                  {variant === 'default' ? (
+                    <Profile user={user} />
+                  ) : (
+                    <Profile user={user} href={`/messages/users/${user._id}`} />
+                  )}
                 </DropdownItem>
               </Link>
             ))}
-            {hasTagResults && (
-              <Box margin="0.5rem 0.75rem">
-                <Typography variant="h5">Tags</Typography>
-              </Box>
+            {variant === 'default' && hasTagResults && (
+              <>
+                {' '}
+                <Box margin="0.5rem 0.75rem">
+                  <Typography variant="h5">Tags</Typography>
+                </Box>
+                {searchResults.tags.map((tag) => (
+                  <Link passHref href={`/tags/${tag._id}`} key={tag._id}>
+                    <DropdownItem>{tag.name}</DropdownItem>
+                  </Link>
+                ))}
+              </>
             )}
-            {searchResults.tags.map((tag) => (
-              <Link passHref href={`/tags/${tag._id}`} key={tag._id}>
-                <DropdownItem>{tag.name}</DropdownItem>
-              </Link>
-            ))}
           </>
         ) : (
           <Box margin="0.75rem">
