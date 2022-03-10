@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { FC, useEffect, useRef } from 'react';
 
 import CodeBlock from '@/components/CodeBlock';
@@ -9,6 +10,7 @@ import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
 import {
   ChatContainer,
+  ImageContainer,
   UserContainer,
   UserImage,
   UserMessageAndNameContainer,
@@ -47,7 +49,20 @@ const Chat: FC = () => {
                     {userMessageGroup.messages.map(({ _id, text, code, image }) => (
                       <UserMessageRight key={_id}>
                         {text}
+
                         {code && <CodeBlock code={code.text} language={code.language} />}
+
+                        {image && (
+                          <ImageContainer>
+                            <Image
+                              src={image.url}
+                              alt="post image"
+                              height={image.height}
+                              width={image.width}
+                              // layout="responsive"
+                            />
+                          </ImageContainer>
+                        )}
                       </UserMessageRight>
                     ))}
                   </UserMessageContainerRight>
@@ -61,7 +76,20 @@ const Chat: FC = () => {
                       {userMessageGroup.messages.map(({ _id, text, code, image }) => (
                         <UserMessageLeft key={_id}>
                           {text}
-                          <>{code && <CodeBlock code={code.text} language={code.language} />}</>
+
+                          {code && <CodeBlock code={code.text} language={code.language} />}
+
+                          {image && (
+                            <ImageContainer>
+                              <Image
+                                src={image.url}
+                                alt="post image"
+                                height={image.height}
+                                width={image.width}
+                                // layout="responsive"
+                              />
+                            </ImageContainer>
+                          )}
                         </UserMessageLeft>
                       ))}
                     </UserMessageContainerLeft>

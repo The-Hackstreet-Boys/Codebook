@@ -67,3 +67,10 @@ export const UserMessageRight = styled(UserMessageLeft)`
     border-bottom-right-radius: 1rem;
   }
 `;
+
+export const ImageContainer = styled.div`
+  padding: 0.5rem 0.25rem 0;
+  @media (max-width: 992px) {
+    margin: 0 -0.5rem;
+  }
+`;

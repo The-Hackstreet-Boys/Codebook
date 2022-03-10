@@ -17,6 +17,7 @@ export const TextArea = styled.textarea`
 
 export const IconContainer = styled.div`
   display: flex;
+  align-items: flex-end;
   gap: 1rem;
   border-top: 1px solid ${({ theme }) => theme.overlay};
   margin-top: 0.5rem;
