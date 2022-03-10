@@ -1,13 +1,33 @@
-describe('My First Test', () => {
-  it('Visits the Kitchen Sink', () => {
+/// <reference types="cypress"/>
+
+// navigate to homepage, add a text and tags, delete a tag and send message.
+
+describe('Test post', () => {
+  it('logs in, creates a text post and adds tags, sends post', () => {
     cy.visit('http://localhost:3000').then(() => {
       cy.login();
-      cy.logout();
+
+      cy.get('.submit-post').click();
+
+      cy.get('.post-form').click().type('test');
+
+      const tagslist = cy.get('.post-tags').click();
+
+      tagslist.should('be.visible');
+
+      cy.get('.tag-option').click();
+
+      cy.get('.create-post').find('[data-testid="rendered-tag"]').click();
+
+      cy.get('.submit-post').click();
+
+      cy.reload();
+
+      cy.get('.post-card').contains('test post');
     });
   });
 });
 
-// navigate to homepage, add a text and tags and send message.
 // navigate to homepage, add comments and replies, delete in opposite order
 // navigate to homepage, add an image, send message
 // naigate to homepage, add a code snippet, send message.

@@ -55,7 +55,7 @@ const PostCard: FC<Props> = ({ post: initialPost }) => {
 
   return (
     <Card>
-      <Container>
+      <Container className="post-card">
         <Flexbox alignItems="center" gap="1rem">
           <Link href={`/users/${author._id}`}>
             <a>{author.picture && <Avatar user={author} />}</a>

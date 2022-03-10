@@ -15,7 +15,7 @@ const TagList: FC<Props> = ({ tags, onClick }) => (
   <Flexbox gap="0.5rem" margin="0.5rem 0" flexWrap="wrap">
     {tags.map((tag) =>
       onClick ? (
-        <div key={tag._id} onClick={() => onClick(tag)}>
+        <div key={tag._id} onClick={() => onClick(tag)} data-testid="rendered-tag">
           <Card padding="xs">
             <Typography isClickable>{tag.name}</Typography>
           </Card>

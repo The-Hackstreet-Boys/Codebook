@@ -20,13 +20,14 @@ const TagDropdown: FC<Props> = ({ onSelect }) => {
   return (
     <Dropdown>
       <DropdownToggle>
-        <Button>
+        <Button className="post-tags">
           <MdTag />
         </Button>
       </DropdownToggle>
       <DropdownMenu>
         {tags?.map((tag) => (
           <DropdownItem
+            className="tag-option"
             key={tag._id}
             onClick={() => {
               onSelect(tag);

@@ -108,8 +108,8 @@ const PostForm: FC = () => {
   };
 
   return (
-    <Card>
-      <form onSubmit={handleSubmit}>
+    <Card className="create-post">
+      <form onSubmit={handleSubmit} className="post-form">
         <TextArea
           placeholder="What's on your mind?"
           value={text}
@@ -146,7 +146,7 @@ const PostForm: FC = () => {
           <Button active={codeVisibility} onClick={toggleCodeVisibility}>
             <MdCode />
           </Button>
-          <SubmitButton>
+          <SubmitButton className="submit-post">
             <MdSend />
           </SubmitButton>
         </IconContainer>

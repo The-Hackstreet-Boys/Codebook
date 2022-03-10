@@ -26,6 +26,6 @@
       "@/types/*": ["types/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/.express.d.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "types/.express.d.ts", "cypress/integration/sample_spec.js"],
   "exclude": ["node_modules"]
 }
