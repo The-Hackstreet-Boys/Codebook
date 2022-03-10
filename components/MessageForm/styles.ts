@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const BottomBar = styled.form`
-  border-top: 1px solid ${({ theme }) => theme.border};
+  border-top: 1px solid ${({ theme }) => theme.overlay};
 `;
 
 export const InputContainer = styled.div`
@@ -15,43 +15,55 @@ export const InputContainer = styled.div`
 `;
 
 export const Input = styled.input`
-  flex: 1;
-  color: ${({ theme }) => theme.text};
-  font-size: 0.875rem;
-  font-weight: 600;
-  user-select: auto;
-  &::placeholder {
-    color: ${({ theme }) => theme.textSecondary};
-  }
-  -moz-appearance: textfield;
-  &::-webkit-outer-spin-button,
-  &::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-  }
   background: none;
   border: none;
   outline: none;
+  width: 100%;
+  height: 5rem;
+  resize: none;
+  color: ${({ theme }) => theme.text};
+  font-size: ${({ theme }) => theme.fontSizeSm};
+  &::placeholder {
+    color: ${({ theme }) => theme.textSecondary};
+    font-weight: ${({ theme }) => theme.fontWeightMedium};
+  }
 `;
 
 export const IconContainer = styled.div`
   display: flex;
   gap: 1rem;
-  border-top: 1px solid ${({ theme }) => theme.overlay};
+  border-top: 1px solid ${({ theme }) => theme.border};
   margin-top: 0.5rem;
   padding-top: 1rem;
 `;
 
-export const Button = styled.button<{ disabled: boolean }>`
-  outline: 0;
-  border: 0;
+export const Button = styled.button.attrs({ type: 'button' })<{ active?: boolean }>`
   background: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: ${({ theme }) => theme.text};
-  ${(props) => props.disabled && 'display: none;'}
+  border: none;
+  padding: 0;
+  &:last-child {
+    margin-left: auto;
+  }
+  & svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    cursor: pointer;
+    transition: ${({ theme }) => theme.transition};
+    color: ${({ theme }) => theme.text};
+    & :hover {
+      color: ${({ theme }) => theme.primary};
+    }
+  }
+  ${({ active, theme }) =>
+    active &&
+    `
+    &>svg {
+      color: ${theme.primary};
+    }
+  `}
 `;
 
-export const Send = styled.button``;
+export const Send = styled.button`
+  background: none;
+  border: none;
+`;

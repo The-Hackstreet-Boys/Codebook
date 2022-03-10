@@ -1,6 +1,5 @@
-import axios from 'axios';
-import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
-import { MdClose, MdCode, MdImage, MdSend } from 'react-icons/md';
+import React, { FC, FormEvent, useState } from 'react';
+import { MdCode } from 'react-icons/md';
 
 import CodeBlock from '@/components/CodeBlock';
 import useChat, { NewMessage } from '@/contexts/ChatContext';
@@ -9,23 +8,22 @@ import useBoolean from '@/hooks/useBoolean';
 import { BottomBar, Button, IconContainer, Input, InputContainer, Send } from './styles';
 
 const MessageForm: FC = () => {
-  const [text, setText] = useState('');
   const [code, setCode] = useState('');
   const [language, setLanguage] = useState('javascript');
   const [codeVisibility, toggleCodeVisibility, setCodeVisibility] = useBoolean(false);
 
-  const [inputMessage, setInputMessage] = useState('');
+  const [text, setText] = useState('');
 
   const { sendMessage } = useChat();
 
   const handleChangeInputMessage = (e: { target: HTMLInputElement }) => {
-    setInputMessage(e.target.value);
+    setText(e.target.value);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newMessage: NewMessage = { text: inputMessage };
+    const newMessage: NewMessage = { text: text };
 
     if (codeVisibility && code.length) {
       newMessage.code = {
@@ -35,32 +33,28 @@ const MessageForm: FC = () => {
     }
 
     sendMessage(newMessage);
-    setInputMessage('');
+    onSuccess();
+  };
+
+  const onSuccess = () => {
+    setText('');
+    setCode('');
+    setLanguage('typescript');
+    setCodeVisibility(false);
   };
 
   return (
-    <BottomBar
-      // onSubmit={(e) => {
-      //   e.preventDefault();
-      //   sendMessage({ text: inputMessage });
-      //   setInputMessage('');
-      // }}
-      onSubmit={handleSubmit}
-    >
+    <BottomBar onSubmit={handleSubmit}>
       <InputContainer>
-        <Input
-          placeholder="Message"
-          type="text"
-          onChange={handleChangeInputMessage}
-          value={inputMessage}
-        />
-        <Button disabled={inputMessage.length === 0}>
+        <Input placeholder="Message" type="text" onChange={handleChangeInputMessage} value={text} />
+        <Button disabled={text.length === 0}>
           <Send />
         </Button>
       </InputContainer>
       {codeVisibility && (
         <CodeBlock language={language} setLanguage={setLanguage} code={code} setCode={setCode} />
       )}
+
       <IconContainer>
         <Button active={codeVisibility} onClick={toggleCodeVisibility}>
           <MdCode />
