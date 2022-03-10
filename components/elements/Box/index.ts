@@ -112,6 +112,7 @@ const Box = styled.div<BoxProps>`
     right:${right};
     bottom:${bottom};
     left:${left};
+    
   `}
 `;
 

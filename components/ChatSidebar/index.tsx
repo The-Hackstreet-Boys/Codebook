@@ -1,13 +1,10 @@
-import Link from 'next/link';
 import { FC } from 'react';
-import { MdGroups } from 'react-icons/md';
 
-import Profile from '@/components/Profile';
+import ChatRoomCard from '@/components/ChatRoom';
 import { Flexbox } from '@/components/elements/Box';
 import useChatRooms from '@/hooks/queries/useChatRooms';
 
-import Typography from '../elements/Typography';
-import { Container, GroupIconContainer } from './styles';
+import { Container } from './styles';
 
 const ChatSidebar: FC = () => {
   const { data: chatRooms } = useChatRooms();
@@ -15,34 +12,9 @@ const ChatSidebar: FC = () => {
   return (
     <Container>
       <Flexbox direction="column" padding="1rem" gap="1rem">
-        {chatRooms?.map((chatRoom) => {
-          switch (chatRoom.type) {
-            case 'private':
-              return (
-                <Profile
-                  user={chatRoom.otherUser}
-                  href={`/messages/users/${chatRoom.otherUser._id}`}
-                />
-              );
-            case 'group':
-              return (
-                <Link href={`/messages/${chatRoom._id}`}>
-                  <a>
-                    <Flexbox gap="0.75rem" alignItems="center">
-                      <GroupIconContainer>
-                        <MdGroups />
-                      </GroupIconContainer>
-                      <Typography variant="h6" isClickable>
-                        {chatRoom.participants.map((participant) => participant.name).join(', ')}
-                      </Typography>
-                    </Flexbox>
-                  </a>
-                </Link>
-              );
-            default:
-              return <></>;
-          }
-        })}
+        {chatRooms?.map((chatRoom) => (
+          <ChatRoomCard key={chatRoom._id} chatRoom={chatRoom} />
+        ))}
       </Flexbox>
     </Container>
   );
