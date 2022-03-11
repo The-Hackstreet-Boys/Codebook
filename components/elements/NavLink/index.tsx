@@ -4,12 +4,13 @@ import { FC, ReactElement, cloneElement } from 'react';
 
 export interface NavLinkProps extends LinkProps {
   children: ReactElement;
+  exact?: boolean;
 }
 
-const NavLink: FC<NavLinkProps> = ({ children, href, ...props }) => {
+const NavLink: FC<NavLinkProps> = ({ children, href, exact = true, ...props }) => {
   const { asPath: currentPath } = useRouter();
 
-  if (currentPath === href) {
+  if (exact ? currentPath === href : currentPath.includes(href.toString())) {
     return (
       <Link href={href} {...props}>
         {cloneElement(children, {

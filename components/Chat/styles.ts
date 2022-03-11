@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 export const ChatContainer = styled.div`
+  flex: 1;
   padding: 1rem;
   overflow-y: scroll;
   overflow-x: hidden;

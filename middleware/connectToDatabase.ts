@@ -8,6 +8,8 @@ const connectToDatabase = (handler: NextApiHandler) => {
     try {
       if (mongoose.connections[0].readyState) return handler(req, res);
 
+      console.log('Connecting to database!');
+
       if (!MONGODB_URI) {
         res.status(500).send('No database URI provided!');
         return;

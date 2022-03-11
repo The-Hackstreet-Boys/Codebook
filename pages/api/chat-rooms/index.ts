@@ -6,7 +6,6 @@ import connectToDatabase from '@/middleware/connectToDatabase';
 import ChatRoomModel from '@/models/chatRoom';
 import UserModel, { User } from '@/models/user';
 import MessageModel from '@/models/message';
-import { query } from 'express';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {

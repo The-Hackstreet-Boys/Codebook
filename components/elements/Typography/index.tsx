@@ -15,6 +15,7 @@ export interface TypographyProps {
   m?: string;
   p?: string;
   isClickable?: boolean;
+  noWrap?: boolean;
   onClick?: (e: MouseEvent) => void;
 }
 
