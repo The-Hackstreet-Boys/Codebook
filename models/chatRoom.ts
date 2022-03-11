@@ -31,7 +31,6 @@ export interface ExtendedPrivateChatRoom extends Omit<PrivateChatRoom, 'particip
 export interface ExtendedGroupChatRoom extends Omit<GroupChatRoom, 'participants'> {
   participants: User[];
   lastMessage: Message | null;
-
 }
 
 export type ExtendedChatRoom = ExtendedPrivateChatRoom | ExtendedGroupChatRoom;

@@ -35,8 +35,11 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
             lastActiveAt: -1,
           })
           .populate({ path: 'participants', model: UserModel });
-          const extendedChatRooms = await Promise.all(chatRooms.map(async(chatRoom) => {
-            const lastMessage = await MessageModel.findOne({room: chatRoom._id}).sort({createdAt: -1});
+        const extendedChatRooms = await Promise.all(
+          chatRooms.map(async (chatRoom) => {
+            const lastMessage = await MessageModel.findOne({ room: chatRoom._id }).sort({
+              createdAt: -1,
+            });
             switch (chatRoom.type) {
               case 'private':
                 const otherUser = (chatRoom.participants as unknown as User[]).find(
@@ -47,10 +50,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
               default:
                 return { ...chatRoom.toObject(), lastMessage };
             }
-          }))
-        res.json(
-          extendedChatRooms
+          }),
         );
+        res.json(extendedChatRooms);
       } catch (err) {
         res.status(500).json({ error: (err as Error).message || err });
       }
