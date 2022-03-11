@@ -54,7 +54,12 @@ const CommentCard: FC<Props> = ({ comment }) => {
                     <MdFavorite /> {likeCount}
                   </IconButton>
                   {type === 'comment' && (
-                    <IconButton size="sm" grow={false} onClick={toggleRepliesVisibility}>
+                    <IconButton
+                      size="sm"
+                      grow={false}
+                      onClick={toggleRepliesVisibility}
+                      data-testid="reply-button"
+                    >
                       <MdComment /> {comment.replyCount}
                     </IconButton>
                   )}

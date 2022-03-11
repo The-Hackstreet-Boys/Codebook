@@ -4,9 +4,9 @@ import { MdSend } from 'react-icons/md';
 import { Flexbox } from '@/components/elements/Box';
 import Card from '@/components/elements/Card';
 import useCreateReply from '@/hooks/mutations/useCreateReply';
+import { ExtendedComment } from '@/models/comment';
 
 import { Input, SubmitButton } from './styles';
-import { ExtendedComment } from '@/models/comment';
 
 interface Props {
   comment: ExtendedComment;
@@ -32,7 +32,7 @@ const ReplyForm: FC<Props> = ({ comment }) => {
 
   return (
     <Card padding="sm">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-testid="reply-form">
         <Flexbox gap="1rem">
           <Input
             placeholder={`Reply to ${comment.author.name}...`}
@@ -41,7 +41,7 @@ const ReplyForm: FC<Props> = ({ comment }) => {
             maxLength={2500}
             onChange={handleChangeText}
           />
-          <SubmitButton>
+          <SubmitButton data-testid="submit-reply">
             <MdSend />
           </SubmitButton>
         </Flexbox>

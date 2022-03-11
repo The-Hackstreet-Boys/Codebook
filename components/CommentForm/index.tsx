@@ -31,7 +31,7 @@ const CommentForm: FC<Props> = ({ postId }) => {
 
   return (
     <Card padding="sm">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} data-testid="comment-form">
         <Flexbox gap="1rem">
           <Input
             placeholder="Write a comment..."
@@ -40,7 +40,7 @@ const CommentForm: FC<Props> = ({ postId }) => {
             maxLength={2500}
             onChange={handleChangeText}
           />
-          <SubmitButton>
+          <SubmitButton data-testid="submit-comment">
             <MdSend />
           </SubmitButton>
         </Flexbox>

@@ -18,13 +18,13 @@ const CommentDropdown: FC<Props> = ({ commentId }) => {
 
   return (
     <Dropdown>
-      <DropdownToggle>
+      <DropdownToggle data-testid="delete-button">
         <DropdownToggleButton>
           <MdMoreHoriz />
         </DropdownToggleButton>
       </DropdownToggle>
       <DropdownMenu>
-        <DropdownItem onClick={() => deleteComment()}>
+        <DropdownItem onClick={() => deleteComment()} data-testid="delete-item">
           <MdDelete />
           Delete comment
         </DropdownItem>

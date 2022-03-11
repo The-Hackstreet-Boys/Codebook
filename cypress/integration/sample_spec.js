@@ -2,39 +2,55 @@
 
 // navigate to homepage, add a text and tags, delete a tag and send message.
 
-describe('Test post', () => {
-  it('logs in, creates a text post and adds tags, sends post', () => {
-    cy.visit('http://localhost:3000').then(() => {
-      cy.login();
-
-      cy.get('.submit-post').click();
-
-      cy.get('.post-form').click().type('test');
-
-      const tagslist = cy.get('.post-tags').click();
-
-      tagslist.should('be.visible');
-
-      cy.get('.tag-option').click();
-
-      cy.get('.create-post').find('[data-testid="rendered-tag"]').click();
-
-      cy.get('.submit-post').click();
-
-      cy.reload();
-
-      cy.get('.post-card').contains('test post');
-    });
+beforeEach(() => {
+  cy.visit('http://localhost:3000').then(() => {
+    cy.login();
   });
 });
 
+describe('Test post', () => {
+  it.only('creates a text post and adds tags, sends post', () => {
+    cy.get('[data-testid="submit-post"]').click();
+
+    cy.get('[data-testid="post-form"]').click().type('test post');
+
+    const tagslist = cy.get('[data-testid="post-tags"]').click();
+
+    tagslist.should('be.visible');
+
+    cy.get('[data-testid="tag-option"]').click();
+
+    cy.get('[data-testid="create-post"]').find('[data-testid="rendered-tag"]').click();
+
+    cy.get('[data-testid="submit-post"]').click();
+
+    cy.reload();
+
+    cy.get('[data-testid="post-card"]').first().contains('test post');
+  });
+});
+
+describe('Comment, reply and delete check', () => {
+  it.only('adds a comment and a reply to a post and then deletes in the opposite order', () => {
+    const selectedPost = cy.get('[data-testid="post-card"]').first();
+
+    selectedPost.find('[data-testid="comment-button"]').click();
+
+    cy.get('[data-testid="comment-form"]').type('test comment');
+
+    cy.get('[data-testid="submit-comment"]').click();
+
+    cy.get('[data-testid="reply-button"]').first().click();
+
+    cy.get('[data-testid="reply-form"]').type('test reply');
+
+    cy.get('[data-testid="submit-reply"]').click();
+
+    cy.get('[data-testid="delete-button"]').click();
+  });
+});
+// });
+
 // navigate to homepage, add comments and replies, delete in opposite order
-// navigate to homepage, add an image, send message
-// naigate to homepage, add a code snippet, send message.
-// like message, save the message, navigate to savedposts and see if it is there, back to homepage.
-// search by name
-// search by user
-// search by clicking on tag
-// click on theme toggle
-// click on logout
-// click on chat feature, send comment.
+// like and save an external post
+// navigatation between different pages
