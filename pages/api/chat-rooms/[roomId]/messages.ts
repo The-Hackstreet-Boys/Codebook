@@ -84,6 +84,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
         });
 
         await message.save();
+        
+        await ChatRoomModel.findByIdAndUpdate(roomId,{lastActiveAt: Date.now()});
 
         const populatedMessage = await message.populate([
           {
