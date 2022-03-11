@@ -10,20 +10,31 @@ import { Flexbox } from '../elements/Box';
 interface Props {
   user: User;
   href?: string;
+  link?: boolean;
 }
 
-const Profile: FC<Props> = ({ user, href }) => (
-  <Link href={href ?? `/users/${user._id}`}>
-    <a>
-      <Flexbox gap="0.75rem" alignItems="center">
-        {user && <Avatar user={user} showStatus />}
-        <Typography variant="h6" isClickable>
-          {user.name}
-        </Typography>
-      </Flexbox>
-    </a>
-  </Link>
+const BaseProfile: FC<Props> = ({ user }) => (
+  <Flexbox gap="0.75rem" alignItems="center">
+    {user && <Avatar user={user} showStatus />}
+    <Typography variant="h6" isClickable>
+      {user.name}
+    </Typography>
+  </Flexbox>
 );
+
+const Profile: FC<Props> = ({ link = true, href, ...props }) => {
+  if (link) {
+    return (
+      <Link href={href ?? `/users/${props.user._id}`}>
+        <a>
+          <BaseProfile {...props} />
+        </a>
+      </Link>
+    );
+  }
+
+  return <BaseProfile {...props} />;
+};
 
 export * from './skeleton';
 export default Profile;

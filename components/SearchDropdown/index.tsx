@@ -65,7 +65,6 @@ const SearchDropdown: FC<Props> = ({ variant = 'default' }) => {
             ))}
             {variant === 'default' && hasTagResults && (
               <>
-                {' '}
                 <Box margin="0.5rem 0.75rem">
                   <Typography variant="h5">Tags</Typography>
                 </Box>

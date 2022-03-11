@@ -5,9 +5,9 @@ import { MdBookmarkAdd, MdBookmarkRemove, MdComment, MdFavorite } from 'react-ic
 
 import CodeBlock from '@/components/CodeBlock';
 import CommentList from '@/components/CommentList';
+import TagList from '@/components/List/tag';
 import PostDropdown from '@/components/PostDropdown';
 import ShareDropdown from '@/components/ShareDropdown';
-import TagList from '@/components/TagList';
 import Avatar from '@/components/elements/Avatar';
 import Box, { Flexbox } from '@/components/elements/Box';
 import Card from '@/components/elements/Card';

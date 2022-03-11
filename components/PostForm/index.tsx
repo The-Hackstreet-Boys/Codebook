@@ -3,8 +3,8 @@ import { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
 import { MdClose, MdCode, MdImage, MdSend } from 'react-icons/md';
 
 import CodeBlock from '@/components/CodeBlock';
+import TagList from '@/components/List/tag';
 import TagDropdown from '@/components/TagDropdown';
-import TagList from '@/components/TagList';
 import Box from '@/components/elements/Box';
 import Card from '@/components/elements/Card';
 import useCreatePost, { NewPost } from '@/hooks/mutations/useCreatePost';
@@ -103,8 +103,8 @@ const PostForm: FC = () => {
     if (!alreadyExists) setTags((oldValue) => [...oldValue, tag]);
   };
 
-  const removeTag = (tagId: string) => {
-    setTags((oldValue) => oldValue.filter((tag) => tag._id !== tagId));
+  const removeTag = (tagToDelete: Tag) => {
+    setTags((oldValue) => oldValue.filter((tag) => tag._id !== tagToDelete._id));
   };
 
   return (
@@ -135,7 +135,7 @@ const PostForm: FC = () => {
           <CodeBlock language={language} setLanguage={setLanguage} code={code} setCode={setCode} />
         )}
 
-        <TagList tags={tags} onClick={(tag: Tag) => removeTag(tag._id)} />
+        <TagList tags={tags} onDelete={removeTag} />
 
         <IconContainer>
           <FileButton active={!!image}>
