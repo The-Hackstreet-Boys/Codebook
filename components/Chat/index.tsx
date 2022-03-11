@@ -36,7 +36,6 @@ const Chat: FC = () => {
 
   return (
     <>
-      {' '}
       <ChatContainer>
         {groupedMessages.map((dateMessageGroup) => (
           <>

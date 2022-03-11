@@ -1,7 +1,7 @@
 import { FC } from 'react';
 
+import TagList from '@/components/List/tag';
 import Profile, { ProfileSkeleton } from '@/components/Profile';
-import TagList from '@/components/TagList';
 import { Flexbox } from '@/components/elements/Box';
 import Card from '@/components/elements/Card';
 import Color from '@/components/elements/Color';

@@ -17,7 +17,7 @@ const Navbar: FC = () => (
           <MdPeopleAlt />
         </NavItem>
       </NavLink> */}
-    <NavLink href="/messages" passHref>
+    <NavLink href="/messages" passHref exact={false}>
       <NavItem>
         <MdMessage />
       </NavItem>
