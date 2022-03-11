@@ -10,8 +10,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   switch (req.method) {
     case 'POST':
       try {
+        if (req.body.participants.length < 2) {
+          res.status(400);
+          return;
+        }
+
         const chatRoom = new ChatRoomModel({
           ...req.body,
+          participants: [...req.body.participants, req.user._id],
         });
 
         await chatRoom.save();
