@@ -66,16 +66,16 @@ const RightSidebar: FC = () => {
         )}
         <Card>
           <Flexbox direction="column" gap="1rem">
-            <Typography variant="h5">Suggested contacts</Typography>
-            {contacts?.suggestedContacts.map((user) => (
+            <Typography variant="h5">Contacts</Typography>
+            {contacts?.contacts.map((user) => (
               <Profile key={user._id} user={user} />
             ))}
           </Flexbox>
         </Card>
         <Card>
           <Flexbox direction="column" gap="1rem">
-            <Typography variant="h5">Contacts</Typography>
-            {contacts?.contacts.map((user) => (
+            <Typography variant="h5">Suggested contacts</Typography>
+            {contacts?.suggestedContacts.map((user) => (
               <Profile key={user._id} user={user} />
             ))}
           </Flexbox>
