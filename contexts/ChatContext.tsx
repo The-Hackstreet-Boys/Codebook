@@ -93,7 +93,7 @@ export const ChatProvider: FC<Props> = ({ roomId, children }) => {
   }, [messages]);
 
   useEffect(() => {
-    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_PUBLIC_KEY as string, {
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_KEY as string, {
       cluster: 'eu',
     });
 
