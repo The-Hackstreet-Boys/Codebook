@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { ChangeEvent, FC, FormEvent, useEffect, useState } from 'react';
-import { MdClose, MdCode, MdImage } from 'react-icons/md';
+import { MdClose, MdCode, MdImage, MdSend } from 'react-icons/md';
 
 import CodeBlock from '@/components/CodeBlock';
 import Box from '@/components/elements/Box';
@@ -9,16 +9,15 @@ import useChat, { NewMessage } from '@/contexts/ChatContext';
 import useBoolean from '@/hooks/useBoolean';
 
 import {
-  BottomBar,
   Button,
+  Container,
   FileButton,
   IconContainer,
   ImagePreview,
   ImagePreviewContainer,
   Input,
-  InputContainer,
   RemoveButton,
-  Send,
+  SubmitButton,
 } from './styles';
 
 const MessageForm: FC = () => {
@@ -40,14 +39,14 @@ const MessageForm: FC = () => {
 
   const { sendMessage } = useChat();
 
-  const handleChangeInputMessage = (e: { target: HTMLInputElement }) => {
+  const handleChangeText = (e: ChangeEvent<HTMLInputElement>) => {
     setText(e.target.value);
   };
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const newMessage: NewMessage = { text: text };
+    const newMessage: NewMessage = { text };
 
     if (codeVisibility && code.length) {
       newMessage.code = {
@@ -98,41 +97,47 @@ const MessageForm: FC = () => {
   }, [image]);
 
   return (
-    <BottomBar onSubmit={handleSubmit}>
-      <InputContainer>
-        <Input placeholder="Message" type="text" onChange={handleChangeInputMessage} value={text} />
-        <Button disabled={text.length === 0}>
-          <Send />
-        </Button>
-      </InputContainer>
+    <Container>
+      <form onSubmit={handleSubmit}>
+        {imageSrc && (
+          <Box width="fit-content" marginBottom="1rem">
+            <Card padding="sm">
+              <ImagePreviewContainer>
+                <ImagePreview src={imageSrc} alt="Uploaded image" />
+                <RemoveButton>
+                  <MdClose onClick={handleRemoveImage} />
+                </RemoveButton>
+              </ImagePreviewContainer>
+            </Card>
+          </Box>
+        )}
 
-      {imageSrc && (
-        <Box width="fit-content" marginBottom="1rem">
-          <Card padding="sm">
-            <ImagePreviewContainer>
-              <ImagePreview src={imageSrc} alt="Uploaded image" />
-              <RemoveButton>
-                <MdClose onClick={handleRemoveImage} />
-              </RemoveButton>
-            </ImagePreviewContainer>
-          </Card>
-        </Box>
-      )}
+        {codeVisibility && (
+          <CodeBlock language={language} setLanguage={setLanguage} code={code} setCode={setCode} />
+        )}
 
-      {codeVisibility && (
-        <CodeBlock language={language} setLanguage={setLanguage} code={code} setCode={setCode} />
-      )}
+        <Input
+          placeholder="Message..."
+          value={text}
+          required
+          maxLength={10000}
+          onChange={handleChangeText}
+        />
 
-      <IconContainer>
-        <FileButton active={!!image}>
-          <MdImage />
-          <input type="file" name="file" onChange={handleChange} id="fileInput" />
-        </FileButton>
-        <Button active={codeVisibility} onClick={toggleCodeVisibility}>
-          <MdCode />
-        </Button>
-      </IconContainer>
-    </BottomBar>
+        <IconContainer>
+          <FileButton active={!!image}>
+            <MdImage />
+            <input type="file" name="file" onChange={handleChange} id="fileInput" />
+          </FileButton>
+          <Button active={codeVisibility} onClick={toggleCodeVisibility}>
+            <MdCode />
+          </Button>
+          <SubmitButton>
+            <MdSend />
+          </SubmitButton>
+        </IconContainer>
+      </form>
+    </Container>
   );
 };
 

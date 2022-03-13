@@ -6,6 +6,7 @@ import MessageForm from '@/components/MessageForm';
 import useChat from '@/contexts/ChatContext';
 import useCurrentUser from '@/hooks/queries/useCurrentUser';
 
+import Box, { Flexbox } from '../elements/Box';
 import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
 import {
@@ -39,7 +40,9 @@ const Chat: FC = () => {
       <ChatContainer>
         {groupedMessages.map((dateMessageGroup) => (
           <>
-            <Timestamp date={dateMessageGroup.date} />
+            <Flexbox justifyContent="center">
+              <Timestamp date={dateMessageGroup.date} />
+            </Flexbox>
 
             {dateMessageGroup.userGroupedMessages.map((userMessageGroup) =>
               user?._id === userMessageGroup.user._id ? (
@@ -49,7 +52,11 @@ const Chat: FC = () => {
                       <UserMessageRight key={_id}>
                         {text}
 
-                        {code && <CodeBlock code={code.text} language={code.language} />}
+                        {code && (
+                          <Box marginTop="0.75rem">
+                            <CodeBlock code={code.text} language={code.language} />
+                          </Box>
+                        )}
 
                         {image && (
                           <ImageContainer>
@@ -76,7 +83,11 @@ const Chat: FC = () => {
                         <UserMessageLeft key={_id}>
                           {text}
 
-                          {code && <CodeBlock code={code.text} language={code.language} />}
+                          {code && (
+                            <Box marginTop="0.75rem">
+                              <CodeBlock code={code.text} language={code.language} />
+                            </Box>
+                          )}
 
                           {image && (
                             <ImageContainer>

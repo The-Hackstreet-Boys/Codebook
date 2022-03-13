@@ -38,6 +38,7 @@ export const UserMessageLeft = styled.div`
   color: ${({ theme }) => theme.text};
   padding: 0.75rem;
   width: fit-content;
+  max-width: 40rem;
   font-size: 0.875rem;
   font-weight: 500;
   border-top-right-radius: 1rem;

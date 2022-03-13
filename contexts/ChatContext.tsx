@@ -7,7 +7,7 @@ import { ExtendedMessage, Message } from '@/models/message';
 import { User } from '@/models/user';
 
 interface State {
-  sendMessage: (newMessage: NewMessage) => Promise<Message>;
+  sendMessage: (newMessage: NewMessage) => void;
   messages: ExtendedMessage[];
   groupedMessages: GroupedMessages[];
 }
@@ -109,8 +109,11 @@ export const ChatProvider: FC<Props> = ({ roomId, children }) => {
   }, [roomId]);
 
   const sendMessage = async (newMessage: NewMessage) => {
-    const response = await axios.post<Message>(`/api/chat-rooms/${roomId}/messages`, newMessage);
-    return response.data;
+    try {
+      await axios.post<Message>(`/api/chat-rooms/${roomId}/messages`, newMessage);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   return (
