@@ -1,5 +1,5 @@
 module.exports = function(...args) {
-  let original = require('./next.config.original.1647014666482.js');
+  let original = require('./next.config.original.1647098543686.js');
   const finalConfig = {};
   const target = { target: 'serverless' };
   if (typeof original === 'function' && original.constructor.name === 'AsyncFunction') {
