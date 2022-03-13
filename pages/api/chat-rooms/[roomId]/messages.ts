@@ -1,16 +1,24 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
-import { NextApiRequest } from 'next';
+import { Types } from 'mongoose';
+import { NextApiRequest, NextApiResponse } from 'next';
+import Pusher from 'pusher';
 
 import authentication from '@/middleware/authentication';
 import connectToDatabase from '@/middleware/connectToDatabase';
 import ChatRoomModel from '@/models/chatRoom';
+import MediaModel from '@/models/media';
 import MessageModel from '@/models/message';
 import UserModel from '@/models/user';
-import { NextApiResponseServerIO } from '@/types/next';
-import MediaModel from '@/models/media';
-import { Types } from 'mongoose';
 
-const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
+export const pusher = new Pusher({
+  appId: process.env.PUSHER_APP_ID as string,
+  key: process.env.PUSHER_KEY as string,
+  secret: process.env.PUSHER_SECRET as string,
+  cluster: process.env.PUSHER_CLUSTER as string,
+  useTLS: true,
+});
+
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { roomId } = req.query;
 
   const room = await ChatRoomModel.findById(roomId);
@@ -102,7 +110,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
           },
         ]);
 
-        res.socket.server.io.to(roomId).emit('message', populatedMessage);
+        await pusher.trigger(roomId, 'message', populatedMessage);
 
         res.json(populatedMessage);
       } catch (err) {

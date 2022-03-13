@@ -1,13 +1,12 @@
 import { withApiAuthRequired } from '@auth0/nextjs-auth0';
-import { NextApiRequest } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 
 import authentication from '@/middleware/authentication';
 import connectToDatabase from '@/middleware/connectToDatabase';
 import ChatRoomModel from '@/models/chatRoom';
 import UserModel from '@/models/user';
-import { NextApiResponseServerIO } from '@/types/next';
 
-const handler = async (req: NextApiRequest, res: NextApiResponseServerIO) => {
+const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { userId } = req.query;
 
   const user = await UserModel.findById(userId);

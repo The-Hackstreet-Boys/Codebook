@@ -1,14 +1,12 @@
 import axios from 'axios';
 import dayjs from 'dayjs';
+import Pusher from 'pusher-js';
 import React, { FC, createContext, useContext, useEffect, useState } from 'react';
-import { Socket, io } from 'socket.io-client';
 
 import { ExtendedMessage, Message } from '@/models/message';
 import { User } from '@/models/user';
 
 interface State {
-  connected: boolean;
-  socket?: Socket;
   sendMessage: (newMessage: NewMessage) => Promise<Message>;
   messages: ExtendedMessage[];
   groupedMessages: GroupedMessages[];
@@ -35,8 +33,6 @@ interface Props {
 const ChatContext = createContext<State>({} as State);
 
 export const ChatProvider: FC<Props> = ({ roomId, children }) => {
-  const [connected, setConnected] = useState(false);
-  const [socket, setSocket] = useState<Socket>();
   const [messages, setMessages] = useState<ExtendedMessage[]>([]);
   const [groupedMessages, setGroupedMessages] = useState<GroupedMessages[]>([]);
 
@@ -97,23 +93,19 @@ export const ChatProvider: FC<Props> = ({ roomId, children }) => {
   }, [messages]);
 
   useEffect(() => {
-    const socketInitializer = async () => {
-      await axios.get('/api/socket');
-      const newSocket = io({ path: '/api/socket/io', query: { roomId } });
+    const pusher = new Pusher(process.env.NEXT_PUBLIC_PUSHER_PUBLIC_KEY as string, {
+      cluster: 'eu',
+    });
 
-      newSocket.on('connect', () => {
-        console.log('connected');
-        setConnected(true);
-      });
+    const channel = pusher.subscribe(roomId);
 
-      newSocket.on('message', (message: ExtendedMessage) => {
-        setMessages((old) => [...old, message]);
-      });
+    channel.bind('message', (message: ExtendedMessage) => {
+      setMessages((prevState) => [...prevState, message]);
+    });
 
-      setSocket(newSocket);
+    return () => {
+      pusher.unsubscribe(roomId);
     };
-
-    socketInitializer();
   }, [roomId]);
 
   const sendMessage = async (newMessage: NewMessage) => {
@@ -122,7 +114,7 @@ export const ChatProvider: FC<Props> = ({ roomId, children }) => {
   };
 
   return (
-    <ChatContext.Provider value={{ connected, socket, sendMessage, messages, groupedMessages }}>
+    <ChatContext.Provider value={{ sendMessage, messages, groupedMessages }}>
       {children}
     </ChatContext.Provider>
   );
