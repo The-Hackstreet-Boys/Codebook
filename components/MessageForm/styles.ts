@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 
-export const TextArea = styled.textarea`
+export const Container = styled.div`
+  border-top: 1px solid ${({ theme }) => theme.border};
+  padding: 1rem;
+`;
+
+export const Input = styled.input`
   background: none;
   border: none;
   outline: none;
   width: 100%;
-  height: 5rem;
+  height: 2rem;
   resize: none;
   color: ${({ theme }) => theme.text};
   font-size: ${({ theme }) => theme.fontSizeSm};
@@ -19,8 +24,6 @@ export const IconContainer = styled.div`
   display: flex;
   align-items: flex-end;
   gap: 1rem;
-  border-top: 1px solid ${({ theme }) => theme.overlay};
-  margin-top: 0.5rem;
   padding-top: 1rem;
 `;
 

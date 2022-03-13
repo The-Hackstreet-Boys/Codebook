@@ -1,17 +1,17 @@
-import React, { FC, useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import React, { FC, useEffect, useRef } from 'react';
 
+import CodeBlock from '@/components/CodeBlock';
+import MessageForm from '@/components/MessageForm';
 import useChat from '@/contexts/ChatContext';
 import useCurrentUser from '@/hooks/queries/useCurrentUser';
 
+import Box, { Flexbox } from '../elements/Box';
 import Timestamp from '../elements/Timestamp';
 import Typography from '../elements/Typography';
 import {
-  BottomBar,
-  Button,
   ChatContainer,
-  Input,
-  InputContainer,
-  Send,
+  ImageContainer,
   UserContainer,
   UserImage,
   UserMessageAndNameContainer,
@@ -25,8 +25,6 @@ const Chat: FC = () => {
   const messagesEndRef = useRef<null | HTMLDivElement>(null);
   const { data: user } = useCurrentUser();
 
-  const [inputMessage, setInputMessage] = useState(''); // Message to be sent
-
   const { groupedMessages, sendMessage } = useChat();
 
   // Scrolls to the bottom on rerender
@@ -37,24 +35,41 @@ const Chat: FC = () => {
     messagesEndRef.current?.scrollIntoView();
   };
 
-  // Changes stored the value of the input message
-  const handleChangeInputMessage = (e: { target: HTMLInputElement }) => {
-    setInputMessage(e.target.value);
-  };
-
   return (
     <>
       <ChatContainer>
         {groupedMessages.map((dateMessageGroup) => (
           <>
-            <Timestamp date={dateMessageGroup.date} />
+            <Flexbox justifyContent="center">
+              <Timestamp date={dateMessageGroup.date} />
+            </Flexbox>
 
             {dateMessageGroup.userGroupedMessages.map((userMessageGroup) =>
               user?._id === userMessageGroup.user._id ? (
                 <UserContainer>
                   <UserMessageContainerRight>
-                    {userMessageGroup.messages.map((message) => (
-                      <UserMessageRight key={message._id}>{message.text}</UserMessageRight>
+                    {userMessageGroup.messages.map(({ _id, text, code, image }) => (
+                      <UserMessageRight key={_id}>
+                        {text}
+
+                        {code && (
+                          <Box marginTop="0.75rem">
+                            <CodeBlock code={code.text} language={code.language} />
+                          </Box>
+                        )}
+
+                        {image && (
+                          <ImageContainer>
+                            <Image
+                              src={image.url}
+                              alt="post image"
+                              height={image.height}
+                              width={image.width}
+                              // layout="responsive"
+                            />
+                          </ImageContainer>
+                        )}
+                      </UserMessageRight>
                     ))}
                   </UserMessageContainerRight>
                 </UserContainer>
@@ -64,8 +79,28 @@ const Chat: FC = () => {
                   <UserMessageAndNameContainer>
                     <Typography>{userMessageGroup.user.name}</Typography>
                     <UserMessageContainerLeft>
-                      {userMessageGroup.messages.map((message) => (
-                        <UserMessageLeft key={message._id}>{message.text}</UserMessageLeft>
+                      {userMessageGroup.messages.map(({ _id, text, code, image }) => (
+                        <UserMessageLeft key={_id}>
+                          {text}
+
+                          {code && (
+                            <Box marginTop="0.75rem">
+                              <CodeBlock code={code.text} language={code.language} />
+                            </Box>
+                          )}
+
+                          {image && (
+                            <ImageContainer>
+                              <Image
+                                src={image.url}
+                                alt="post image"
+                                height={image.height}
+                                width={image.width}
+                                // layout="responsive"
+                              />
+                            </ImageContainer>
+                          )}
+                        </UserMessageLeft>
                       ))}
                     </UserMessageContainerLeft>
                   </UserMessageAndNameContainer>
@@ -76,25 +111,7 @@ const Chat: FC = () => {
         ))}
         <div ref={messagesEndRef} />
       </ChatContainer>
-      <BottomBar
-        onSubmit={(e) => {
-          e.preventDefault();
-          sendMessage({ text: inputMessage });
-          setInputMessage('');
-        }}
-      >
-        <InputContainer>
-          <Input
-            placeholder="Message"
-            type="text"
-            onChange={handleChangeInputMessage}
-            value={inputMessage}
-          />
-          <Button disabled={inputMessage.length === 0}>
-            <Send />
-          </Button>
-        </InputContainer>
-      </BottomBar>
+      <MessageForm />
     </>
   );
 };
