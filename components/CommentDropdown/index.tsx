@@ -18,8 +18,8 @@ const CommentDropdown: FC<Props> = ({ commentId }) => {
 
   return (
     <Dropdown>
-      <DropdownToggle data-testid="delete-button">
-        <DropdownToggleButton>
+      <DropdownToggle>
+        <DropdownToggleButton data-testid="delete-button">
           <MdMoreHoriz />
         </DropdownToggleButton>
       </DropdownToggle>

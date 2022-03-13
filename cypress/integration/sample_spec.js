@@ -46,7 +46,7 @@ describe('Comment, reply and delete check', () => {
 
     cy.get('[data-testid="submit-reply"]').click();
 
-    cy.get('[data-testid="delete-button"]').click();
+    cy.get('[data-testid="delete-button"]').last().click();
   });
 });
 // });
