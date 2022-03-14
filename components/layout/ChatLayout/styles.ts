@@ -4,6 +4,7 @@ import { Container as ChatHeaderContainer } from '@/components/ChatHeader/styles
 import { Container as ChatSidebarContainer } from '@/components/ChatSidebar/styles';
 
 export const Content = styled.div`
+  overflow: hidden;
   grid-area: chat-content;
   display: flex;
   flex-direction: column;
@@ -28,8 +29,7 @@ export const Container = styled.div<{ hideChat: boolean }>`
           }
         `
         : `
-          grid-template-rows: auto;
-          grid-template-areas: 'chat-content'; & ${ChatSidebarContainer} {
+          & ${ChatSidebarContainer} {
             display: none;
           }
           

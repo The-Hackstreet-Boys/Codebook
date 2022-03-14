@@ -29,6 +29,7 @@ export const UserMessageContainerLeft = styled.div`
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+  max-width: 100%;
 `;
 
 export const UserMessageLeft = styled.div`
@@ -38,7 +39,7 @@ export const UserMessageLeft = styled.div`
   color: ${({ theme }) => theme.text};
   padding: 0.75rem;
   width: fit-content;
-  max-width: 40rem;
+  max-width: min(100%, 40rem);
   font-size: 0.875rem;
   font-weight: 500;
   border-top-right-radius: 1rem;
