@@ -1,7 +1,5 @@
 import mongoose, { Document, Model, Schema, Types, model } from 'mongoose';
 
-import { User } from '@/models/user';
-
 interface BaseMedia extends Document {
   author: string;
   createdAt: Date;
